@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+
+# zed
+zed/conversations/
+zed/prompts/
+zed/**/*.mdb/
+
+# backup
+*.backup
+*.bak
+
+# Editor
+*.swp
+*.swo
+*~
+
+# Logs
+*.log

@@ -1,0 +1,26 @@
+[user]
+	name = ronload
+	email = 91997734+ronload@users.noreply.github.com
+[core]
+	excludesfile = /Users/luoyongneng/.gitignore_global
+	editor = nvim
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[commit]
+	template = /Users/luoyongneng/.stCommitMsg
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[http]
+	postBuffer = 524288000
+[init]
+	defaultBranch = main
+[push]
+	default = current
+	autoSetupRemote = true
