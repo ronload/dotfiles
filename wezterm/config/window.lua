@@ -1,6 +1,6 @@
 local M = {}
 
-function M.apply(config) 
+function M.apply(config)
 	config.window_decorations = "TITLE | RESIZE"
 	config.window_padding = {
 		left = 15,
