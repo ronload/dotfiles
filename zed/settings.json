@@ -7,6 +7,14 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+    // vim configs
+    "vim_mode": true,
+    "vim": {
+        "use_system_clipboard": "always"
+    },
+    "relative_line_numbers": true,
+
+    // font
     "buffer_font_weight": 100.0,
     "ui_font_family": "Menlo",
     "buffer_font_family": "Menlo",

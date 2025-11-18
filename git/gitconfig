@@ -24,3 +24,5 @@
 [push]
 	default = current
 	autoSetupRemote = true
+[alias]
+	cleanup-branches = !git branch | grep -v \"main\" | xargs git branch -D
