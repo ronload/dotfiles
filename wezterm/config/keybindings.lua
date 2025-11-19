@@ -25,6 +25,11 @@ function M.apply(config)
 			mods = "CTRL|SHIFT",
 			action = wezterm.action.ActivatePaneDirection("Right"),
 		},
+		{
+			key = "Enter",
+			mods = "SHIFT",
+			action = wezterm.action({ SendString = "\x1b\r" }),
+		},
 	}
 	return config
 end

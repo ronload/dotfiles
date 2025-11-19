@@ -1,4 +1,3 @@
-cat >~/dotfiles/install.sh <<'EOF'
 #!/bin/bash
 set -e
 echo "Installing dotfiles..."
@@ -46,5 +45,3 @@ else
 fi
 
 echo "Dotfiles installed successfully!"
-EOF
-chmod +x ~/dotfiles/install.sh
