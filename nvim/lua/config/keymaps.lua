@@ -2,7 +2,7 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
-vim.keymap.set("i", "jk", "<Esc>")
+vim.keymap.set({ "i", "v", "c" }, "jk", "<Esc>", { desc = "Exit to normal mode" })
 
 -- Window navigation with Ctrl+hjkl
 vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Navigate to left window" })
