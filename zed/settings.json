@@ -18,7 +18,7 @@
     "buffer_font_weight": 100.0,
     "ui_font_family": "Menlo",
     "buffer_font_family": "Menlo",
-    "icon_theme": "Zed (Default)",
+    "icon_theme": "VSCode Great Icons Theme",
     "terminal": {
         "font_family": "Menlo",
         "blinking": "off"

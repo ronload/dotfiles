@@ -5,3 +5,4 @@
 vim.opt.termguicolors = false -- using termnal theme
 vim.opt.title = true
 vim.opt.titlestring = "%t - nvim"
+vim.opt.scrolloff = 999
