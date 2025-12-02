@@ -1,6 +1,8 @@
 [user]
 	name = ronload
 	email = 91997734+ronload@users.noreply.github.com
+[includeIf "hasconfig:remote.*.url:git@github.com:prinsur/**"]
+	path = ~/.gitconfig-prinsur
 [core]
 	excludesfile = /Users/luoyongneng/.gitignore_global
 	editor = nvim

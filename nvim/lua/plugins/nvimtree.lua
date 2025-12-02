@@ -1,15 +1,4 @@
 return {
-  -- disable snacks
-  {
-    "folke/snacks.nvim",
-    opts = {
-      explorer = { enabled = false },
-    },
-  },
-
-  { "stevearc/oil.nvim", enabled = false },
-
-  -- nvim-tree
   {
     "nvim-tree/nvim-tree.lua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -19,8 +8,8 @@ return {
     config = function()
       require("nvim-tree").setup({
         view = {
-          side = "left",
-          width = 30,
+          side = "right",
+          width = 40,
         },
         on_attach = function(bufnr)
           local api = require("nvim-tree.api")
