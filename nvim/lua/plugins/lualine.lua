@@ -3,7 +3,7 @@ return {
     "nvim-lualine/lualine.nvim",
     opts = function()
       local colors = {
-        bg = "NONE",
+        bg = "#1a1b26",
         fg = "#c0caf5",
         yellow = "#e0af68",
         cyan = "#7dcfff",
