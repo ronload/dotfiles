@@ -10,7 +10,7 @@ vim.opt.smartindent = true
 vim.opt.wrap = false
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-vim.opt.termguicolors = false
+vim.opt.termguicolors = true
 vim.opt.title = true
 vim.opt.titlestring = "%t - nvim"
 vim.opt.scrolloff = 999
@@ -20,3 +20,25 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.undofile = true
 vim.opt.splitright = true
 vim.opt.splitbelow = true
+
+-- status line
+local mode_map = {
+  n = "NORMAL",
+  i = "INSERT",
+  v = "VISUAL",
+  V = "V-LINE",
+  ["\22"] = "V-BLOCK",
+  c = "COMMAND",
+  R = "REPLACE",
+  t = "TERMINAL",
+}
+
+vim.opt.statusline = "%!v:lua.Statusline()"
+
+function Statusline()
+  local mode = mode_map[vim.fn.mode()] or vim.fn.mode()
+  local branch = vim.b.gitsigns_head or ""
+  local filename = "%t %m%r"
+  local filetype = "%y"
+  return string.format(" %s │ %s │ %s%%=%s ", mode, filename, branch, filetype)
+end
