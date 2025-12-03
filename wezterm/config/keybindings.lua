@@ -4,7 +4,23 @@ local M = {}
 
 function M.apply(config)
 	config.keys = {
-		-- Vim style window navigations
+		-- split window
+		{
+			key = "|",
+			mods = "CTRL|SHIFT",
+			action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
+		},
+		{
+			key = "_",
+			mods = "ctrl|shift",
+			action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
+		},
+		{
+			key = "w",
+			mods = "ctrl|shift",
+			action = wezterm.action.CloseCurrentPane({ confirm = false }),
+		},
+		-- Window navigation
 		{
 			key = "h",
 			mods = "CTRL|SHIFT",
