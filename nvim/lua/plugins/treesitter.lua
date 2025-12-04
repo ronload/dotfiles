@@ -4,6 +4,7 @@ return {
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
     opts = {
+      fold = { enable = true },
       ensure_installed = {
         "go",
         "gomod",

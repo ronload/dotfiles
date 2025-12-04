@@ -20,6 +20,11 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.undofile = true
 vim.opt.splitright = true
 vim.opt.splitbelow = true
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldtext = ""
+vim.opt.foldenable = true
+vim.opt.foldlevel = 99
 
 -- status line
 local mode_map = {
@@ -32,7 +37,14 @@ local mode_map = {
   R = "REPLACE",
   t = "TERMINAL",
 }
-
+vim.diagnostic.config({
+  virtual_text = {
+    prefix = "●",
+    source = true,
+  },
+  signs = true,
+  underline = true,
+})
 vim.opt.statusline = "%!v:lua.Statusline()"
 
 function Statusline()
