@@ -20,5 +20,6 @@ config = performance.apply(config)
 config = keybindings.apply(config)
 
 config.automatically_reload_config = true
+config.default_cwd = os.getenv("HOME") .. "/working/projects"
 
 return config
