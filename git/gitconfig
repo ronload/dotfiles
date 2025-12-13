@@ -28,5 +28,5 @@
 	autoSetupRemote = true
 [alias]
   uncommit = reset --soft HEAD~1
-	cleanup-branches = !git branch | grep -v \"main\" | xargs git branch -D
+	cleanbranch = !git branch | grep -v \"main\" | xargs git branch -D
   ds = "!git diff ${1:-main} --stat | cat #"
