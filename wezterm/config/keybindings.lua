@@ -12,12 +12,12 @@ function M.apply(config)
 		},
 		{
 			key = "_",
-			mods = "ctrl|shift",
+			mods = "CTRL|SHIFT",
 			action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
 		},
 		{
 			key = "w",
-			mods = "ctrl|shift",
+			mods = "CTRL|SHIFT",
 			action = wezterm.action.CloseCurrentPane({ confirm = false }),
 		},
 		-- Window navigation

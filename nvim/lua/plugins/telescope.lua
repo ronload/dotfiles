@@ -16,6 +16,7 @@ return {
       { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
       { "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Help tags" },
       { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent files" },
+      { "<leader>dd", "<cmd>Telescope diagnostics<cr>", desc = "Warnings / Errors" },
       { "<leader><leader>", "<cmd>Telescope find_files<cr>", desc = "Find files" },
     },
     config = function()

@@ -6,8 +6,14 @@ vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Navigate to right window" })
 vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Navigate to window below" })
 vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Navigate to window above" })
 
--- Double <esc> to quit querying
+-- Quit fzf
 vim.keymap.set("n", "<Esc><Esc>", ":noh<CR>")
+
+-- File Operations
+vim.keymap.set("n", "Q", ":q!<CR>")
+vim.keymap.set("n", "<leader>w", ":w<CR>")
+vim.keymap.set("n", "<leader>q", ":q<CR>")
+vim.keymap.set("n", "<leader>wq", ":wq<CR>")
 
 -- Fold
 vim.keymap.set("n", "<Tab>", "za")

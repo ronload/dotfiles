@@ -18,6 +18,7 @@ return {
         "pyright",
         "rust_analyzer",
         "lua_ls",
+        "prismals",
       },
     },
   },
@@ -69,7 +70,14 @@ return {
       -- TypeScript/JavaScript
       vim.lsp.config.ts_ls = {
         cmd = { "typescript-language-server", "--stdio" },
-        filetypes = { "typescript", "typescriptreact", "typescript.tsx", "javascript", "javascriptreact", "javascript.jsx" },
+        filetypes = {
+          "typescript",
+          "typescriptreact",
+          "typescript.tsx",
+          "javascript",
+          "javascriptreact",
+          "javascript.jsx",
+        },
         root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
         capabilities = capabilities,
       }
@@ -105,7 +113,14 @@ return {
         },
       }
 
-      vim.lsp.enable({ "gopls", "ts_ls", "pyright", "rust_analyzer", "lua_ls" })
+      -- Prisma
+      vim.lsp.config.prismals = {
+        cmd = { "prisma-language-server", "--stdio" },
+        filetypes = { "prisma" },
+        root_markers = { "schema.prisma", ".git" },
+        capabilities = capabilities,
+      }
+      vim.lsp.enable({ "gopls", "ts_ls", "pyright", "rust_analyzer", "lua_ls", "prismals" })
     end,
   },
 

@@ -28,7 +28,7 @@ return {
         html = { "prettier" },
         css = { "prettier" },
       },
-      format_on_save = {
+      format_after_save = {
         timeout_ms = 500,
         lsp_fallback = true,
       },
