@@ -8,7 +8,7 @@ function M.apply(config)
 		top = 0,
 		bottom = 0,
 	}
-	config.window_background_opacity = 0.8
+	config.window_background_opacity = 0.9
 	config.macos_window_background_blur = 30
 	config.window_close_confirmation = "NeverPrompt"
 
