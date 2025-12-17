@@ -1,11 +1,18 @@
 [user]
 	name = ronload
 	email = 91997734+ronload@users.noreply.github.com
+[include]
+  path = ~/.local/share/nvim/lazy/tokyonight.nvim/extras/delta/tokyonight_night.gitconfig
 [includeIf "hasconfig:remote.*.url:git@github.com:prinsur/**"]
 	path = ~/.gitconfig-prinsur
 [core]
 	excludesfile = /Users/luoyongneng/.gitignore_global
 	editor = nvim
+  pager = delta
+[delta]
+  navigate = true
+  line-numbers = true
+  syntax-theme = tokyonight_night
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
@@ -29,4 +36,5 @@
 [alias]
   uncommit = reset --soft HEAD~1
 	cleanbranch = !git branch | grep -v \"main\" | xargs git branch -D
-  ds = "!git diff ${1:-main} --stat | cat #"
+  ds = !git diff ${1:-main} --stat #
+  viewdiff = !git diff | delta | cat
