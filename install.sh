@@ -35,6 +35,15 @@ else
   echo "✓ Linked .gitignore_global"
 fi
 
+# Ghostty config
+mkdir -p ~/.config/ghostty
+if [ -L "$HOME/.config/ghostty/config" ]; then
+  echo "✓ ghostty config already linked"
+else
+  ln -s "$HOME/dotfiles/ghostty/config" "$HOME/.config/ghostty/config"
+  echo "✓ Linked ghostty config"
+fi
+
 # Zed settings
 mkdir -p ~/.config/zed
 if [ -L "$HOME/.config/zed/settings.json" ]; then
