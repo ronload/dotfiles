@@ -2,3 +2,20 @@ font-family = Menlo
 font-size = 16
 adjust-cell-height = 62%
 font-style-italic = bold italic
+
+# CJK Unified Ideographs
+font-codepoint-map = U+4E00-U+9FFF=PingFang TC
+# CJK Unified Ideographs Extension A
+font-codepoint-map = U+3400-U+4DBF=PingFang TC
+# CJK Compatibility Ideographs
+font-codepoint-map = U+F900-U+FAFF=PingFang TC
+# CJK Symbols and Punctuation
+font-codepoint-map = U+3000-U+303F=PingFang TC
+# Fullwidth Forms
+font-codepoint-map = U+FF00-U+FFEF=PingFang TC
+# Bopomofo
+font-codepoint-map = U+3100-U+312F=PingFang TC
+# Bopomofo Extended
+font-codepoint-map = U+31A0-U+31BF=PingFang TC
+# CJK Unified Ideographs Extension B
+font-codepoint-map = U+20000-U+2A6DF=PingFang TC
