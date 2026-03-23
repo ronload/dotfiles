@@ -3,6 +3,7 @@
 Personal configuration files for my development environment.
 
 ## Installation
+
 ```bash
 # Clone the repo
 git clone https://github.com/ronload/dotfiles.git ~/dotfiles
@@ -14,7 +15,7 @@ cd ~/dotfiles
 
 ## Included Configs
 
-- **nvim**: Neovim with LazyVim
+- **nvim**: Neovim with lazy.nvim
 - **wezterm**: Terminal emulator
 - **zed**: Zed editor
 - **gh**: GitHub CLI
@@ -23,6 +24,7 @@ cd ~/dotfiles
 ## Manual Setup
 
 If you prefer manual installation:
+
 ```bash
 ln -s ~/dotfiles/nvim ~/.config/nvim
 ln -s ~/dotfiles/wezterm ~/.config/wezterm
