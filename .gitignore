@@ -17,3 +17,5 @@ zed/**/*.mdb/
 
 # Logs
 *.log
+
+.claude/
