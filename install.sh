@@ -36,6 +36,43 @@ else
   echo "✓ Linked .gitignore_global"
 fi
 
+# Shell configuration (symlink to home directory)
+shell_configs=(
+  "zshrc:.zshrc"
+  "zprofile:.zprofile"
+  "zshenv:.zshenv"
+)
+
+for entry in "${shell_configs[@]}"; do
+  src="${entry%%:*}"
+  dest="${entry##*:}"
+  if [ -L "$HOME/$dest" ]; then
+    echo "✓ $dest already linked"
+  else
+    ln -sf "$HOME/dotfiles/zsh/$src" "$HOME/$dest"
+    echo "✓ Linked $dest"
+  fi
+done
+
+# Oh My Zsh custom plugins
+ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
+
+omz_plugins=(
+  "zsh-autosuggestions:https://github.com/zsh-users/zsh-autosuggestions.git"
+  "zsh-syntax-highlighting:https://github.com/zsh-users/zsh-syntax-highlighting.git"
+  "fzf-git-sh:https://github.com/junegunn/fzf-git.sh.git"
+)
+
+for entry in "${omz_plugins[@]}"; do
+  plugin="${entry%%:*}"
+  url="${entry#*:}"
+  if [ -d "$ZSH_CUSTOM/plugins/$plugin" ]; then
+    echo "✓ $plugin already installed"
+  else
+    git clone "$url" "$ZSH_CUSTOM/plugins/$plugin"
+    echo "✓ Cloned $plugin"
+  fi
+done
 
 # Zed settings
 mkdir -p ~/.config/zed

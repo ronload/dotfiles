@@ -1,0 +1,6 @@
+# --- homebrew ---
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# --- python 3.10 ---
+PATH="/Library/Frameworks/Python.framework/Versions/3.10/bin:${PATH}"
+export PATH
