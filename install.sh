@@ -6,7 +6,6 @@ mkdir -p ~/.config
 # Symlink configs in .config directory
 configs=(
   "nvim"
-  "wezterm"
   "gh"
   "ghostty"
 )
