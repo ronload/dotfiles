@@ -66,10 +66,3 @@ source ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-git-sh/fzf-git.sh
 
 # --- zoxide ---
 eval "$(zoxide init zsh)"
-
-# --- conda (lazy load) ---
-conda() {
-  unfunction conda
-  eval "$("$HOME/anaconda3/bin/conda" 'shell.zsh' 'hook')"
-  conda "$@"
-}
