@@ -69,7 +69,7 @@ for entry in "${omz_plugins[@]}"; do
   if [ -d "$ZSH_CUSTOM/plugins/$plugin" ]; then
     echo "✓ $plugin already installed"
   else
-    git clone "$url" "$ZSH_CUSTOM/plugins/$plugin"
+    git clone --depth 1 "$url" "$ZSH_CUSTOM/plugins/$plugin"
     echo "✓ Cloned $plugin"
   fi
 done
