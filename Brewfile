@@ -31,8 +31,6 @@ brew "golang-migrate"
 brew "htop"
 # Tools and libraries to manipulate images in select formats
 brew "imagemagick"
-# Text-to-HTML conversion tool
-brew "markdown"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
 # Object-relational database system
@@ -70,8 +68,6 @@ cask "font-geist-mono"
 cask "font-hack-nerd-font"
 # Web browser
 cask "google-chrome"
-# Vector graphics editor
-cask "inkscape"
 # Keyboard customiser
 cask "karabiner-elements"
 # Scan and remove malware, spyware, and viruses
