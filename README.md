@@ -5,25 +5,12 @@ Personal configuration files for my development environment.
 ## Setup on a New Machine
 
 ```bash
-# 1. Install Homebrew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-# 2. Clone this repo
 git clone https://github.com/ronload/dotfiles.git ~/dotfiles
-
-# 3. Install packages
 cd ~/dotfiles
-brew bundle install
-
-# 4. Install Oh My Zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-# 5. Install Rust toolchain
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-
-# 6. Run install script (symlinks + zsh plugins + nvim plugin sync)
-./install.sh
+./setup.sh
 ```
+
+`setup.sh` will automatically install Homebrew, Rust, Brewfile packages, Oh My Zsh, then run `install.sh` for symlinks, zsh plugins, and Neovim plugin sync. Each step is guarded so it can be safely re-run.
 
 ## Included Configs
 
