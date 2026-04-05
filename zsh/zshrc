@@ -15,6 +15,7 @@ export EDITOR="nvim"
 export VISUAL="nvim"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
+export CLAUDE_CODE_NO_FLICKER=1
 
 # --- pnpm ---
 export PNPM_HOME="$HOME/Library/pnpm"
@@ -66,3 +67,4 @@ source ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-git-sh/fzf-git.sh
 
 # --- zoxide ---
 eval "$(zoxide init zsh)"
+
