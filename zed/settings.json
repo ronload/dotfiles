@@ -54,8 +54,8 @@
     "custom": 2.4
   },
   "theme": {
-    "mode": "moon",
+    "mode": "dark",
     "light": "One Light",
-    "dark": "Tokyo Night"
+    "dark": "Tokyo Night Moon"
   }
 }
