@@ -2,3 +2,4 @@ window-padding-x = 8
 window-padding-y = 4
 window-decoration = true
 confirm-close-surface = false
+split-divider-color = #555555
