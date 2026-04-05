@@ -38,7 +38,7 @@ alias gpcm='gh pr create --base main'
 # tools
 alias p="pnpm"
 alias :q="exit"
-alias countcode="cloc . --exclude-ext=json,md,svg,csv,toml,txt,yaml,yml --exclude-dir=node_modules,.venv,.next,dist,build,out,.git"
+alias countcode="tokei . -e node_modules -e .venv -e .next -e dist -e build -e out"
 
 # navigation
 alias ..="cd .."
