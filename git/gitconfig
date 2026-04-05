@@ -6,7 +6,7 @@
 [includeIf "hasconfig:remote.*.url:git@github.com:prinsur/**"]
 	path = ~/.gitconfig-prinsur
 [core]
-	excludesfile = /Users/luoyongneng/.gitignore_global
+	excludesfile = ~/.gitignore_global
 	editor = nvim
   pager = delta
 [delta]
