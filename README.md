@@ -16,7 +16,6 @@ cd ~/dotfiles
 ## Included Configs
 
 - **nvim**: Neovim with lazy.nvim
-- **wezterm**: Terminal emulator
 - **zed**: Zed editor
 - **gh**: GitHub CLI
 - **git**: Git global config
@@ -27,7 +26,6 @@ If you prefer manual installation:
 
 ```bash
 ln -s ~/dotfiles/nvim ~/.config/nvim
-ln -s ~/dotfiles/wezterm ~/.config/wezterm
 ln -s ~/dotfiles/zed/settings.json ~/.config/zed/settings.json
 ln -s ~/dotfiles/gh ~/.config/gh
 ln -s ~/dotfiles/git ~/.config/git
