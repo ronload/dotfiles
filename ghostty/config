@@ -5,5 +5,5 @@ config-file = cursor
 config-file = keybindings
 config-file = tabbar
 
-working-directory = /Users/luoyongneng/working/projects
+working-directory = ~/working/projects
 macos-option-as-alt = left
