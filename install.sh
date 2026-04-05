@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 echo "Installing dotfiles..."
 mkdir -p ~/.config
 
@@ -14,7 +15,7 @@ for config in "${configs[@]}"; do
   if [ -L "$HOME/.config/$config" ]; then
     echo "✓ $config already linked"
   else
-    ln -s "$HOME/dotfiles/$config" "$HOME/.config/$config"
+    ln -s "$DOTFILES_DIR/$config" "$HOME/.config/$config"
     echo "✓ Linked $config"
   fi
 done
@@ -23,7 +24,7 @@ done
 if [ -L "$HOME/.gitconfig" ]; then
   echo "✓ .gitconfig already linked"
 else
-  ln -sf "$HOME/dotfiles/git/gitconfig" "$HOME/.gitconfig"
+  ln -sf "$DOTFILES_DIR/git/gitconfig" "$HOME/.gitconfig"
   echo "✓ Linked .gitconfig"
 fi
 
@@ -31,7 +32,7 @@ fi
 if [ -L "$HOME/.gitignore_global" ]; then
   echo "✓ .gitignore_global already linked"
 else
-  ln -sf "$HOME/dotfiles/git/ignore" "$HOME/.gitignore_global"
+  ln -sf "$DOTFILES_DIR/git/ignore" "$HOME/.gitignore_global"
   echo "✓ Linked .gitignore_global"
 fi
 
@@ -48,7 +49,7 @@ for entry in "${shell_configs[@]}"; do
   if [ -L "$HOME/$dest" ]; then
     echo "✓ $dest already linked"
   else
-    ln -sf "$HOME/dotfiles/zsh/$src" "$HOME/$dest"
+    ln -sf "$DOTFILES_DIR/zsh/$src" "$HOME/$dest"
     echo "✓ Linked $dest"
   fi
 done
@@ -78,7 +79,7 @@ mkdir -p ~/.config/zed
 if [ -L "$HOME/.config/zed/settings.json" ]; then
   echo "✓ zed settings already linked"
 else
-  ln -s "$HOME/dotfiles/zed/settings.json" "$HOME/.config/zed/settings.json"
+  ln -s "$DOTFILES_DIR/zed/settings.json" "$HOME/.config/zed/settings.json"
   echo "✓ Linked zed settings"
 fi
 
