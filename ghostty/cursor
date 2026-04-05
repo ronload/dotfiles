@@ -1,2 +1,3 @@
-cursor-style = block
 cursor-style-blink = false
+custom-shader = shaders/cursor_tail.glsl
+custom-shader-animation = always
