@@ -83,4 +83,11 @@ else
   echo "✓ Linked zed settings"
 fi
 
+# Sync Neovim plugins (downloads tokyonight.nvim theme used by ghostty and delta)
+if command -v nvim &>/dev/null; then
+  echo "Syncing Neovim plugins..."
+  nvim --headless "+Lazy! sync" +qa
+  echo "✓ Neovim plugins synced"
+fi
+
 echo "Dotfiles installed successfully!"
