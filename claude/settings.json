@@ -36,6 +36,30 @@
       "Bash(curl * | sh)"
     ]
   },
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "idle_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/.claude/hooks/notify.sh\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/.claude/hooks/format.sh\""
+          }
+        ]
+      }
+    ]
+  },
   "effortLevel": "high",
   "feedbackSurveyRate": 0
 }
