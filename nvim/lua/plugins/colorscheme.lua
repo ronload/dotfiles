@@ -39,8 +39,8 @@ return {
     config = function(_, opts)
       require("tokyonight").setup(opts)
       vim.cmd.colorscheme("tokyonight-moon")
-      vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" })
-      vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "NONE" })
+      vim.api.nvim_set_hl(0, "StatusLine", { link = "ModeMsg" })
+      vim.api.nvim_set_hl(0, "StatusLineNC", { link = "ModeMsg" })
     end,
   },
 }
