@@ -26,17 +26,6 @@ vim.opt.foldtext = ""
 vim.opt.foldenable = true
 vim.opt.foldlevel = 99
 
--- status line
-local mode_map = {
-  n = "NORMAL",
-  i = "INSERT",
-  v = "VISUAL",
-  V = "V-LINE",
-  ["\22"] = "V-BLOCK",
-  c = "COMMAND",
-  R = "REPLACE",
-  t = "TERMINAL",
-}
 vim.diagnostic.config({
   virtual_text = {
     prefix = "●",
@@ -45,12 +34,3 @@ vim.diagnostic.config({
   signs = true,
   underline = true,
 })
-vim.opt.statusline = "%!v:lua.Statusline()"
-
-function Statusline()
-  local mode = mode_map[vim.fn.mode()] or vim.fn.mode()
-  local branch = vim.b.gitsigns_head or ""
-  local filename = "%t %m%r"
-  local filetype = "%y"
-  return string.format(" %s │ %s │ %s%%=%s ", mode, filename, branch, filetype)
-end
