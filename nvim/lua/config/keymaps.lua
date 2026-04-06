@@ -22,5 +22,3 @@ vim.keymap.set("n", "<Tab>", "za")
 vim.keymap.set("n", "<leader>o", "o<Esc>")
 vim.keymap.set("n", "<leader>O", "O<Esc>")
 
--- Force new line
-vim.keymap.set("i", "<S-CR>", "<C-e><CR>")
