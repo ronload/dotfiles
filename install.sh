@@ -110,6 +110,19 @@ for skill_dir in "$DOTFILES_DIR/claude/skills"/*/; do
   fi
 done
 
+# Claude Code hooks (link each hook individually, ~/.claude/hooks/ may have other content)
+mkdir -p "$HOME/.claude/hooks"
+for hook_file in "$DOTFILES_DIR/claude/hooks"/*.sh; do
+  [ -f "$hook_file" ] || continue
+  hook_name="$(basename "$hook_file")"
+  if [ -L "$HOME/.claude/hooks/$hook_name" ]; then
+    echo "✓ claude/hooks/$hook_name already linked"
+  else
+    ln -sf "$hook_file" "$HOME/.claude/hooks/$hook_name"
+    echo "✓ Linked claude/hooks/$hook_name"
+  fi
+done
+
 # Sync Neovim plugins (downloads tokyonight.nvim theme used by ghostty and delta)
 if command -v nvim &>/dev/null; then
   echo "Syncing Neovim plugins..."
