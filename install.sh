@@ -84,7 +84,6 @@ else
 fi
 
 # Claude Code configuration
-mkdir -p "$HOME/.claude/commands"
 claude_files=(
   "CLAUDE.md"
   "settings.json"
@@ -99,12 +98,17 @@ for file in "${claude_files[@]}"; do
   fi
 done
 
-if [ -L "$HOME/.claude/commands/commit.md" ]; then
-  echo "✓ claude/commands/commit.md already linked"
-else
-  ln -sf "$DOTFILES_DIR/claude/commands/commit.md" "$HOME/.claude/commands/commit.md"
-  echo "✓ Linked claude/commands/commit.md"
-fi
+# Claude Code skills (link each skill individually, ~/.claude/skills/ may have other content)
+mkdir -p "$HOME/.claude/skills"
+for skill_dir in "$DOTFILES_DIR/claude/skills"/*/; do
+  skill_name="$(basename "$skill_dir")"
+  if [ -L "$HOME/.claude/skills/$skill_name" ]; then
+    echo "✓ claude/skills/$skill_name already linked"
+  else
+    ln -sf "$skill_dir" "$HOME/.claude/skills/$skill_name"
+    echo "✓ Linked claude/skills/$skill_name"
+  fi
+done
 
 # Sync Neovim plugins (downloads tokyonight.nvim theme used by ghostty and delta)
 if command -v nvim &>/dev/null; then
