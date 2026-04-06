@@ -83,6 +83,29 @@ else
   echo "✓ Linked zed settings"
 fi
 
+# Claude Code configuration
+mkdir -p "$HOME/.claude/commands"
+claude_files=(
+  "CLAUDE.md"
+  "settings.json"
+  "statusline.sh"
+)
+for file in "${claude_files[@]}"; do
+  if [ -L "$HOME/.claude/$file" ]; then
+    echo "✓ claude/$file already linked"
+  else
+    ln -sf "$DOTFILES_DIR/claude/$file" "$HOME/.claude/$file"
+    echo "✓ Linked claude/$file"
+  fi
+done
+
+if [ -L "$HOME/.claude/commands/commit.md" ]; then
+  echo "✓ claude/commands/commit.md already linked"
+else
+  ln -sf "$DOTFILES_DIR/claude/commands/commit.md" "$HOME/.claude/commands/commit.md"
+  echo "✓ Linked claude/commands/commit.md"
+fi
+
 # Sync Neovim plugins (downloads tokyonight.nvim theme used by ghostty and delta)
 if command -v nvim &>/dev/null; then
   echo "Syncing Neovim plugins..."
