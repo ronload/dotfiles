@@ -60,6 +60,7 @@ prs() {
 }
 
 # --- fzf ---
+source ~/.local/share/nvim/lazy/tokyonight.nvim/extras/fzf/tokyonight_moon.sh
 source <(fzf --zsh)
 source ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-git-sh/fzf-git.sh
 
