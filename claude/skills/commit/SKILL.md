@@ -1,7 +1,14 @@
+---
+argument-hint: optional context about the changes
+allowed-tools:
+  - Bash(git *)
+---
+
 Review both staged (`git diff --cached`) and unstaged (`git diff` and `git status`) changes to understand the full picture, then propose how to organize them into atomic commits.
 If nothing is staged yet, suggest which files to stage together based on logical grouping, and explain your reasoning.
 Write a concise commit message following Conventional Commits format.
-The message should be in English, lowercase, and without a period at the end.
+The subject line should be in English, lowercase, and without a period at the end.
+For non-trivial changes, add a commit body explaining **why** the change was made, not what was changed.
 Follow the atomic commit principle: each commit should contain exactly one logical change.
 Never mention Claude, AI, or any AI assistant in the commit message.
 After writing the commit message, ALWAYS ask for my confirmation before executing `git commit`.
