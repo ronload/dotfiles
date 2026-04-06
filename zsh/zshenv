@@ -1,2 +1,5 @@
 # --- cargo ---
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+
+# --- go ---
+export PATH="$HOME/go/bin:$PATH"
