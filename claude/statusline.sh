@@ -130,8 +130,8 @@ build_line1() {
 
   local line="${CYAN}֍ ${model_name}${RESET}"
   line+="${SEP}${pct_color}󱅴 ${pct_used}%${RESET}"
-  line+="${SEP}${BLUE} ${dirname}${RESET}"
-  [ -n "$git_branch" ] && line+="${SEP}${MAGENTA} ${git_branch}${RED}${git_dirty}${RESET}"
+  line+="${SEP}${BLUE} ${dirname}${RESET}"
+  [ -n "$git_branch" ] && line+="${SEP}${MAGENTA}${git_branch}${RED}${git_dirty}${RESET}"
   [ -n "$session_duration" ] && line+="${SEP}${DIM}⏱ ${RESET}${WHITE}${session_duration}${RESET}"
 
   printf "%b" "$line"
