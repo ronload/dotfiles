@@ -25,6 +25,7 @@ vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldtext = ""
 vim.opt.foldenable = true
 vim.opt.foldlevel = 99
+vim.opt.completeopt = { "menuone", "noselect", "popup" }
 
 vim.diagnostic.config({
   virtual_text = {

@@ -30,15 +30,28 @@ return {
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
-      "hrsh7th/cmp-nvim-lsp",
     },
     config = function()
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      -- Advertise snippet support to all LSP servers
+      vim.lsp.config("*", {
+        capabilities = {
+          textDocument = {
+            completion = {
+              completionItem = {
+                snippetSupport = true,
+              },
+            },
+          },
+        },
+      })
 
-      -- Key mappings on LSP attach
+      -- Key mappings and completion on LSP attach
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)
-          local opts = { buffer = args.buf }
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          local bufnr = args.buf
+          local opts = { buffer = bufnr }
+
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
           vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
           vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
@@ -46,15 +59,41 @@ return {
           vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
           vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
           vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+
+          -- Enable built-in LSP completion with autotrigger
+          if client and client:supports_method("textDocument/completion") then
+            vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
+          end
         end,
       })
+
+      -- Snippet navigation
+      vim.keymap.set({ "i", "s" }, "<Tab>", function()
+        if vim.snippet.active({ direction = 1 }) then
+          return "<cmd>lua vim.snippet.jump(1)<cr>"
+        else
+          return "<Tab>"
+        end
+      end, { expr = true })
+
+      vim.keymap.set({ "i", "s" }, "<S-Tab>", function()
+        if vim.snippet.active({ direction = -1 }) then
+          return "<cmd>lua vim.snippet.jump(-1)<cr>"
+        else
+          return "<S-Tab>"
+        end
+      end, { expr = true })
+
+      -- Manual completion trigger
+      vim.keymap.set("i", "<C-Space>", function()
+        vim.lsp.completion.get()
+      end)
 
       -- Go
       vim.lsp.config.gopls = {
         cmd = { "gopls" },
         filetypes = { "go", "gomod", "gowork", "gotmpl" },
         root_markers = { "go.work", "go.mod", ".git" },
-        capabilities = capabilities,
         settings = {
           gopls = {
             gofumpt = true,
@@ -79,7 +118,6 @@ return {
           "javascript.jsx",
         },
         root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
-        capabilities = capabilities,
       }
 
       -- Python
@@ -87,7 +125,6 @@ return {
         cmd = { "pyright-langserver", "--stdio" },
         filetypes = { "python" },
         root_markers = { "pyproject.toml", "setup.py", "pyrightconfig.json", ".git" },
-        capabilities = capabilities,
       }
 
       -- Rust
@@ -95,7 +132,6 @@ return {
         cmd = { "rust-analyzer" },
         filetypes = { "rust" },
         root_markers = { "Cargo.toml", ".git" },
-        capabilities = capabilities,
       }
 
       -- Lua
@@ -103,7 +139,6 @@ return {
         cmd = { "lua-language-server" },
         filetypes = { "lua" },
         root_markers = { ".luarc.json", ".luarc.jsonc", ".git" },
-        capabilities = capabilities,
         settings = {
           Lua = {
             diagnostics = {
@@ -118,65 +153,9 @@ return {
         cmd = { "prisma-language-server", "--stdio" },
         filetypes = { "prisma" },
         root_markers = { "schema.prisma", ".git" },
-        capabilities = capabilities,
       }
+
       vim.lsp.enable({ "gopls", "ts_ls", "pyright", "rust_analyzer", "lua_ls", "prismals" })
-    end,
-  },
-
-  -- Autocompletion
-  {
-    "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "L3MON4D3/LuaSnip",
-      "saadparwaiz1/cmp_luasnip",
-    },
-    config = function()
-      local cmp = require("cmp")
-      local luasnip = require("luasnip")
-
-      cmp.setup({
-        snippet = {
-          expand = function(args)
-            luasnip.lsp_expand(args.body)
-          end,
-        },
-        mapping = cmp.mapping.preset.insert({
-          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-f>"] = cmp.mapping.scroll_docs(4),
-          ["<C-Space>"] = cmp.mapping.complete(),
-          ["<C-e>"] = cmp.mapping.abort(),
-          ["<CR>"] = cmp.mapping.confirm({ select = true }),
-          ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
-              luasnip.expand_or_jump()
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-          ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-              luasnip.jump(-1)
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-        }),
-        sources = cmp.config.sources({
-          { name = "nvim_lsp" },
-          { name = "luasnip" },
-          { name = "buffer" },
-          { name = "path" },
-        }),
-      })
     end,
   },
 }
