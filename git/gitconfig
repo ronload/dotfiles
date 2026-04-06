@@ -12,6 +12,7 @@
 [delta]
 	navigate = true
 	line-numbers = true
+	syntax-theme = tokyonight_moon
 [filter "lfs"]
 	process = git-lfs filter-process
 	required = true
