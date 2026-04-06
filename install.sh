@@ -15,7 +15,7 @@ for config in "${configs[@]}"; do
   if [ -L "$HOME/.config/$config" ]; then
     echo "✓ $config already linked"
   else
-    ln -s "$DOTFILES_DIR/$config" "$HOME/.config/$config"
+    ln -sf "$DOTFILES_DIR/$config" "$HOME/.config/$config"
     echo "✓ Linked $config"
   fi
 done
@@ -79,7 +79,7 @@ mkdir -p ~/.config/zed
 if [ -L "$HOME/.config/zed/settings.json" ]; then
   echo "✓ zed settings already linked"
 else
-  ln -s "$DOTFILES_DIR/zed/settings.json" "$HOME/.config/zed/settings.json"
+  ln -sf "$DOTFILES_DIR/zed/settings.json" "$HOME/.config/zed/settings.json"
   echo "✓ Linked zed settings"
 fi
 
