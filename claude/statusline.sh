@@ -47,11 +47,16 @@ build_bar() {
 }
 
 iso_to_epoch() {
-  local stripped="${1%%.*}"
-  stripped="${stripped%%Z}"
-  stripped="${stripped%%+*}"
-  stripped="${stripped%%-[0-9][0-9]:[0-9][0-9]}"
-  date -j -f "%Y-%m-%dT%H:%M:%S" "$stripped" +%s 2>/dev/null
+  local input="$1"
+  # Strip fractional seconds while preserving timezone
+  input=$(echo "$input" | sed 's/\.[0-9]*//')
+  # Normalize Z to +0000
+  input="${input/Z/+0000}"
+  # Remove colon from timezone offset (+00:00 -> +0000)
+  input=$(echo "$input" | sed 's/\([+-][0-9][0-9]\):\([0-9][0-9]\)$/\1\2/')
+  # Try with timezone first, fall back to without
+  date -j -f "%Y-%m-%dT%H:%M:%S%z" "$input" +%s 2>/dev/null ||
+    date -j -f "%Y-%m-%dT%H:%M:%S" "$input" +%s 2>/dev/null
 }
 
 format_time() {
@@ -137,26 +142,26 @@ build_line1() {
   printf "%b" "$line"
 }
 
+build_rate_line() {
+  local usage_data=$1 key=$2 label=$3 bar_w=10
+  local pct reset_epoch bar color
+
+  pct=$(echo "$usage_data" | jq -r ".$key.utilization // 0" | awk '{printf "%.0f", $1}')
+  reset_epoch=$(iso_to_epoch "$(echo "$usage_data" | jq -r ".$key.resets_at // empty")")
+  bar=$(build_bar "$pct" "$bar_w")
+  color=$(color_for_pct "$pct")
+
+  printf "%b" "${DIM}${label}${RESET} ${bar} ${color}$(printf '%3d' "$pct")%${RESET} ${DIM}⟳${RESET} ${DIM}$(format_time "$reset_epoch" "%b %d, %l:%M%p")${RESET}"
+}
+
 build_rate_lines() {
-  local usage_data=$1 bar_w=10
+  local usage_data=$1
 
   echo "$usage_data" | jq -e . >/dev/null 2>&1 || return
 
-  local five_pct five_reset five_bar five_color
-  five_pct=$(echo "$usage_data" | jq -r '.five_hour.utilization // 0' | awk '{printf "%.0f", $1}')
-  five_reset=$(iso_to_epoch "$(echo "$usage_data" | jq -r '.five_hour.resets_at // empty')")
-  five_bar=$(build_bar "$five_pct" "$bar_w")
-  five_color=$(color_for_pct "$five_pct")
-
-  local week_pct week_reset week_bar week_color
-  week_pct=$(echo "$usage_data" | jq -r '.seven_day.utilization // 0' | awk '{printf "%.0f", $1}')
-  week_reset=$(iso_to_epoch "$(echo "$usage_data" | jq -r '.seven_day.resets_at // empty')")
-  week_bar=$(build_bar "$week_pct" "$bar_w")
-  week_color=$(color_for_pct "$week_pct")
-
-  printf "%b" "${DIM}current${RESET} ${five_bar} ${five_color}$(printf '%3d' "$five_pct")%${RESET} ${DIM}⟳${RESET} ${DIM}$(format_time "$five_reset" "%l:%M%p")${RESET}"
+  build_rate_line "$usage_data" "five_hour" "current"
   printf "\n"
-  printf "%b" "${DIM}weekly${RESET}  ${week_bar} ${week_color}$(printf '%3d' "$week_pct")%${RESET} ${DIM}⟳${RESET} ${DIM}$(format_time "$week_reset" "%b %-d, %l:%M%p")${RESET}"
+  build_rate_line "$usage_data" "seven_day" "weekly "
 }
 
 # ── Main ───────────────────────────────────────────────
