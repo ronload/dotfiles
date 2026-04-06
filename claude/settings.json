@@ -16,17 +16,25 @@
       "Read",
       "LS",
       "Bash(ls *)",
-      "Bash(cat *)",
       "Bash(tree *)",
       "Bash(git status *)",
       "Bash(git log *)",
       "Bash(git diff *)",
       "Bash(git branch *)",
+      "Bash(git show *)",
+      "Bash(git blame *)",
       "WebSearch",
       "WebFetch",
       "mcp__context7__*"
     ],
-    "deny": []
+    "deny": [
+      "Bash(git push --force *)",
+      "Bash(git push origin main *)",
+      "Bash(git reset --hard *)",
+      "Bash(rm -rf *)",
+      "Bash(curl * | bash)",
+      "Bash(curl * | sh)"
+    ]
   },
   "effortLevel": "high",
   "feedbackSurveyRate": 0
