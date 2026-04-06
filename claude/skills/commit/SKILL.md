@@ -1,4 +1,5 @@
 ---
+description: Review staged and unstaged changes, then create atomic commits with Conventional Commits messages.
 argument-hint: optional context about the changes
 allowed-tools:
   - Bash(git *)

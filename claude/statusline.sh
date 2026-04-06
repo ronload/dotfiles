@@ -109,7 +109,7 @@ fetch_usage_data() {
       -H "Content-Type: application/json" \
       -H "Authorization: Bearer $token" \
       -H "anthropic-beta: oauth-2025-04-20" \
-      -H "User-Agent: claude-code/2.1.34" \
+      -H "User-Agent: claude-code" \
       "https://api.anthropic.com/api/oauth/usage" 2>/dev/null)
     if echo "$response" | jq -e '.five_hour' >/dev/null 2>&1; then
       echo "$response" > "$cache_file"

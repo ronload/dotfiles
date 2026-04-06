@@ -1,4 +1,5 @@
 ---
+description: Review branch commits, generate a PR title and description, and create a pull request via gh.
 argument-hint: optional context about the PR
 allowed-tools:
   - Bash(git *)
