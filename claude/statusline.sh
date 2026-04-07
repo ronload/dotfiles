@@ -151,7 +151,7 @@ build_rate_line() {
   bar=$(build_bar "$pct" "$bar_w")
   color=$(color_for_pct "$pct")
 
-  printf "%b" "${DIM}${label}${RESET} ${bar} ${color}$(printf '%3d' "$pct")%${RESET} ${DIM}⟳${RESET} ${DIM}$(format_time "$reset_epoch" "%b %d, %l:%M%p")${RESET}"
+  printf "%b" "${DIM}${label}${RESET} ${bar} ${color}$(printf '%3d' "$pct")%${RESET} ${DIM}⟳${RESET} ${DIM}$(format_time "$reset_epoch" "%b %d, %H:%M")${RESET}"
 }
 
 build_rate_lines() {
