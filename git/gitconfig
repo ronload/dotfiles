@@ -29,4 +29,3 @@
 	uncommit = reset --soft HEAD~1
 	cleanbranch = !git branch | grep -v \"main\" | xargs git branch -D
 	ds = !git diff ${1:-main} --stat #
-	viewdiff = !git diff | delta | cat
