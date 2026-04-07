@@ -29,3 +29,4 @@
 	uncommit = reset --soft HEAD~1
 	cleanbranch = !git branch | grep -v \"main\" | xargs git branch -D
 	ds = !git diff ${1:-main} --stat #
+  seto = !f() { git remote set-url origin git@github.com:ronload/$1.git; };f
