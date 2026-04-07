@@ -3,12 +3,6 @@
   "env": {
     "CLAUDE_CODE_NO_FLICKER": "1"
   },
-  "model": "opus[1m]",
-  "statusLine": {
-    "type": "command",
-    "command": "bash \"$HOME/.claude/statusline.sh\""
-  },
-  "alwaysThinkingEnabled": true,
   "permissions": {
     "allow": [
       "Grep",
@@ -45,6 +39,7 @@
       "Bash(curl * | sh)"
     ]
   },
+  "model": "opus[1m]",
   "hooks": {
     "Notification": [
       {
@@ -69,6 +64,14 @@
       }
     ]
   },
+  "statusLine": {
+    "type": "command",
+    "command": "bash \"$HOME/.claude/statusline.sh\""
+  },
+  "feedbackSurveyRate": 0,
+  "alwaysThinkingEnabled": true,
   "effortLevel": "high",
-  "feedbackSurveyRate": 0
+  "enabledPlugins": {
+    "gopls-lsp@claude-plugins-official": true
+  }
 }
