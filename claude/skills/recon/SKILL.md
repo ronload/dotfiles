@@ -1,5 +1,5 @@
 ---
-name: evidence-plan
+name: recon
 description: Research external best practices and real-world case studies before making any architectural, design, or implementation decision. Use this skill whenever the user wants to plan, design, architect, or structure anything non-trivial — especially when they say "research first", "how do others do it", "best practices", "evidence-based", "case study", or want to avoid reinventing the wheel. Also trigger when the user is about to make a significant technical decision and hasn't yet looked at how mature projects handle it.
 allowed-tools: WebSearch, WebFetch
 ---
