@@ -39,7 +39,6 @@
       "Bash(curl * | sh)"
     ]
   },
-  "model": "opus[1m]",
   "hooks": {
     "Notification": [
       {
@@ -68,10 +67,10 @@
     "type": "command",
     "command": "bash \"$HOME/.claude/statusline.sh\""
   },
-  "feedbackSurveyRate": 0,
-  "alwaysThinkingEnabled": true,
-  "effortLevel": "high",
   "enabledPlugins": {
     "gopls-lsp@claude-plugins-official": true
-  }
+  },
+  "feedbackSurveyRate": 0,
+  "alwaysThinkingEnabled": true,
+  "effortLevel": "high"
 }
