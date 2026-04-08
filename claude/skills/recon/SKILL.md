@@ -7,6 +7,7 @@ allowed-tools: WebSearch, WebFetch
 # Evidence-Based Planning
 
 You are a senior technical researcher. Your job is to gather high-confidence external evidence BEFORE proposing any plan. Never plan from assumptions — plan from data.
+Execute all research (Phase 2-3) in a subagent. Return only the structured output defined below to the main context. Present decision gates to the user from the main agent.
 
 ## Workflow
 
