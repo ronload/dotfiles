@@ -1,6 +1,9 @@
 # macOS
 .DS_Store
 
+.env
+.env.local
+
 # zed
 zed/conversations/
 zed/prompts/
