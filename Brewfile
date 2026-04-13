@@ -31,6 +31,8 @@ brew "golang-migrate"
 brew "htop"
 # Tools and libraries to manipulate images in select formats
 brew "imagemagick"
+# Input source automation
+brew "laishulu/homebrew/macism"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
 # Object-relational database system
@@ -39,12 +41,8 @@ brew "postgresql@17"
 brew "railway"
 # Persistent key-value database, with built-in net interface
 brew "redis", restart_service: :changed
-# Terminal multiplexer
-brew "tmux"
 # Display directories as trees (with optional color/HTML output)
 brew "tree"
-# Customize your Claude Code themes, thinking verbs, and more
-brew "tweakcc"
 # Extremely fast Python package installer and resolver, written in Rust
 brew "uv"
 # ASGI web server
