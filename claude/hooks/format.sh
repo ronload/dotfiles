@@ -19,6 +19,7 @@ case "$EXT" in
     command -v prettier &>/dev/null && prettier --write "$FILE_PATH" &>/dev/null
     ;;
   go)
+    command -v goimports &>/dev/null && goimports -w "$FILE_PATH" &>/dev/null
     command -v gofmt &>/dev/null && gofmt -w "$FILE_PATH" &>/dev/null
     ;;
   rs)
