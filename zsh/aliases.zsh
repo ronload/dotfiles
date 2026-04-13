@@ -3,11 +3,13 @@ alias vi='nvim'
 alias vim='nvim'
 
 # git
-alias gs='git status --short'
-alias ga='git add'
 alias gsm='git switch main'
 alias gsc='git switch -c'
 alias gpcm='gh pr create --base main'
+glb() {
+  local branch=$(pbpaste | sed 's|^[^/]*/||')
+  git checkout -b "$1/$branch"
+}
 
 # tools
 run() { chmod +x "$1" && ./"$1"; }

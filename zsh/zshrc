@@ -22,12 +22,6 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
-# --- Linear branch creator ---
-glb() {
-  local branch=$(pbpaste | sed 's|^[^/]*/||')
-  git checkout -b "$1/$branch"
-}
-
 # --- aliases ---
 [ -f ~/dotfiles/zsh/aliases.zsh ] && source ~/dotfiles/zsh/aliases.zsh
 
