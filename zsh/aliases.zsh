@@ -22,3 +22,4 @@ alias c=claude
 alias ..="cd .."
 alias dotfiles="cd ~/dotfiles/"
 alias proj="cd ~/working/projects/"
+alias desktop="~/Desktop/"
