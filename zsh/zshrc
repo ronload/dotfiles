@@ -51,3 +51,6 @@ source ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-git-sh/fzf-git.sh
 # --- zoxide ---
 eval "$(zoxide init zsh)"
 
+
+# opencode
+export PATH=/Users/luoyongneng/.opencode/bin:$PATH

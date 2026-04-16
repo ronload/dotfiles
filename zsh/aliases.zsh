@@ -16,6 +16,7 @@ run() { chmod +x "$1" && ./"$1"; }
 alias p="pnpm"
 alias :q="exit"
 alias countcode="tokei . -e node_modules -e .venv -e .next -e dist -e build -e out"
+alias c=claude
 
 # navigation
 alias ..="cd .."
