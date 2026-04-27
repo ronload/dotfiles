@@ -35,7 +35,8 @@
       "Bash(rm -rf *)",
       "Bash(curl * | bash)",
       "Bash(curl * | sh)"
-    ]
+    ],
+    "defaultMode": "auto"
   },
   "hooks": {
     "Notification": [
@@ -70,5 +71,8 @@
   },
   "feedbackSurveyRate": 0,
   "alwaysThinkingEnabled": true,
-  "effortLevel": "xhigh"
+  "effortLevel": "xhigh",
+  "theme": "dark-ansi",
+  "agentPushNotifEnabled": true,
+  "skipAutoPermissionPrompt": true
 }
