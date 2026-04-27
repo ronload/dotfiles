@@ -27,6 +27,7 @@
 	autoSetupRemote = true
 [alias]
 	uncommit = reset --soft HEAD~1
-	cleanbranch = !git branch | grep -v \"main\" | xargs git branch -D
+  unstage = restore --staged
+  cleanbranch = !git branch --merged main | grep -vE '^\\*|^\\s*(main|master)$' | xargs -r git branch -d
 	ds = !git diff ${1:-main} --stat #
   seto = !f() { git remote set-url origin git@github.com:ronload/$1.git; };f
