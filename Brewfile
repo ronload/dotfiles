@@ -36,7 +36,7 @@ brew "laishulu/homebrew/macism"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
 # Object-relational database system
-brew "postgresql@17"
+brew "postgresql"
 # Develop and deploy code with zero configuration
 brew "railway"
 # Persistent key-value database, with built-in net interface
