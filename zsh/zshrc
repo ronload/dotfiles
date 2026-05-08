@@ -43,17 +43,6 @@ export BAT_THEME="ansi"
 # opencode
 export PATH=/Users/luoyongneng/.opencode/bin:$PATH
 
-# prs shell hook
-prs() {
-    if [[ "$1" == "cd" ]]; then
-        local dest
-        dest=$(command prs "$@" 2>&1)
-        if [[ $? -eq 0 && -n "$dest" && -d "$dest" ]]; then
-            builtin cd "$dest"
-        else
-            [[ -n "$dest" ]] && echo "$dest"
-        fi
-    else
-        command prs "$@"
-    fi
-}
+# prs:hook:begin
+eval "$(prs hook zsh)"
+# prs:hook:end
