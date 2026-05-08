@@ -10,7 +10,6 @@ vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Navigate to window above" })
 vim.keymap.set("n", "<Esc><Esc>", ":noh<CR>")
 
 -- File Operations
-vim.keymap.set("n", "Q", ":q!<CR>")
 vim.keymap.set("n", "<leader>w", ":w<CR>")
 vim.keymap.set("n", "<leader>q", ":q<CR>")
 vim.keymap.set("n", "<leader>wq", ":wq<CR>")
