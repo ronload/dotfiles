@@ -17,6 +17,9 @@ alias p="pnpm"
 alias :q="exit"
 alias countcode="tokei . -e node_modules -e .venv -e .next -e dist -e build -e out"
 alias c=claude
+alias cat="bat"
+alias http="xh"
+alias https="xhs"
 
 # eza
 alias ls='eza --icons=auto --group-directories-first'
