@@ -20,4 +20,3 @@ vim.keymap.set("n", "<Tab>", "za")
 -- New empty line
 vim.keymap.set("n", "<leader>o", "o<Esc>")
 vim.keymap.set("n", "<leader>O", "O<Esc>")
-
