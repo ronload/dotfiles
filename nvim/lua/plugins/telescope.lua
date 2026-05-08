@@ -12,7 +12,23 @@ return {
     cmd = "Telescope",
     keys = {
       { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find files" },
+      {
+        "<leader>fa",
+        "<cmd>Telescope find_files hidden=true no_ignore=true<cr>",
+        desc = "Find all files (incl. hidden & ignored)",
+      },
       { "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
+      {
+        "<leader>fG",
+        function()
+          require("telescope.builtin").live_grep({
+            additional_args = function()
+              return { "--hidden", "--no-ignore" }
+            end,
+          })
+        end,
+        desc = "Live grep (incl. hidden & ignored)",
+      },
       { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
       { "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Help tags" },
       { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent files" },
