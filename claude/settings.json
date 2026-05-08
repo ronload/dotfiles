@@ -83,6 +83,7 @@
   "alwaysThinkingEnabled": true,
   "effortLevel": "xhigh",
   "theme": "dark-ansi",
+  "verbose": true,
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true
 }
