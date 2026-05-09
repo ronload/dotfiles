@@ -41,9 +41,11 @@ build_bar() {
   [ "$pct" -gt 100 ] 2>/dev/null && pct=100
   local filled=$(( pct * width / 100 ))
   local empty=$(( width - filled ))
-  local bar_color
+  local bar_color filled_str="" empty_str=""
   bar_color=$(color_for_pct "$pct")
-  printf "%b%s%b%s%b" "$bar_color" "$(printf '▦%.0s' $(seq 1 "$filled") 2>/dev/null)" "$DIM" "$(printf '⬚%.0s' $(seq 1 "$empty") 2>/dev/null)" "$RESET"
+  [ "$filled" -gt 0 ] && filled_str=$(printf '▦%.0s' $(seq 1 "$filled"))
+  [ "$empty" -gt 0 ] && empty_str=$(printf '⬚%.0s' $(seq 1 "$empty"))
+  printf "%b%s%b%s%b" "$bar_color" "$filled_str" "$DIM" "$empty_str" "$RESET"
 }
 
 iso_to_epoch() {
