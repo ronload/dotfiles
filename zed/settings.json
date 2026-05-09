@@ -16,11 +16,11 @@
 
   // font
   "buffer_font_weight": 100.0,
-  "ui_font_family": "Menlo",
-  "buffer_font_family": "Menlo",
+  "ui_font_family": "JetBrains Mono",
+  "buffer_font_family": "JetBrains Mono",
   "icon_theme": "VSCode Great Icons Theme",
   "terminal": {
-    "font_family": "Menlo",
+    "font_family": "JetBrains Mono",
     "blinking": "off"
   },
   "status_bar": {
