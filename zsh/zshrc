@@ -25,7 +25,7 @@ esac
 [ -f ~/dotfiles/zsh/aliases.zsh ] && source ~/dotfiles/zsh/aliases.zsh
 
 # --- prompt ---
-[ -f ~/dotfiles/zsh/prompt.zsh ] && source ~/dotfiles/zsh/prompt.zsh
+[ -f ~/dotfiles/zsh/zprompt.zsh ] && source ~/dotfiles/zsh/zprompt.zsh
 
 # --- env ---
 [ -f ~/dotfiles/zsh/.env ] && source ~/dotfiles/zsh/.env
