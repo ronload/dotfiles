@@ -6,7 +6,7 @@ autoload -Uz compinit && compinit -u
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=50000
 SAVEHIST=50000
-setopt SHARE_HISTORY HIST_IGNORE_DUPS HIST_IGNORE_SPACE HIST_VERIFY
+setopt SHARE_HISTORY HIST_IGNORE_DUPS HIST_IGNORE_SPACE
 
 # --- environment ---
 export EDITOR="nvim"
