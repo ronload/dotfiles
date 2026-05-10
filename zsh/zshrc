@@ -48,7 +48,7 @@ export PATH=/Users/luoyongneng/.opencode/bin:$PATH
 eval "$(prs hook zsh)"
 # prs:hook:end
 
-# --- zsh plugins (fzf-tab before widget-wrapping plugins; syntax-highlighting last) ---
+# --- zsh plugins (fzf-tab before widget-wrapping plugins; history-substring-search last) ---
 zstyle ':completion:*' menu no
 source /opt/homebrew/opt/fzf-tab/share/fzf-tab/fzf-tab.zsh
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always --icons=auto $realpath'
@@ -56,3 +56,6 @@ zstyle ':fzf-tab:complete:*:*' fzf-preview '(bat --color=always --style=plain $r
 zstyle ':fzf-tab:*' switch-group '<' '>'
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /opt/homebrew/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
