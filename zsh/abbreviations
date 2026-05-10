@@ -9,6 +9,6 @@ abbr :q="exit"
 abbr countcode="tokei . -e node_modules -e .venv -e .next -e dist -e build -e out"
 
 # navigation
-abbr dotfiles="cd ~/dotfiles/"
-abbr proj="cd ~/working/projects/"
-abbr desktop="~/Desktop/"
+abbr .file="z ~/dotfiles/"
+abbr proj="z ~/working/projects/"
+abbr desk="z ~/Desktop/"
