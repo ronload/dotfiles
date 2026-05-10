@@ -43,8 +43,8 @@ build_bar() {
   local empty=$(( width - filled ))
   local bar_color filled_str="" empty_str=""
   bar_color=$(color_for_pct "$pct")
-  [ "$filled" -gt 0 ] && filled_str=$(printf '▦%.0s' $(seq 1 "$filled"))
-  [ "$empty" -gt 0 ] && empty_str=$(printf '⬚%.0s' $(seq 1 "$empty"))
+  [ "$filled" -gt 0 ] && filled_str=$(printf '■%.0s' $(seq 1 "$filled"))
+  [ "$empty" -gt 0 ] && empty_str=$(printf '□%.0s' $(seq 1 "$empty"))
   printf "%b%s%b%s%b" "$bar_color" "$filled_str" "$DIM" "$empty_str" "$RESET"
 }
 
