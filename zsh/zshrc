@@ -48,6 +48,11 @@ export PATH=/Users/luoyongneng/.opencode/bin:$PATH
 eval "$(prs hook zsh)"
 # prs:hook:end
 
-# --- zsh plugins (syntax-highlighting must load last) ---
+# --- zsh plugins (fzf-tab before widget-wrapping plugins; syntax-highlighting last) ---
+zstyle ':completion:*' menu no
+source /opt/homebrew/opt/fzf-tab/share/fzf-tab/fzf-tab.zsh
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always --icons=auto $realpath'
+zstyle ':fzf-tab:complete:*:*' fzf-preview '(bat --color=always --style=plain $realpath 2>/dev/null || eza -1 --color=always --icons=auto $realpath) 2>/dev/null'
+zstyle ':fzf-tab:*' switch-group '<' '>'
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
