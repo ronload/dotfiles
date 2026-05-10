@@ -1,14 +1,23 @@
-# --- oh-my-zsh ---
-export ZSH="$HOME/.oh-my-zsh"
-plugins=(git macos zsh-autosuggestions zsh-syntax-highlighting)
-source "$ZSH/oh-my-zsh.sh"
+# --- completions ---
+fpath=(/opt/homebrew/share/zsh-completions $fpath)
+autoload -Uz compinit && compinit -u
 
 # --- prompt ---
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%} "
-ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[yellow]%} *"
-ZSH_THEME_GIT_PROMPT_CLEAN=""
-PROMPT='%{$fg_bold[magenta]%} %c%{$reset_color%}$(git_prompt_info) '
+autoload -Uz vcs_info
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:git:*' unstagedstr ' *'
+zstyle ':vcs_info:git:*' stagedstr ' *'
+zstyle ':vcs_info:git:*' formats ' %F{blue}%b%f%F{yellow}%u%c%f'
+zstyle ':vcs_info:git:*' actionformats ' %F{blue}%b%f%F{red}|%a%f%F{yellow}%u%c%f'
+precmd() { vcs_info }
+setopt PROMPT_SUBST
+PROMPT='%B%F{magenta} %c%f${vcs_info_msg_0_}%b '
+
+# --- history ---
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=50000
+SAVEHIST=50000
+setopt SHARE_HISTORY HIST_IGNORE_DUPS HIST_IGNORE_SPACE HIST_VERIFY
 
 # --- environment ---
 export EDITOR="nvim"
@@ -32,7 +41,7 @@ esac
 # --- fzf ---
 source ~/.local/share/nvim/lazy/tokyonight.nvim/extras/fzf/tokyonight_moon.sh
 source <(fzf --zsh)
-source ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-git-sh/fzf-git.sh
+source ~/.local/share/fzf-git.sh/fzf-git.sh
 
 # --- zoxide ---
 eval "$(zoxide init zsh)"
@@ -46,3 +55,7 @@ export PATH=/Users/luoyongneng/.opencode/bin:$PATH
 # prs:hook:begin
 eval "$(prs hook zsh)"
 # prs:hook:end
+
+# --- zsh plugins (syntax-highlighting must load last) ---
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
