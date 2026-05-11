@@ -1,7 +1,7 @@
 # git
 glb() {
   local branch=$(pbpaste | sed 's|^[^/]*/||')
-  git checkout -b "$1/$branch"
+  git switch --create "$1/$branch"
 }
 
 # tools
