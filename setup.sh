@@ -51,7 +51,7 @@ echo "  Setting up development environment..."
 step "Homebrew"
 if ! command -v brew &>/dev/null; then
   spinner_start "Installing Homebrew..."
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" &>/dev/null
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" >/dev/null
   eval "$(/opt/homebrew/bin/brew shellenv)"
   spinner_stop "Homebrew installed"
 else
@@ -62,7 +62,7 @@ fi
 step "Rust"
 if ! command -v cargo &>/dev/null; then
   spinner_start "Installing Rust toolchain..."
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y &>/dev/null
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y >/dev/null
   source "$HOME/.cargo/env"
   spinner_stop "Rust toolchain installed"
 else
@@ -124,7 +124,7 @@ printf "  ✓ All %d packages installed\n" "$BREW_CURRENT"
 # --- Dotfiles ---
 step "Dotfiles"
 spinner_start "Linking configs and syncing plugins..."
-"$DOTFILES_DIR/install.sh" &>/dev/null
+"$DOTFILES_DIR/install.sh" >/dev/null
 spinner_stop "Configs linked and plugins synced"
 
 echo ""
