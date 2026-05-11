@@ -7,6 +7,7 @@ abbr gpcm="gh pr create --base main"
 abbr p="pnpm"
 abbr :q="exit"
 abbr countcode="tokei . -e node_modules -e .venv -e .next -e dist -e build -e out"
+abbr fastfetch="macchina"
 
 # navigation
 abbr .file="z ~/dotfiles/"
