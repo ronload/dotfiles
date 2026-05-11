@@ -37,3 +37,23 @@ ln -sf ~/dotfiles/zsh/zshrc ~/.zshrc
 ln -sf ~/dotfiles/zsh/zprofile ~/.zprofile
 ln -sf ~/dotfiles/zsh/zshenv ~/.zshenv
 ```
+
+## Local Overrides
+
+`git/gitconfig` conditionally includes a work identity for repos under `git@github.com:prinsur/**`:
+
+```gitconfig
+[includeIf "hasconfig:remote.*.url:git@github.com:prinsur/**"]
+    path = ~/.gitconfig-prinsur
+```
+
+This override file is not tracked in the repo. Create it manually on each machine:
+
+```bash
+cat > ~/.gitconfig-prinsur <<'EOF'
+[user]
+    email = your-work-email@example.com
+EOF
+```
+
+Without it, commits to `prinsur/*` repos fall back to the global identity.
