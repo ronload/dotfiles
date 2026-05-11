@@ -1,31 +1,31 @@
 # git
-abbr gd="git diff"
-abbr gs="git status"
-abbr gsm="git switch main"
-abbr gsc="git switch -c"
+abbr gd='git diff'
+abbr gs='git status'
+abbr gsm='git switch main'
+abbr gsc='git switch --create'
 
 # github
-abbr gpcm="gh pr create --base main"
+abbr gpcm='gh pr create --base main'
 
 # claude code
-abbr c="claude"
-abbr cr="claude --resume"
-abbr cv="claude --verbose"
-abbr cvr="claude --verbose --resume"
+abbr c='claude'
+abbr cr='claude --resume'
+abbr cv='claude --verbose'
+abbr cvr='claude --verbose --resume'
 
 # pnpm
-abbr p="pnpm"
-abbr pa="pnpm add"
-abbr pd="pnpm dev"
-abbr pi="pnpm install"
-abbr pt="pnpm test"
+abbr p='pnpm'
+abbr pa='pnpm add'
+abbr pd='pnpm dev'
+abbr pi='pnpm install'
+abbr pt='pnpm test'
 
 # tools
-abbr countcode="tokei . -e node_modules -e .venv -e .next -e dist -e build -e out"
 abbr lt='eza --tree --level=2 --icons=auto --git-ignore'
+abbr countcode='tokei . -e node_modules -e .venv -e .next -e dist -e build -e out'
 
 # navigation
-abbr dotf="z ~/dotfiles/"
-abbr desk="z ~/Desktop/"
-abbr work="z ~/working/"
-abbr proj="z ~/working/projects/"
+abbr dotf='z ~/dotfiles/'
+abbr desk='z ~/Desktop/'
+abbr work='z ~/working/'
+abbr proj='z ~/working/projects/'
