@@ -10,7 +10,7 @@ cd ~/dotfiles
 ./setup.sh
 ```
 
-`setup.sh` will automatically install Homebrew, Rust, Brewfile packages, Oh My Zsh, then run `install.sh` for symlinks, zsh plugins, and Neovim plugin sync. Each step is guarded so it can be safely re-run.
+`setup.sh` will automatically install Homebrew, Rust, and Brewfile packages, then run `install.sh` to symlink configs, clone `fzf-git.sh`, and sync Neovim plugins. Each step is guarded so it can be safely re-run.
 
 ## Included Configs
 
@@ -24,18 +24,39 @@ cd ~/dotfiles
 
 ## Manual Setup
 
-If you prefer manual installation:
+If you prefer not to run `install.sh`, the equivalent steps are:
 
 ```bash
-ln -s ~/dotfiles/nvim ~/.config/nvim
-ln -s ~/dotfiles/ghostty ~/.config/ghostty
-ln -s ~/dotfiles/zed/settings.json ~/.config/zed/settings.json
-ln -s ~/dotfiles/gh ~/.config/gh
-ln -sf ~/dotfiles/git/gitconfig ~/.gitconfig
-ln -sf ~/dotfiles/git/ignore ~/.gitignore_global
-ln -sf ~/dotfiles/zsh/zshrc ~/.zshrc
-ln -sf ~/dotfiles/zsh/zprofile ~/.zprofile
-ln -sf ~/dotfiles/zsh/zshenv ~/.zshenv
+# Base configs
+mkdir -p ~/.config ~/.config/zed
+ln -sfn ~/dotfiles/nvim                 ~/.config/nvim
+ln -sfn ~/dotfiles/ghostty              ~/.config/ghostty
+ln -sfn ~/dotfiles/gh                   ~/.config/gh
+ln -sfn ~/dotfiles/zed/settings.json    ~/.config/zed/settings.json
+ln -sfn ~/dotfiles/git/gitconfig        ~/.gitconfig
+ln -sfn ~/dotfiles/git/ignore           ~/.gitignore_global
+ln -sfn ~/dotfiles/zsh/zshrc            ~/.zshrc
+ln -sfn ~/dotfiles/zsh/zprofile         ~/.zprofile
+ln -sfn ~/dotfiles/zsh/zshenv           ~/.zshenv
+
+# Claude Code (CLAUDE.md, settings, statusline, plus every skill and hook)
+mkdir -p ~/.claude/skills ~/.claude/hooks
+ln -sfn ~/dotfiles/claude/CLAUDE.md     ~/.claude/CLAUDE.md
+ln -sfn ~/dotfiles/claude/settings.json ~/.claude/settings.json
+ln -sfn ~/dotfiles/claude/statusline.sh ~/.claude/statusline.sh
+for d in ~/dotfiles/claude/skills/*/; do
+  ln -sfn "$d" "$HOME/.claude/skills/$(basename "$d")"
+done
+for f in ~/dotfiles/claude/hooks/*.sh; do
+  ln -sfn "$f" "$HOME/.claude/hooks/$(basename "$f")"
+done
+
+# fzf-git.sh (sourced by zshrc; no Homebrew formula available)
+mkdir -p ~/.local/share
+git clone --depth 1 https://github.com/junegunn/fzf-git.sh.git ~/.local/share/fzf-git.sh
+
+# Neovim plugins (downloads tokyonight.nvim used by ghostty and delta)
+nvim --headless "+Lazy! sync" +qa
 ```
 
 ## Local Overrides
