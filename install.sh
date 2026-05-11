@@ -64,6 +64,7 @@ else
 fi
 
 # Claude Code configuration
+mkdir -p "$HOME/.claude"
 claude_files=(
   "CLAUDE.md"
   "settings.json"
