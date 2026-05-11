@@ -42,7 +42,7 @@ eval "$(zoxide init zsh)"
 export BAT_THEME="ansi"
 
 # opencode
-export PATH=/Users/luoyongneng/.opencode/bin:$PATH
+export PATH=$HOME/.opencode/bin:$PATH
 
 # prs:hook:begin
 eval "$(prs hook zsh)"
