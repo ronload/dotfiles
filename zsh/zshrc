@@ -55,6 +55,7 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always --icons=auto 
 zstyle ':fzf-tab:complete:*:*' fzf-preview '(bat --color=always --style=plain $realpath 2>/dev/null || eza -1 --color=always --icons=auto $realpath) 2>/dev/null'
 zstyle ':fzf-tab:*' switch-group '<' '>'
 ABBR_USER_ABBREVIATIONS_FILE="$HOME/dotfiles/zsh/abbreviations"
+ABBR_SET_EXPANSION_CURSOR=1
 source /opt/homebrew/share/zsh-abbr/zsh-abbr.zsh
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

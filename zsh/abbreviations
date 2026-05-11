@@ -1,8 +1,15 @@
 # git
+abbr ga='git add'
+abbr gaa='git add --all'
 abbr gd='git diff'
+abbr gl='git pull'
+abbr gp='git push'
 abbr gs='git status'
-abbr gsm='git switch main'
+abbr gcm='git commit --message="%"'
+abbr gsw='git switch'
 abbr gsc='git switch --create'
+abbr gsm='git switch main'
+abbr glog='git log --oneline --graph --decorate'
 
 # github
 abbr gpcm='gh pr create --base main'
@@ -29,3 +36,4 @@ abbr dotf='z ~/dotfiles/'
 abbr desk='z ~/Desktop/'
 abbr work='z ~/working/'
 abbr proj='z ~/working/projects/'
+abbr prin='z ~/working/projects/prinsur'
