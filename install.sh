@@ -103,6 +103,16 @@ for hook_file in "$DOTFILES_DIR/claude/hooks"/*.sh; do
   fi
 done
 
+# fzf-git.sh (sourced by zshrc; no Homebrew formula available)
+FZF_GIT_DIR="$HOME/.local/share/fzf-git.sh"
+if [ -d "$FZF_GIT_DIR" ]; then
+  echo "✓ fzf-git.sh already installed"
+else
+  mkdir -p "$(dirname "$FZF_GIT_DIR")"
+  git clone --depth 1 https://github.com/junegunn/fzf-git.sh.git "$FZF_GIT_DIR"
+  echo "✓ Cloned fzf-git.sh"
+fi
+
 # Sync Neovim plugins (downloads tokyonight.nvim theme used by ghostty and delta)
 if command -v nvim &>/dev/null; then
   echo "Syncing Neovim plugins..."
