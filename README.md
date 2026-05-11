@@ -10,7 +10,7 @@ cd ~/dotfiles
 ./setup.sh
 ```
 
-`setup.sh` will automatically install Homebrew, Rust, and Brewfile packages, then run `install.sh` to symlink configs, clone `fzf-git.sh`, and sync Neovim plugins. Each step is guarded so it can be safely re-run.
+`setup.sh` will automatically install Homebrew, Rust, opencode, and Brewfile packages, then run `install.sh` to symlink configs, clone `fzf-git.sh`, and sync Neovim plugins. Each step is guarded so it can be safely re-run.
 
 ## Included Configs
 
