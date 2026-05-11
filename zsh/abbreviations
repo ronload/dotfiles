@@ -1,6 +1,10 @@
 # git
+abbr gd="git diff"
+abbr gs="git status"
 abbr gsm="git switch main"
 abbr gsc="git switch -c"
+
+# github
 abbr gpcm="gh pr create --base main"
 
 # claude code
