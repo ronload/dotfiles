@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
-TOTAL_STEPS=5
+TOTAL_STEPS=4
 CURRENT_STEP=0
 
 # --- Spinner ---
@@ -120,16 +120,6 @@ if [ -n "$SPINNER_PID" ]; then
   fi
 fi
 printf "  ✓ All %d packages installed\n" "$BREW_CURRENT"
-
-# --- Oh My Zsh ---
-step "Oh My Zsh"
-if [ ! -d "$HOME/.oh-my-zsh" ]; then
-  spinner_start "Installing Oh My Zsh..."
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended &>/dev/null
-  spinner_stop "Oh My Zsh installed"
-else
-  echo "  ✓ Oh My Zsh already installed"
-fi
 
 # --- Dotfiles ---
 step "Dotfiles"

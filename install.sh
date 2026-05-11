@@ -54,26 +54,6 @@ for entry in "${shell_configs[@]}"; do
   fi
 done
 
-# Oh My Zsh custom plugins
-ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
-
-omz_plugins=(
-  "zsh-autosuggestions:https://github.com/zsh-users/zsh-autosuggestions.git"
-  "zsh-syntax-highlighting:https://github.com/zsh-users/zsh-syntax-highlighting.git"
-  "fzf-git-sh:https://github.com/junegunn/fzf-git.sh.git"
-)
-
-for entry in "${omz_plugins[@]}"; do
-  plugin="${entry%%:*}"
-  url="${entry#*:}"
-  if [ -d "$ZSH_CUSTOM/plugins/$plugin" ]; then
-    echo "✓ $plugin already installed"
-  else
-    git clone --depth 1 "$url" "$ZSH_CUSTOM/plugins/$plugin"
-    echo "✓ Cloned $plugin"
-  fi
-done
-
 # Zed settings
 mkdir -p ~/.config/zed
 if [ -L "$HOME/.config/zed/settings.json" ]; then
