@@ -4,6 +4,20 @@ DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 echo "Installing dotfiles..."
 mkdir -p ~/.config
 
+# link_file <src> <dest>
+# Creates a symlink dest -> src, replacing any existing symlink with the
+# wrong target. Reports already-linked when target matches.
+link_file() {
+  local src="$1" dest="$2"
+  local label="${dest/#$HOME/~}"
+  if [ -L "$dest" ] && [ "$(readlink "$dest")" = "$src" ]; then
+    echo "✓ $label already linked"
+  else
+    ln -sfn "$src" "$dest"
+    echo "✓ Linked $label"
+  fi
+}
+
 # Symlink configs in .config directory
 configs=(
   "nvim"
@@ -12,29 +26,14 @@ configs=(
 )
 
 for config in "${configs[@]}"; do
-  if [ -L "$HOME/.config/$config" ]; then
-    echo "✓ $config already linked"
-  else
-    ln -sf "$DOTFILES_DIR/$config" "$HOME/.config/$config"
-    echo "✓ Linked $config"
-  fi
+  link_file "$DOTFILES_DIR/$config" "$HOME/.config/$config"
 done
 
 # Git configuration (special case - goes in home directory)
-if [ -L "$HOME/.gitconfig" ]; then
-  echo "✓ .gitconfig already linked"
-else
-  ln -sf "$DOTFILES_DIR/git/gitconfig" "$HOME/.gitconfig"
-  echo "✓ Linked .gitconfig"
-fi
+link_file "$DOTFILES_DIR/git/gitconfig" "$HOME/.gitconfig"
 
 # Git ignore file
-if [ -L "$HOME/.gitignore_global" ]; then
-  echo "✓ .gitignore_global already linked"
-else
-  ln -sf "$DOTFILES_DIR/git/ignore" "$HOME/.gitignore_global"
-  echo "✓ Linked .gitignore_global"
-fi
+link_file "$DOTFILES_DIR/git/ignore" "$HOME/.gitignore_global"
 
 # Shell configuration (symlink to home directory)
 shell_configs=(
@@ -44,24 +43,14 @@ shell_configs=(
 )
 
 for entry in "${shell_configs[@]}"; do
-  src="${entry%%:*}"
-  dest="${entry##*:}"
-  if [ -L "$HOME/$dest" ]; then
-    echo "✓ $dest already linked"
-  else
-    ln -sf "$DOTFILES_DIR/zsh/$src" "$HOME/$dest"
-    echo "✓ Linked $dest"
-  fi
+  shell_src="${entry%%:*}"
+  shell_dest="${entry##*:}"
+  link_file "$DOTFILES_DIR/zsh/$shell_src" "$HOME/$shell_dest"
 done
 
 # Zed settings
 mkdir -p ~/.config/zed
-if [ -L "$HOME/.config/zed/settings.json" ]; then
-  echo "✓ zed settings already linked"
-else
-  ln -sf "$DOTFILES_DIR/zed/settings.json" "$HOME/.config/zed/settings.json"
-  echo "✓ Linked zed settings"
-fi
+link_file "$DOTFILES_DIR/zed/settings.json" "$HOME/.config/zed/settings.json"
 
 # Claude Code configuration
 mkdir -p "$HOME/.claude"
@@ -71,24 +60,14 @@ claude_files=(
   "statusline.sh"
 )
 for file in "${claude_files[@]}"; do
-  if [ -L "$HOME/.claude/$file" ]; then
-    echo "✓ claude/$file already linked"
-  else
-    ln -sf "$DOTFILES_DIR/claude/$file" "$HOME/.claude/$file"
-    echo "✓ Linked claude/$file"
-  fi
+  link_file "$DOTFILES_DIR/claude/$file" "$HOME/.claude/$file"
 done
 
 # Claude Code skills (link each skill individually, ~/.claude/skills/ may have other content)
 mkdir -p "$HOME/.claude/skills"
 for skill_dir in "$DOTFILES_DIR/claude/skills"/*/; do
   skill_name="$(basename "$skill_dir")"
-  if [ -L "$HOME/.claude/skills/$skill_name" ]; then
-    echo "✓ claude/skills/$skill_name already linked"
-  else
-    ln -sf "$skill_dir" "$HOME/.claude/skills/$skill_name"
-    echo "✓ Linked claude/skills/$skill_name"
-  fi
+  link_file "$skill_dir" "$HOME/.claude/skills/$skill_name"
 done
 
 # Claude Code hooks (link each hook individually, ~/.claude/hooks/ may have other content)
@@ -96,12 +75,7 @@ mkdir -p "$HOME/.claude/hooks"
 for hook_file in "$DOTFILES_DIR/claude/hooks"/*.sh; do
   [ -f "$hook_file" ] || continue
   hook_name="$(basename "$hook_file")"
-  if [ -L "$HOME/.claude/hooks/$hook_name" ]; then
-    echo "✓ claude/hooks/$hook_name already linked"
-  else
-    ln -sf "$hook_file" "$HOME/.claude/hooks/$hook_name"
-    echo "✓ Linked claude/hooks/$hook_name"
-  fi
+  link_file "$hook_file" "$HOME/.claude/hooks/$hook_name"
 done
 
 # fzf-git.sh (sourced by zshrc; no Homebrew formula available)
