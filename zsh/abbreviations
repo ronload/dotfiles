@@ -29,7 +29,6 @@ abbr pt='pnpm test'
 
 # tools
 abbr lt='eza --tree --level=2 --icons=auto --git-ignore'
-abbr countcode='tokei . -e node_modules -e .venv -e .next -e dist -e build -e out'
 
 # navigation
 abbr dotf='z ~/dotfiles/'
