@@ -52,11 +52,11 @@ step "Homebrew"
 if ! command -v brew &>/dev/null; then
   spinner_start "Installing Homebrew..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" >/dev/null
-  eval "$(/opt/homebrew/bin/brew shellenv)"
   spinner_stop "Homebrew installed"
 else
   echo "  ✓ Homebrew already installed"
 fi
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # --- Rust ---
 step "Rust"
@@ -128,6 +128,19 @@ if [ -n "$SPINNER_PID" ]; then
   else
     printf "\r\033[K"
   fi
+fi
+
+# Verify brew bundle completed; process substitution swallows brew's exit code,
+# so we can't rely on set -e here.
+if ! brew bundle check --file="$DOTFILES_DIR/Brewfile" >/dev/null 2>&1; then
+  echo ""
+  echo "  ✗ brew bundle did not complete; missing dependencies:"
+  brew bundle check --file="$DOTFILES_DIR/Brewfile" 2>&1 \
+    | grep -E "needs to be" \
+    | sed 's/^/    /'
+  echo ""
+  echo "  Re-run: brew bundle install --file=\"$DOTFILES_DIR/Brewfile\""
+  exit 1
 fi
 printf "  ✓ All %d packages installed\n" "$BREW_CURRENT"
 
