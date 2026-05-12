@@ -79,6 +79,10 @@
       }
     }
   },
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
   "feedbackSurveyRate": 0,
   "alwaysThinkingEnabled": true,
   "effortLevel": "xhigh",
