@@ -44,9 +44,6 @@ export BAT_THEME="ansi"
 # opencode
 export PATH=$HOME/.opencode/bin:$PATH
 
-# prs:hook:begin
-eval "$(prs hook zsh)"
-# prs:hook:end
 
 # --- zsh plugins (fzf-tab before widget-wrapping plugins; history-substring-search last) ---
 zstyle ':completion:*' menu no
@@ -62,3 +59,6 @@ source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /opt/homebrew/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
+# prs:hook:begin
+eval "$(prs hook zsh)"
+# prs:hook:end
