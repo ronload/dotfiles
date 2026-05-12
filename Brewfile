@@ -29,6 +29,7 @@ brew "railway"
 brew "redis", restart_service: :changed
 brew "ripgrep"
 brew "tealdeer"
+brew "tree-sitter-cli"
 brew "uv"
 brew "wget"
 brew "xh"
