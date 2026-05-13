@@ -95,4 +95,19 @@ if command -v nvim &>/dev/null; then
   echo "✓ Neovim plugins synced"
 fi
 
+# bat theme for delta syntax highlighting (delta calls bat under the hood;
+# without this, bat warns "Unknown theme 'tokyonight_moon'" on every git diff).
+TOKYONIGHT_BAT_THEME="$HOME/.local/share/nvim/lazy/tokyonight.nvim/extras/sublime/tokyonight_moon.tmTheme"
+BAT_THEMES_DIR="$HOME/.config/bat/themes"
+if command -v bat &>/dev/null && [ -f "$TOKYONIGHT_BAT_THEME" ]; then
+  mkdir -p "$BAT_THEMES_DIR"
+  if [ ! -f "$BAT_THEMES_DIR/tokyonight_moon.tmTheme" ]; then
+    cp "$TOKYONIGHT_BAT_THEME" "$BAT_THEMES_DIR/"
+    bat cache --build >/dev/null
+    echo "✓ Installed bat theme tokyonight_moon"
+  else
+    echo "✓ bat theme tokyonight_moon already installed"
+  fi
+fi
+
 echo "Dotfiles installed successfully!"
