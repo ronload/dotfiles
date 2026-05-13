@@ -62,3 +62,11 @@ bindkey '^[[B' history-substring-search-down
 # prs:hook:begin
 eval "$(prs hook zsh)"
 # prs:hook:end
+
+# pnpm
+export PNPM_HOME="/Users/ronaldluo/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+# pnpm end
