@@ -1,15 +1,14 @@
 #!/bin/bash
 set -f
 
-# ── Colors (tokyonight-moon palette) ───────────────────
-readonly BLUE='\033[38;2;122;162;247m'
-readonly ORANGE='\033[38;2;255;158;100m'
-readonly GREEN='\033[38;2;158;206;106m'
-readonly CYAN='\033[38;2;125;207;255m'
-readonly RED='\033[38;2;247;118;142m'
-readonly YELLOW='\033[38;2;224;175;104m'
-readonly WHITE='\033[38;2;192;202;245m'
-readonly MAGENTA='\033[38;2;187;154;247m'
+# ── Colors (ANSI named slots; terminal palette controls actual RGB) ───
+readonly BLUE='\033[34m'
+readonly GREEN='\033[32m'
+readonly CYAN='\033[36m'
+readonly RED='\033[31m'
+readonly YELLOW='\033[33m'
+readonly WHITE='\033[39m'
+readonly MAGENTA='\033[35m'
 readonly DIM='\033[2m'
 readonly RESET='\033[0m'
 readonly SEP=" ${DIM}│${RESET} "
@@ -30,7 +29,6 @@ color_for_pct() {
   local pct=$1
   if [ "$pct" -ge 90 ]; then printf "%b" "$RED"
   elif [ "$pct" -ge 70 ]; then printf "%b" "$YELLOW"
-  elif [ "$pct" -ge 50 ]; then printf "%b" "$ORANGE"
   else printf "%b" "$GREEN"
   fi
 }
