@@ -1,0 +1,44 @@
+add_newline = false
+
+format = """\
+$directory\
+$git_branch\
+$git_state\
+$git_status
+$character"""
+
+[directory]
+truncation_length = 1
+truncate_to_repo = false
+truncation_symbol = ""
+style = "bold purple"
+format = "[ $path]($style)"
+read_only = ""
+
+[git_branch]
+symbol = ""
+style = "bold blue"
+format = " on [$branch]($style)"
+
+[git_state]
+style = "bold red"
+format = ' \([$state( $progress_current/$progress_total)]($style)\)'
+
+[git_status]
+style = "bold yellow"
+format = '([ $all_status$ahead_behind]($style))'
+conflicted = "="
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+up_to_date = ""
+untracked = "?"
+modified = "!"
+staged = "+"
+renamed = "»"
+deleted = "✘"
+stashed = '$'
+
+[character]
+success_symbol = "[󰘧](bold green)"
+error_symbol = "[󰘧](bold red)"
