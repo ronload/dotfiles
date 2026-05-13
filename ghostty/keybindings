@@ -6,4 +6,5 @@ keybind = ctrl+shift+j=goto_split:bottom
 keybind = ctrl+shift+k=goto_split:top
 keybind = ctrl+shift+l=goto_split:right
 keybind = shift+enter=text:\x1b\r
+keybind = cmd+k=text:\x0c
 keybind = cmd+shift+t=prompt_tab_title
