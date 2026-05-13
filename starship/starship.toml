@@ -29,7 +29,7 @@ description = "Compact git status: [mod stg unt a2 ...] with no padding inside b
 command = "$HOME/dotfiles/starship/git-status.sh"
 when = "git rev-parse --is-inside-work-tree"
 shell = ["bash", "--noprofile", "--norc"]
-format = ' is ([\[$output\]]($style))'
+format = '( is [\[$output\]]($style))'
 style = "bold yellow"
 
 [character]
