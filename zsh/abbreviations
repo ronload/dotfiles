@@ -28,6 +28,7 @@ abbr pi='pnpm install'
 abbr pt='pnpm test'
 
 # tools
+abbr ff='fastfetch'
 abbr lt='eza --tree --level=2 --icons=auto --git-ignore'
 
 # navigation

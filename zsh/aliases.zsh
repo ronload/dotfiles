@@ -13,6 +13,7 @@ alias jq="jaq"
 alias top="btm"
 alias vi='nvim'
 alias vim='nvim'
+alias neofetch='fastfetch'
 
 # eza
 alias ls='eza --icons=auto --group-directories-first'
