@@ -24,7 +24,7 @@
     { "type": "uptime", "key": " Uptime" },
     { "type": "packages", "key": " Packages" },
     { "type": "shell", "key": " Shell" },
-    { "type": "theme", "key": "󰔎 Theme" },
+    { "type": "command", "text": "awk -F= '/^[[:space:]]*theme[[:space:]]*=/ {gsub(/[[:space:]]/,\"\",$2); print $2; exit} /^[[:space:]]*config-file[[:space:]]*=/ {gsub(/[[:space:]]/,\"\",$2); n=split($2,a,\"/\"); print a[n]; exit}' $HOME/dotfiles/ghostty/theme | tr '_' ' '", "key": "󰔎 Theme" },
     { "type": "terminal", "key": " Terminal" },
     { "type": "terminalfont", "key": " Font" },
     { "type": "cpu", "key": " CPU" },
