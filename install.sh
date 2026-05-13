@@ -23,6 +23,7 @@ configs=(
   "nvim"
   "gh"
   "ghostty"
+  "fastfetch"
 )
 
 for config in "${configs[@]}"; do
