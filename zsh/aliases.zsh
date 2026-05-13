@@ -7,7 +7,6 @@ glb() {
 # tools
 run() { chmod +x "$1" && ./"$1"; }
 alias cat="bat"
-alias fastfetch="macchina"
 alias http="xh"
 alias https="xhs"
 alias jq="jaq"
