@@ -29,8 +29,8 @@
     { "type": "terminalfont", "key": " Font" },
     { "type": "cpu", "key": " CPU" },
     { "type": "gpu", "key": "󰾲 GPU" },
-    { "type": "memory", "key": " Memory" },
-    { "type": "disk", "key": " Disk" },
+    { "type": "command", "text": "$HOME/dotfiles/fastfetch/colored-bar.sh memory", "key": " Memory" },
+    { "type": "command", "text": "$HOME/dotfiles/fastfetch/colored-bar.sh disk", "key": " Disk" },
     { "type": "break", "key": "" },
     {
       "type": "colors",
