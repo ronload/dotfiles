@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/readme-banner.png" alt="dotfiles banner" />
+</p>
+
 # dotfiles
 
 Personal configuration files for my development environment.
