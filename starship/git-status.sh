@@ -52,9 +52,9 @@ parts=()
 (( has_untracked ))   && parts+=("new")
 (( stash_count > 0 )) && parts+=("sth")
 
-if   (( ahead > 0 && behind > 0 )); then parts+=("a${ahead}b${behind}")
-elif (( ahead > 0 ));               then parts+=("a${ahead}")
-elif (( behind > 0 ));              then parts+=("b${behind}")
+if   (( ahead > 0 && behind > 0 )); then parts+=("⇡${ahead}⇣${behind}")
+elif (( ahead > 0 ));               then parts+=("⇡${ahead}")
+elif (( behind > 0 ));              then parts+=("⇣${behind}")
 fi
 
 (( ${#parts[@]} == 0 )) && exit 0
