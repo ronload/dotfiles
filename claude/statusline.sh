@@ -48,10 +48,12 @@ build_bar() {
 
 iso_to_epoch() {
   local input="$1"
+  # shellcheck disable=SC2001  # capture-group regex; bash parameter expansion is less readable
   # Strip fractional seconds while preserving timezone
   input=$(echo "$input" | sed 's/\.[0-9]*//')
   # Normalize Z to +0000
   input="${input/Z/+0000}"
+  # shellcheck disable=SC2001  # capture-group regex; bash parameter expansion is less readable
   # Remove colon from timezone offset (+00:00 -> +0000)
   input=$(echo "$input" | sed 's/\([+-][0-9][0-9]\):\([0-9][0-9]\)$/\1\2/')
   # Try with timezone first, fall back to without

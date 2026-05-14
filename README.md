@@ -61,6 +61,16 @@ git clone --depth 1 https://github.com/junegunn/fzf-git.sh.git ~/.local/share/fz
 nvim --headless "+Lazy! sync" +qa
 ```
 
+## Linting
+
+Bash scripts are checked with [shellcheck](https://www.shellcheck.net/). A GitHub Actions workflow runs on every push and pull request; locally:
+
+```bash
+./lint.sh
+```
+
+zsh files (`zshrc`, `*.zsh`, etc.) are not covered — shellcheck does not support zsh.
+
 ## Local Overrides
 
 `git/gitconfig` conditionally includes a work identity for repos under `git@github.com:prinsur/**`:

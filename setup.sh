@@ -63,6 +63,7 @@ step "Rust"
 if ! command -v cargo &>/dev/null; then
   spinner_start "Installing Rust toolchain..."
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y >/dev/null
+  # shellcheck source=/dev/null
   source "$HOME/.cargo/env"
   spinner_stop "Rust toolchain installed"
 else

@@ -28,6 +28,7 @@ brew "postgresql@18", restart_service: :changed
 brew "railway"
 brew "redis", restart_service: :changed
 brew "ripgrep"
+brew "shellcheck"
 brew "tealdeer"
 brew "tree-sitter-cli"
 brew "uv"
