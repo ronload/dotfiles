@@ -30,6 +30,7 @@ cd ~/dotfiles
 - **zsh**: Zsh shell (zshrc, zprofile, zshenv)
 - **gh**: GitHub CLI
 - **git**: Git global config
+- **fastfetch**: Fastfetch system info (with custom colored-bar module)
 - **brew**: Brewfile for Homebrew packages
 
 ## Manual Setup
@@ -42,6 +43,7 @@ mkdir -p ~/.config
 ln -sfn ~/dotfiles/nvim                 ~/.config/nvim
 ln -sfn ~/dotfiles/ghostty              ~/.config/ghostty
 ln -sfn ~/dotfiles/gh                   ~/.config/gh
+ln -sfn ~/dotfiles/fastfetch            ~/.config/fastfetch
 ln -sfn ~/dotfiles/git/gitconfig        ~/.gitconfig
 ln -sfn ~/dotfiles/git/ignore           ~/.gitignore_global
 ln -sfn ~/dotfiles/zsh/zshrc            ~/.zshrc
@@ -66,6 +68,12 @@ git clone --depth 1 https://github.com/junegunn/fzf-git.sh.git ~/.local/share/fz
 
 # Neovim plugins (downloads tokyonight.nvim used by ghostty and delta)
 nvim --headless "+Lazy! sync" +qa
+
+# bat theme for delta (delta calls bat; without this it warns on every git diff)
+mkdir -p ~/.config/bat/themes
+cp ~/.local/share/nvim/lazy/tokyonight.nvim/extras/sublime/tokyonight_moon.tmTheme \
+   ~/.config/bat/themes/
+bat cache --build
 ```
 
 ## Linting
