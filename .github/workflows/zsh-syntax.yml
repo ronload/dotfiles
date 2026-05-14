@@ -1,0 +1,20 @@
+name: zsh-syntax
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  zsh-syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ensure zsh installed
+        run: command -v zsh || sudo apt-get install -y zsh
+      - name: zsh -n on zsh files
+        run: |
+          git ls-files 'zsh/*' | xargs -I{} zsh -n {}
