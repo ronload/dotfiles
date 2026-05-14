@@ -18,7 +18,7 @@ export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH"
 [ -f ~/dotfiles/zsh/aliases.zsh ] && source ~/dotfiles/zsh/aliases.zsh
 
 # --- prompt ---
-eval "$(starship init zsh)"
+[ -f ~/dotfiles/zsh/prompt.zsh ] && source ~/dotfiles/zsh/prompt.zsh
 
 # --- env ---
 [ -f ~/dotfiles/zsh/.env ] && source ~/dotfiles/zsh/.env
