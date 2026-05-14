@@ -52,13 +52,16 @@ vim.api.nvim_create_autocmd("VimEnter", {
       for i, line in ipairs(padded) do
         local row = i - 1
         if
-          line:find("Explorer")
-          or line:find("Find")
-          or line:find("Grep")
-          or line:find("Recent")
-          or line:find("Quit")
+            line:find("Explorer")
+            or line:find("Find")
+            or line:find("Grep")
+            or line:find("Recent")
+            or line:find("Quit")
         then
-          vim.api.nvim_buf_add_highlight(buf, -1, "DashboardDim", row, 0, -1)
+          local ns = vim.api.nvim_create_namespace("dashboard")
+          vim.api.nvim_buf_set_extmark(buf, ns, row, 0, {
+            line_hl_group = "DashboardDim",
+          })
         end
       end
 
