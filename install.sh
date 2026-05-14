@@ -49,10 +49,6 @@ for entry in "${shell_configs[@]}"; do
   link_file "$DOTFILES_DIR/zsh/$shell_src" "$HOME/$shell_dest"
 done
 
-# Zed settings
-mkdir -p ~/.config/zed
-link_file "$DOTFILES_DIR/zed/settings.json" "$HOME/.config/zed/settings.json"
-
 # Starship prompt
 link_file "$DOTFILES_DIR/starship/starship.toml" "$HOME/.config/starship.toml"
 

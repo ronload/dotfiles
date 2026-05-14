@@ -21,7 +21,6 @@ cd ~/dotfiles
 - **nvim**: Neovim with lazy.nvim
 - **ghostty**: Ghostty terminal
 - **zsh**: Zsh shell (zshrc, zprofile, zshenv)
-- **zed**: Zed editor
 - **gh**: GitHub CLI
 - **git**: Git global config
 - **brew**: Brewfile for Homebrew packages
@@ -32,11 +31,10 @@ If you prefer not to run `install.sh`, the equivalent steps are:
 
 ```bash
 # Base configs
-mkdir -p ~/.config ~/.config/zed
+mkdir -p ~/.config
 ln -sfn ~/dotfiles/nvim                 ~/.config/nvim
 ln -sfn ~/dotfiles/ghostty              ~/.config/ghostty
 ln -sfn ~/dotfiles/gh                   ~/.config/gh
-ln -sfn ~/dotfiles/zed/settings.json    ~/.config/zed/settings.json
 ln -sfn ~/dotfiles/git/gitconfig        ~/.gitconfig
 ln -sfn ~/dotfiles/git/ignore           ~/.gitignore_global
 ln -sfn ~/dotfiles/zsh/zshrc            ~/.zshrc
