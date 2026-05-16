@@ -19,7 +19,8 @@ readonly CACHE_TTL=60          # seconds a cached response stays fresh
 readonly DEFAULT_BACKOFF=300   # backoff when the API fails without Retry-After
 readonly MAX_BACKOFF=3600      # cap on any backoff window
 SCRIPT_DIR="$(cd "$(dirname "$0")" 2>/dev/null && pwd || echo .)"
-readonly SCRIPT_PATH="$SCRIPT_DIR/$(basename "$0")"
+SCRIPT_PATH="$SCRIPT_DIR/$(basename "$0")"
+readonly SCRIPT_PATH
 
 # ── Helpers ────────────────────────────────────────────
 format_tokens() {
@@ -167,7 +168,7 @@ refresh_usage() {
 
   # Atomic lock: mkdir succeeds for exactly one refresher
   mkdir "$lock_dir" 2>/dev/null || return
-  # Expand the path now so the trap does not depend on local-var scope at exit
+  # shellcheck disable=SC2064  # expand now on purpose: avoid local-var scope at exit
   trap "rmdir '$lock_dir' 2>/dev/null" EXIT
 
   # Another refresher may have updated the cache just before we locked
