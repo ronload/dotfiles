@@ -13,6 +13,14 @@ readonly DIM='\033[2m'
 readonly RESET='\033[0m'
 readonly SEP=" ${DIM}│${RESET} "
 
+# ── Usage fetch config ─────────────────────────────────
+readonly CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/claude"
+readonly CACHE_TTL=60          # seconds a cached response stays fresh
+readonly DEFAULT_BACKOFF=300   # backoff when the API fails without Retry-After
+readonly MAX_BACKOFF=3600      # cap on any backoff window
+SCRIPT_DIR="$(cd "$(dirname "$0")" 2>/dev/null && pwd || echo .)"
+readonly SCRIPT_PATH="$SCRIPT_DIR/$(basename "$0")"
+
 # ── Helpers ────────────────────────────────────────────
 format_tokens() {
   local n=$1
@@ -95,38 +103,110 @@ get_oauth_token() {
   fi
 }
 
+# Render path: only ever reads the cache, never blocks on the network.
 fetch_usage_data() {
-  local cache_file="/tmp/claude/statusline-usage-cache.json"
-  mkdir -p /tmp/claude
+  local cache_file="$CACHE_DIR/statusline-usage-cache.json"
 
+  # Decide whether the cache is stale and a refresh is warranted
+  local stale=1
   if [ -f "$cache_file" ]; then
-    local cache_age=$(( $(date +%s) - $(stat -f %m "$cache_file") ))
-    if [ "$cache_age" -lt 60 ]; then
-      cat "$cache_file"
+    local cache_age=$(( $(date +%s) - $(stat -f %m "$cache_file" 2>/dev/null || echo 0) ))
+    [ "$cache_age" -lt "$CACHE_TTL" ] && stale=0
+  fi
+
+  # Kick off a detached background refresh; the render path stays instant
+  [ "$stale" -eq 1 ] && refresh_usage_async
+
+  # Emit whatever is cached (possibly slightly stale — acceptable)
+  [ -f "$cache_file" ] && cat "$cache_file"
+}
+
+# Spawn a detached refresher, unless one is running or we are backing off.
+refresh_usage_async() {
+  local backoff_file="$CACHE_DIR/statusline-usage-backoff"
+  local lock_dir="$CACHE_DIR/statusline-usage.lock"
+
+  # A refresh is already running (fresh lock) — skip spawning another
+  if [ -d "$lock_dir" ]; then
+    local lock_age=$(( $(date +%s) - $(stat -f %m "$lock_dir" 2>/dev/null || echo 0) ))
+    [ "$lock_age" -lt 60 ] && return
+    # a stale lock falls through; refresh_usage clears it
+  fi
+
+  # Still inside a backoff window — do not spawn
+  if [ -f "$backoff_file" ]; then
+    local retry_at
+    retry_at=$(cat "$backoff_file" 2>/dev/null)
+    [ -n "$retry_at" ] && [ "$(date +%s)" -lt "$retry_at" ] && return
+  fi
+
+  # Detached subshell: the child is reparented and outlives this render
+  ( bash "$SCRIPT_PATH" --refresh-usage </dev/null >/dev/null 2>&1 & )
+}
+
+# Background mode: fetch usage, update the cache, or record a backoff window.
+refresh_usage() {
+  local cache_file="$CACHE_DIR/statusline-usage-cache.json"
+  local backoff_file="$CACHE_DIR/statusline-usage-backoff"
+  local lock_dir="$CACHE_DIR/statusline-usage.lock"
+
+  # Honor any active backoff window (negative cache)
+  if [ -f "$backoff_file" ]; then
+    local retry_at
+    retry_at=$(cat "$backoff_file" 2>/dev/null)
+    if [ -n "$retry_at" ] && [ "$(date +%s)" -lt "$retry_at" ]; then
       return
     fi
+  fi
+
+  # Clear a stale lock left behind by a crashed refresher
+  if [ -d "$lock_dir" ]; then
+    local lock_age=$(( $(date +%s) - $(stat -f %m "$lock_dir" 2>/dev/null || echo 0) ))
+    [ "$lock_age" -gt 60 ] && rmdir "$lock_dir" 2>/dev/null
+  fi
+
+  # Atomic lock: mkdir succeeds for exactly one refresher
+  mkdir "$lock_dir" 2>/dev/null || return
+  # Expand the path now so the trap does not depend on local-var scope at exit
+  trap "rmdir '$lock_dir' 2>/dev/null" EXIT
+
+  # Another refresher may have updated the cache just before we locked
+  if [ -f "$cache_file" ]; then
+    local cache_age=$(( $(date +%s) - $(stat -f %m "$cache_file" 2>/dev/null || echo 0) ))
+    [ "$cache_age" -lt "$CACHE_TTL" ] && return
   fi
 
   local token
   token=$(get_oauth_token)
-  if [ -n "$token" ]; then
-    local response
-    response=$(curl -s --max-time 5 \
-      -H "Accept: application/json" \
-      -H "Content-Type: application/json" \
-      -H "Authorization: Bearer $token" \
-      -H "anthropic-beta: oauth-2025-04-20" \
-      -H "User-Agent: claude-code" \
-      "https://api.anthropic.com/api/oauth/usage" 2>/dev/null)
-    if echo "$response" | jq -e '.five_hour' >/dev/null 2>&1; then
-      echo "$response" > "$cache_file"
-      echo "$response"
-      return
-    fi
-  fi
+  [ -z "$token" ] && return
 
-  # Fall back to stale cache
-  [ -f "$cache_file" ] && cat "$cache_file"
+  local headers_file body_file http_code
+  headers_file=$(mktemp)
+  body_file=$(mktemp)
+  http_code=$(curl -s --max-time 10 \
+    -D "$headers_file" -o "$body_file" -w '%{http_code}' \
+    -H "Accept: application/json" \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $token" \
+    -H "anthropic-beta: oauth-2025-04-20" \
+    -H "User-Agent: claude-code" \
+    "https://api.anthropic.com/api/oauth/usage" 2>/dev/null)
+
+  if [ "$http_code" = "200" ] && jq -e '.five_hour' "$body_file" >/dev/null 2>&1; then
+    # Success: refresh the cache and drop any backoff
+    mv "$body_file" "$cache_file" 2>/dev/null
+    rm -f "$backoff_file" "$headers_file"
+  else
+    # Failure: record a backoff window, honoring Retry-After when present
+    local retry_after
+    retry_after=$(grep -i '^retry-after:' "$headers_file" 2>/dev/null | tr -d '\r' | awk '{print $2}')
+    case "$retry_after" in
+      ''|*[!0-9]*) retry_after=$DEFAULT_BACKOFF ;;
+    esac
+    [ "$retry_after" -gt "$MAX_BACKOFF" ] && retry_after=$MAX_BACKOFF
+    echo $(( $(date +%s) + retry_after )) > "$backoff_file"
+    rm -f "$body_file" "$headers_file"
+  fi
 }
 
 build_line1() {
@@ -168,6 +248,14 @@ build_rate_lines() {
 
 # ── Main ───────────────────────────────────────────────
 main() {
+  mkdir -p "$CACHE_DIR" 2>/dev/null
+
+  # Background refresh mode: fetch usage, update cache/backoff, then exit
+  if [ "${1:-}" = "--refresh-usage" ]; then
+    refresh_usage
+    return 0
+  fi
+
   local input
   input=$(cat)
 
