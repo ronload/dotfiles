@@ -106,7 +106,7 @@ _prompt_precmd() {
   else
     PROMPT_CHAR_COLOR='%F{green}'
   fi
-  PROMPT_TOP="%B%F{magenta}  %1~%f%b$(_prompt_git)"
+  PROMPT_TOP="%B%F{magenta} %1~%f%b$(_prompt_git)"
 }
 
 autoload -Uz add-zsh-hook
