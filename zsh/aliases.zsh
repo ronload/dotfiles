@@ -14,6 +14,7 @@ alias top="btm"
 alias vi='nvim'
 alias vim='nvim'
 alias neofetch='fastfetch'
+alias nodoze='caffeinate -dimsu'
 
 # eza
 alias ls='eza --icons=auto --group-directories-first'
