@@ -14,6 +14,9 @@ export VISUAL="nvim"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH"
 
+# Make Claude Code use local ripgrep instead using bundle ripgrep
+export USE_BUILTIN_RIPGREP=0
+
 # --- aliases ---
 [ -f ~/dotfiles/zsh/aliases.zsh ] && source ~/dotfiles/zsh/aliases.zsh
 
@@ -63,3 +66,4 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME/bin:$PATH" ;;
 esac
 # pnpm end
+
