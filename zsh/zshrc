@@ -14,8 +14,9 @@ export VISUAL="nvim"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH"
 
-# Make Claude Code use local ripgrep instead using bundle ripgrep
+# Claude Code
 export USE_BUILTIN_RIPGREP=0
+export CLAUDE_CODE_MAX_TOOL_USE_CONCURRENCY=20
 
 # --- aliases ---
 [ -f ~/dotfiles/zsh/aliases.zsh ] && source ~/dotfiles/zsh/aliases.zsh
