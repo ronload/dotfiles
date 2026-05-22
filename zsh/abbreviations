@@ -9,6 +9,8 @@ abbr gcm='git commit --message="%"'
 abbr gsw='git switch'
 abbr gsc='git switch --create'
 abbr gsm='git switch main'
+abbr gbd='git branch --delete'
+abbr gbdf='git branch --delete --force'
 abbr glog='git log --oneline --graph --decorate'
 
 # github
