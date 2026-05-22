@@ -31,3 +31,9 @@
 	cleanbranch = !git branch --merged main | grep -vE '^\\*|^\\s*(main|master)$' | xargs --no-run-if-empty git branch --delete
 	ds = "!f() { git diff ${1:-main} --stat; }; f"
 	seto = "!f() { git remote set-url origin git@github.com:ronload/$1.git; };f"
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
