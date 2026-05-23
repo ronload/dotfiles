@@ -1,4 +1,4 @@
-name: zsh-syntax
+name: Zsh Syntax
 
 on:
   push:
