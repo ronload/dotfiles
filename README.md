@@ -6,7 +6,6 @@
 
 [![License](https://img.shields.io/github/license/ronload/dotfiles?style=flat-square)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-macOS-lightgrey?style=flat-square)](https://www.apple.com/macos)
-[![Last Commit](https://img.shields.io/github/last-commit/ronload/dotfiles?style=flat-square)](https://github.com/ronload/dotfiles/commits/main)
 [![shellcheck](https://img.shields.io/github/actions/workflow/status/ronload/dotfiles/shellcheck.yml?branch=main&label=shellcheck&style=flat-square)](https://github.com/ronload/dotfiles/actions/workflows/shellcheck.yml)
 [![zsh-syntax](https://img.shields.io/github/actions/workflow/status/ronload/dotfiles/zsh-syntax.yml?branch=main&label=zsh-syntax&style=flat-square)](https://github.com/ronload/dotfiles/actions/workflows/zsh-syntax.yml)
 [![Theme](https://img.shields.io/badge/theme-TokyoNight%20Moon-82aaff?style=flat-square)](https://github.com/folke/tokyonight.nvim)
