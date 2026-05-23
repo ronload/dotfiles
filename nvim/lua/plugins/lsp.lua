@@ -30,27 +30,18 @@ return {
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
+      "saghen/blink.cmp",
     },
     config = function()
-      -- Advertise snippet support to all LSP servers
+      -- Advertise blink.cmp capabilities (incl. snippet support) to all LSP servers
       vim.lsp.config("*", {
-        capabilities = {
-          textDocument = {
-            completion = {
-              completionItem = {
-                snippetSupport = true,
-              },
-            },
-          },
-        },
+        capabilities = require("blink.cmp").get_lsp_capabilities(nil, true),
       })
 
       -- Key mappings and completion on LSP attach
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)
-          local client = vim.lsp.get_client_by_id(args.data.client_id)
-          local bufnr = args.buf
-          local opts = { buffer = bufnr }
+          local opts = { buffer = args.buf }
 
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
           vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
@@ -63,35 +54,8 @@ return {
           vim.keymap.set("n", "]d", function()
             vim.diagnostic.jump({ count = 1 })
           end, opts)
-
-          -- Enable built-in LSP completion with autotrigger
-          if client and client:supports_method("textDocument/completion") then
-            vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
-          end
         end,
       })
-
-      -- Snippet navigation
-      vim.keymap.set({ "i", "s" }, "<Tab>", function()
-        if vim.snippet.active({ direction = 1 }) then
-          return "<cmd>lua vim.snippet.jump(1)<cr>"
-        else
-          return "<Tab>"
-        end
-      end, { expr = true })
-
-      vim.keymap.set({ "i", "s" }, "<S-Tab>", function()
-        if vim.snippet.active({ direction = -1 }) then
-          return "<cmd>lua vim.snippet.jump(-1)<cr>"
-        else
-          return "<S-Tab>"
-        end
-      end, { expr = true })
-
-      -- Manual completion trigger
-      vim.keymap.set("i", "<C-Space>", function()
-        vim.lsp.completion.get()
-      end)
 
       -- Go
       vim.lsp.config.gopls = {
