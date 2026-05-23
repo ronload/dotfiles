@@ -3,7 +3,7 @@ return {
     "nvim-tree/nvim-tree.lua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     keys = {
-      { "<leader>e", "<CMD>NvimTreeToggle<CR>", desc = "Open NvimTree" },
+      { "<leader>te", "<CMD>NvimTreeToggle<CR>", desc = "Toggle NvimTree" },
     },
     config = function()
       require("nvim-tree").setup({
