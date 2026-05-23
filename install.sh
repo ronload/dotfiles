@@ -24,6 +24,7 @@ configs=(
   "gh"
   "ghostty"
   "fastfetch"
+  "yazi"
 )
 
 for config in "${configs[@]}"; do

@@ -31,6 +31,7 @@ cd ~/dotfiles
 - **gh**: GitHub CLI
 - **git**: Git global config
 - **fastfetch**: Fastfetch system info (with custom colored-bar module)
+- **yazi**: Yazi terminal file manager
 - **brew**: Brewfile for Homebrew packages
 
 ## Manual Setup
@@ -44,6 +45,7 @@ ln -sfn ~/dotfiles/nvim                 ~/.config/nvim
 ln -sfn ~/dotfiles/ghostty              ~/.config/ghostty
 ln -sfn ~/dotfiles/gh                   ~/.config/gh
 ln -sfn ~/dotfiles/fastfetch            ~/.config/fastfetch
+ln -sfn ~/dotfiles/yazi                 ~/.config/yazi
 ln -sfn ~/dotfiles/git/gitconfig        ~/.gitconfig
 ln -sfn ~/dotfiles/git/ignore           ~/.gitignore_global
 ln -sfn ~/dotfiles/zsh/zshrc            ~/.zshrc
