@@ -28,7 +28,7 @@
 const float DURATION = 0.08;  // 80ms, matching VS Code
 const float BLUR = 1.0;       // antialiasing edge width, in pixels
 const float BAR_WIDTH = 2.0;  // synthetic bar width in device pixels (VS Code editor.cursorWidth default)
-const float BAR_DETECT_RATIO = 0.3;  // treat as bar when width < height * this
+const float BAR_DETECT_RATIO = 0.15;  // treat as bar when width < height * this (well below any block aspect ratio)
 
 // smoothstep — symmetric S-curve. CSS `ease` is asymmetric cubic-bezier(.25,.1,.25,1);
 // at 80ms the difference is below the perceptual threshold, so use smoothstep.
@@ -58,38 +58,27 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     float progress = clamp((iTime - iTimeCursorChange) / DURATION, 0.0, 1.0);
     float eased = ease(progress);
 
-    // Skip animation when the cursor didn't actually move (sub-pixel) or when
-    // the animation window has elapsed.
     float moved = step(0.5, distance(curCenter, prevCenter));
     float animating = moved * (1.0 - step(1.0, progress));
 
-    // Sample a "likely background" color from the previous cursor's center in
-    // the current frame. Since the cursor has moved away, this pixel is the
-    // cell's cleaned-up content (most often the terminal background).
     vec2 erasePx = clamp(prevCenter, vec2(0.0), iResolution.xy - vec2(1.0));
     vec3 bgGuess = texture(iChannel0, erasePx / iResolution.xy).rgb;
 
-    // 1. Overpaint the destination cursor rect with bgGuess during animation.
     float dCur = sdfRect(fragCoord, curCenter, curSize * 0.5);
     float insideCur = 1.0 - smoothstep(-BLUR, BLUR, dCur);
     fragColor.rgb = mix(fragColor.rgb, bgGuess, insideCur * animating);
 
-    // 2. Draw the synthetic cursor at the lerped position.
-    // For bar-style cursors, override the synthetic width to BAR_WIDTH to match
-    // VS Code's editor.cursorWidth default. Block / underline keep iCurrentCursor.zw.
-    // Bar detection uses aspect ratio: bar has width << height.
-    float isBar = step(curSize.x, curSize.y * BAR_DETECT_RATIO);
-    vec2 synthCurSize  = mix(curSize,  vec2(BAR_WIDTH, curSize.y),  isBar);
-    vec2 synthPrevSize = mix(prevSize, vec2(BAR_WIDTH, prevSize.y), isBar);
+    float isCurBar  = step(curSize.x,  curSize.y  * BAR_DETECT_RATIO);
+    float isPrevBar = step(prevSize.x, prevSize.y * BAR_DETECT_RATIO);
+    float isBar = isCurBar * isPrevBar;
 
-    // Keep the LEFT edge aligned with Ghostty's bar position (not center-aligned),
-    // so the synthetic at progress=1 lines up with Ghostty's native bar left edge.
-    vec2 synthCurCenter  = vec2(curPos.x  + synthCurSize.x  * 0.5, curCenter.y);
-    vec2 synthPrevCenter = vec2(prevPos.x + synthPrevSize.x * 0.5, prevCenter.y);
+    vec2 synthSize = mix(curSize, vec2(BAR_WIDTH, curSize.y), isBar);
+
+    vec2 synthCurCenter  = vec2(curPos.x  + synthSize.x * 0.5, curCenter.y);
+    vec2 synthPrevCenter = vec2(prevPos.x + synthSize.x * 0.5, prevCenter.y);
 
     vec2 lerpCenter = mix(synthPrevCenter, synthCurCenter, eased);
-    vec2 lerpSize   = mix(synthPrevSize,   synthCurSize,   eased);
-    float dLerp = sdfRect(fragCoord, lerpCenter, lerpSize * 0.5);
+    float dLerp = sdfRect(fragCoord, lerpCenter, synthSize * 0.5);
     float insideLerp = 1.0 - smoothstep(-BLUR, BLUR, dLerp);
     fragColor.rgb = mix(fragColor.rgb, iCurrentCursorColor.rgb,
                         insideLerp * iCurrentCursorColor.a * animating);
