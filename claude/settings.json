@@ -90,5 +90,6 @@
   "theme": "dark-ansi",
   "verbose": true,
   "agentPushNotifEnabled": true,
-  "skipAutoPermissionPrompt": true
+  "skipAutoPermissionPrompt": true,
+  "inputNeededNotifEnabled": true
 }
