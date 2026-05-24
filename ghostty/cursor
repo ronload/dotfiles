@@ -1,3 +1,4 @@
 cursor-style-blink = false
 custom-shader = shaders/cursor_tail.glsl
+custom-shader = shaders/smooth-caret.glsl
 custom-shader-animation = always
