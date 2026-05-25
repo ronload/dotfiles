@@ -1,4 +1,4 @@
-name: Shfmt
+name: Check shell script formatting
 
 on:
   push:

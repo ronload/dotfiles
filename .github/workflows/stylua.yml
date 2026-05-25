@@ -1,4 +1,4 @@
-name: Stylua
+name: Check Lua formatting
 
 on:
   push:
