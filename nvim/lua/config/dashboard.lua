@@ -4,7 +4,7 @@ local IMAGE_MAX_HEIGHT = 20
 local function avatar_path()
   local source = debug.getinfo(1, "S").source:sub(2)
   local real = (vim.uv or vim.loop).fs_realpath(source) or source
-  return vim.fn.fnamemodify(real, ":h:h:h:h") .. "/assets/avator-ascii.png"
+  return vim.fn.fnamemodify(real, ":h:h:h:h") .. "/assets/avatar-ascii.png"
 end
 
 local function compute_image_cells(path)
