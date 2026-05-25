@@ -107,6 +107,10 @@ vim.api.nvim_create_autocmd("VimEnter", {
 
     local image_width, image_height = compute_image_cells(avatar_path())
     local image_x = math.max(math.floor((win_width - image_width) / 2), 0)
+    -- image.nvim resolves x via vim.fn.screenpos on the buffer line, so
+    -- the line must extend at least to image_x or screenpos collapses to
+    -- the start of the line and the image renders flush left.
+    local image_row = string.rep(" ", image_x)
 
     local total = image_height + MENU_GAP + #centered_menu
     local pad_top = math.max(math.floor((win_height - total) / 3), 0)
@@ -117,7 +121,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
     end
     local image_y = #padded
     for _ = 1, image_height do
-      table.insert(padded, "")
+      table.insert(padded, image_row)
     end
     for _ = 1, MENU_GAP do
       table.insert(padded, "")
