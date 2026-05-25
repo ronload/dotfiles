@@ -6,10 +6,20 @@ return {
     build = ":TSUpdate",
     config = function()
       require("nvim-treesitter").install({
-        "go", "gomod", "gosum",
-        "typescript", "tsx", "javascript",
-        "python", "rust", "lua",
-        "json", "yaml", "html", "css", "markdown",
+        "go",
+        "gomod",
+        "gosum",
+        "typescript",
+        "tsx",
+        "javascript",
+        "python",
+        "rust",
+        "lua",
+        "json",
+        "yaml",
+        "html",
+        "css",
+        "markdown",
       })
 
       local function enable_treesitter(buf)

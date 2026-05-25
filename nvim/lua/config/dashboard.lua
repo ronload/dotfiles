@@ -12,7 +12,9 @@ local function get_term_cell_size()
   if not ok then
     return nil
   end
-  pcall(ffi.cdef, [[
+  pcall(
+    ffi.cdef,
+    [[
     typedef struct {
       unsigned short row;
       unsigned short col;
@@ -20,7 +22,8 @@ local function get_term_cell_size()
       unsigned short ypixel;
     } winsize;
     int ioctl(int, int, ...);
-  ]])
+  ]]
+  )
   local TIOCGWINSZ
   if vim.fn.has("mac") == 1 or vim.fn.has("bsd") == 1 then
     TIOCGWINSZ = 0x40087468
