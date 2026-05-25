@@ -86,7 +86,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
       " Find                                󱁐 + ff",
       "󰘧 Grep                                󱁐 + fg",
       "󱋢 Recent                              󱁐 + fr",
-      "󰈆 Quit                                󰘶 + q ",
     }
 
     local win_width = vim.api.nvim_win_get_width(win)
@@ -125,7 +124,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
     vim.api.nvim_set_hl(0, "DashboardDim", { link = "Comment" })
     local ns = vim.api.nvim_create_namespace("dashboard")
     for i, line in ipairs(padded) do
-      if line:find("Find") or line:find("Grep") or line:find("Recent") or line:find("Quit") then
+      if line:find("Find") or line:find("Grep") or line:find("Recent") then
         vim.api.nvim_buf_set_extmark(buf, ns, i - 1, 0, {
           line_hl_group = "DashboardDim",
         })
