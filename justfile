@@ -31,7 +31,7 @@ lint-shell:
 lint-zsh:
   #!/usr/bin/env bash
   set -euo pipefail
-  files=$(git ls-files 'zsh/**/*')
+  files=$(git ls-files 'zsh/*')
   [ -z "$files" ] && exit 0
   zsh -n $files
 
