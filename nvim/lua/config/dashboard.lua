@@ -136,8 +136,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
     vim.bo[buf].buftype = "nofile"
     vim.bo[buf].swapfile = false
 
-    vim.keymap.set("n", "Q", "<cmd>qa<cr>", { buffer = buf, silent = true })
-
     vim.schedule(function()
       local ok, image_api = pcall(require, "image")
       if not ok then
