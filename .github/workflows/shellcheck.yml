@@ -15,5 +15,5 @@ jobs:
       - uses: actions/checkout@v4
       - name: Ensure shellcheck installed
         run: command -v shellcheck || sudo apt-get install -y shellcheck
-      - name: Run lint.sh
-        run: ./lint.sh
+      - name: shellcheck on shell files
+        run: shellcheck $(git ls-files '*.sh')
