@@ -13,8 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: JohnnyMorganz/stylua-action@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          version: latest
-          args: --check .
+      - uses: extractions/setup-just@v2
+      - name: Install stylua
+        run: |
+          curl -sSfL -o /tmp/stylua.zip \
+            https://github.com/JohnnyMorganz/StyLua/releases/latest/download/stylua-linux-x86_64.zip
+          unzip -o /tmp/stylua.zip -d /tmp
+          sudo mv /tmp/stylua /usr/local/bin/stylua
+          sudo chmod +x /usr/local/bin/stylua
+      - run: just format-lua

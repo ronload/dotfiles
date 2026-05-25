@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: extractions/setup-just@v2
       - name: Ensure luacheck installed
-        run: command -v luacheck || sudo apt-get update && sudo apt-get install -y lua-check
-      - name: luacheck on lua files
-        run: git ls-files '*.lua' | xargs luacheck
+        run: command -v luacheck || (sudo apt-get update && sudo apt-get install -y lua-check)
+      - run: just lint-lua

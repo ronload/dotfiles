@@ -13,10 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: extractions/setup-just@v2
       - name: Install shfmt
         run: |
-          curl -sSfL -o /usr/local/bin/shfmt \
+          sudo curl -sSfL -o /usr/local/bin/shfmt \
             https://github.com/mvdan/sh/releases/latest/download/shfmt_v3.13.1_linux_amd64
-          chmod +x /usr/local/bin/shfmt
-      - name: shfmt diff check
-        run: shfmt -i 2 -ci -d $(git ls-files '*.sh')
+          sudo chmod +x /usr/local/bin/shfmt
+      - run: just format-shell
