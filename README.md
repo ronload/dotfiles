@@ -7,12 +7,21 @@
 [![License](https://img.shields.io/github/license/ronload/dotfiles?style=flat-square)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-macOS-lightgrey?style=flat-square)](https://www.apple.com/macos)
 [![shellcheck](https://img.shields.io/github/actions/workflow/status/ronload/dotfiles/shellcheck.yml?branch=main&label=shellcheck&style=flat-square)](https://github.com/ronload/dotfiles/actions/workflows/shellcheck.yml)
+[![shfmt](https://img.shields.io/github/actions/workflow/status/ronload/dotfiles/shfmt.yml?branch=main&label=shfmt&style=flat-square)](https://github.com/ronload/dotfiles/actions/workflows/shfmt.yml)
 [![zsh-syntax](https://img.shields.io/github/actions/workflow/status/ronload/dotfiles/zsh-syntax.yml?branch=main&label=zsh-syntax&style=flat-square)](https://github.com/ronload/dotfiles/actions/workflows/zsh-syntax.yml)
+[![lua-lint](https://img.shields.io/github/actions/workflow/status/ronload/dotfiles/lua-lint.yml?branch=main&label=lua-lint&style=flat-square)](https://github.com/ronload/dotfiles/actions/workflows/lua-lint.yml)
+[![stylua](https://img.shields.io/github/actions/workflow/status/ronload/dotfiles/stylua.yml?branch=main&label=stylua&style=flat-square)](https://github.com/ronload/dotfiles/actions/workflows/stylua.yml)
+[![gitleaks](https://img.shields.io/github/actions/workflow/status/ronload/dotfiles/gitleaks.yml?branch=main&label=gitleaks&style=flat-square)](https://github.com/ronload/dotfiles/actions/workflows/gitleaks.yml)
 [![Theme](https://img.shields.io/badge/theme-TokyoNight%20Moon-82aaff?style=flat-square)](https://github.com/folke/tokyonight.nvim)
 
-Personal configuration files for my development environment.
+Personal configuration files for my macOS development environment, centered on Neovim, Zsh, and Ghostty.
 
-## Setup on a New Machine
+## Requirements
+
+- macOS
+- No other prerequisites — `setup.sh` installs Homebrew and everything else from `Brewfile`.
+
+## Quick Start
 
 ```bash
 git clone https://github.com/ronload/dotfiles.git ~/dotfiles
@@ -20,72 +29,36 @@ cd ~/dotfiles
 ./setup.sh
 ```
 
-`setup.sh` will automatically install Homebrew, Rust, opencode, and Brewfile packages, then run `install.sh` to symlink configs, clone `fzf-git.sh`, and sync Neovim plugins. Each step is guarded so it can be safely re-run.
+`setup.sh` installs Homebrew, Rust, [opencode](https://opencode.ai), and every package in `Brewfile`, then hands off to `install.sh` to symlink configs, clone `fzf-git.sh`, and sync Neovim plugins. Each step is idempotent and safe to re-run.
 
-## Included Configs
+## What's Included
 
-- **nvim**: Neovim with lazy.nvim
-- **ghostty**: Ghostty terminal
-- **zsh**: Zsh shell (zshrc, zprofile, zshenv)
-- **gh**: GitHub CLI
-- **git**: Git global config
-- **fastfetch**: Fastfetch system info (with custom colored-bar module)
-- **yazi**: Yazi terminal file manager
-- **brew**: Brewfile for Homebrew packages
+- **nvim** — Neovim with lazy.nvim and TokyoNight Moon
+- **zsh** — Zsh shell (zshrc, zprofile, zshenv, aliases, prompt, abbreviations)
+- **ghostty** — Ghostty terminal
+- **git** — Git global config (with conditional work identity include)
+- **gh** — GitHub CLI
+- **fastfetch** — System info with a custom colored-bar module
+- **yazi** — Terminal file manager
+- **Brewfile** — Homebrew package manifest
 
-## Manual Setup
+## Development
 
-If you prefer not to run `install.sh`, the equivalent steps are:
-
-```bash
-# Base configs
-mkdir -p ~/.config
-ln -sfn ~/dotfiles/nvim                 ~/.config/nvim
-ln -sfn ~/dotfiles/ghostty              ~/.config/ghostty
-ln -sfn ~/dotfiles/gh                   ~/.config/gh
-ln -sfn ~/dotfiles/fastfetch            ~/.config/fastfetch
-ln -sfn ~/dotfiles/yazi                 ~/.config/yazi
-ln -sfn ~/dotfiles/git/gitconfig        ~/.gitconfig
-ln -sfn ~/dotfiles/git/ignore           ~/.gitignore_global
-ln -sfn ~/dotfiles/zsh/zshrc            ~/.zshrc
-ln -sfn ~/dotfiles/zsh/zprofile         ~/.zprofile
-ln -sfn ~/dotfiles/zsh/zshenv           ~/.zshenv
-
-# Claude Code (CLAUDE.md, settings, statusline, plus every skill and hook)
-mkdir -p ~/.claude/skills ~/.claude/hooks
-ln -sfn ~/dotfiles/claude/CLAUDE.md     ~/.claude/CLAUDE.md
-ln -sfn ~/dotfiles/claude/settings.json ~/.claude/settings.json
-ln -sfn ~/dotfiles/claude/statusline.sh ~/.claude/statusline.sh
-for d in ~/dotfiles/claude/skills/*/; do
-  ln -sfn "$d" "$HOME/.claude/skills/$(basename "$d")"
-done
-for f in ~/dotfiles/claude/hooks/*.sh; do
-  ln -sfn "$f" "$HOME/.claude/hooks/$(basename "$f")"
-done
-
-# fzf-git.sh (sourced by zshrc; no Homebrew formula available)
-mkdir -p ~/.local/share
-git clone --depth 1 https://github.com/junegunn/fzf-git.sh.git ~/.local/share/fzf-git.sh
-
-# Neovim plugins (downloads tokyonight.nvim used by ghostty and delta)
-nvim --headless "+Lazy! sync" +qa
-
-# bat theme for delta (delta calls bat; without this it warns on every git diff)
-mkdir -p ~/.config/bat/themes
-cp ~/.local/share/nvim/lazy/tokyonight.nvim/extras/sublime/tokyonight_moon.tmTheme \
-   ~/.config/bat/themes/
-bat cache --build
-```
-
-## Linting
-
-Bash scripts are checked with [shellcheck](https://www.shellcheck.net/). A GitHub Actions workflow runs on every push and pull request; locally:
+Linting and formatting are driven by [`just`](https://github.com/casey/just). The `justfile` is the single source of truth — GitHub Actions invoke the same recipes on every push and pull request.
 
 ```bash
-./lint.sh
+just              # list all recipes
+just ci           # run every linter and formatter check
+just lint         # run all linters (lua, shell, zsh)
+just format       # run all formatter checks (lua, shell)
+just lint-lua     # luacheck on tracked Lua files
+just lint-shell   # shellcheck on tracked shell scripts
+just lint-zsh     # zsh -n syntax check on zsh/*
+just format-lua   # stylua --check
+just format-shell # shfmt -i 2 -ci -d
 ```
 
-zsh files (`zshrc`, `*.zsh`, etc.) are not covered — shellcheck does not support zsh.
+All recipes operate on `git ls-files`, so untracked files are skipped. Zsh files are validated by `zsh -n` rather than shellcheck, which does not support zsh.
 
 ## Local Overrides
 
@@ -96,7 +69,7 @@ zsh files (`zshrc`, `*.zsh`, etc.) are not covered — shellcheck does not suppo
     path = ~/.gitconfig-prinsur
 ```
 
-This override file is not tracked in the repo. Create it manually on each machine:
+This override file is not tracked. Create it manually on each machine:
 
 ```bash
 cat > ~/.gitconfig-prinsur <<'EOF'
@@ -106,3 +79,7 @@ EOF
 ```
 
 Without it, commits to `prinsur/*` repos fall back to the global identity.
+
+## License
+
+Released under the MIT License. See [LICENSE](LICENSE) for details.
