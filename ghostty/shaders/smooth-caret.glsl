@@ -30,10 +30,23 @@ const float BLUR = 1.0;       // antialiasing edge width, in pixels
 const float BAR_WIDTH = 2.0;  // synthetic bar width in device pixels (VS Code editor.cursorWidth default)
 const float BAR_DETECT_RATIO = 0.15;  // treat as bar when width < height * this (well below any block aspect ratio)
 
-// smoothstep — symmetric S-curve. CSS `ease` is asymmetric cubic-bezier(.25,.1,.25,1);
-// at 80ms the difference is below the perceptual threshold, so use smoothstep.
-float ease(float t) {
-    return t * t * (3.0 - 2.0 * t);
+// VS Code's CSS `ease` keyword = cubic-bezier(0.25, 0.1, 0.25, 1.0): asymmetric
+// S-curve that accelerates quickly out of the start and eases gently into the
+// end (at progress 0.5 the cursor has already covered ~80% of the distance).
+//
+// CSS bezier is parametric (x(t), y(t)); given progress x we must invert to
+// find t, then evaluate y(t). Because x1 == x2 == 0.25, x(t) simplifies to
+// t^3 - 0.75t^2 + 0.75t, with derivative 3t^2 - 1.5t + 0.75. Four Newton-
+// Raphson iterations from t = x converge to <1e-6 over [0, 1].
+float ease(float x) {
+    float t = x;
+    for (int i = 0; i < 4; i++) {
+        float xt  = t * t * t - 0.75 * t * t + 0.75 * t;
+        float dxt = 3.0 * t * t - 1.5 * t + 0.75;
+        t = t - (xt - x) / dxt;
+    }
+    float ct = 1.0 - t;
+    return 0.3 * ct * ct * t + 3.0 * ct * t * t + t * t * t;
 }
 
 float sdfRect(vec2 p, vec2 center, vec2 halfSize) {
