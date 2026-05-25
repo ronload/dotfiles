@@ -88,9 +88,9 @@ vim.api.nvim_create_autocmd("VimEnter", {
     -- image.nvim measures x from the text area (post-gutter), while
     -- nvim_win_get_width includes the gutter; clearing both keeps the
     -- math consistent and centers the avatar against the window.
-    vim.wo[win].number = false
-    vim.wo[win].relativenumber = false
-    vim.wo[win].signcolumn = "no"
+    vim.wo[win][0].number = false
+    vim.wo[win][0].relativenumber = false
+    vim.wo[win][0].signcolumn = "no"
 
     local menu_lines = {
       " Find                                󱁐 + ff",
