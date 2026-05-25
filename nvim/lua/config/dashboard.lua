@@ -1,3 +1,9 @@
+---@class winsize
+---@field row integer
+---@field col integer
+---@field xpixel integer
+---@field ypixel integer
+
 local IMAGE_MAX_WIDTH = 40
 local IMAGE_MAX_HEIGHT = 20
 local MENU_GAP = 3
@@ -5,6 +11,13 @@ local MENU_GAP = 3
 local function avatar_path()
   local config_dir = vim.fn.resolve(vim.fn.stdpath("config"))
   return vim.fn.fnamemodify(config_dir, ":h") .. "/assets/avatar-ascii.png"
+end
+
+--@param ffi ffilib
+---@return winsize
+local function new_winsize(ffi)
+  ---@diagnostic disable-next-line: return-type-mismatch
+  return ffi.new("winsize")
 end
 
 local function get_term_cell_size()
@@ -32,7 +45,7 @@ local function get_term_cell_size()
   else
     return nil
   end
-  local sz = ffi.new("winsize")
+  local sz = new_winsize(ffi)
   if ffi.C.ioctl(1, TIOCGWINSZ, sz) ~= 0 then
     return nil
   end
