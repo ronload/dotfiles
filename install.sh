@@ -9,12 +9,12 @@ mkdir -p ~/.config
 # wrong target. Reports already-linked when target matches.
 link_file() {
   local src="$1" dest="$2"
-  local label="${dest/#$HOME/~}"
-  if [ -L "$dest" ] && [ "$(readlink "$dest")" = "$src" ]; then
-    echo "✓ $label already linked"
+  local label="${dest/#${HOME}/~}"
+  if [[ -L "${dest}" ]] && [[ "$(readlink "${dest}")" = "${src}" ]]; then
+    echo "✓ ${label} already linked"
   else
-    ln -sfn "$src" "$dest"
-    echo "✓ Linked $label"
+    ln -sfn "${src}" "${dest}"
+    echo "✓ Linked ${label}"
   fi
 }
 
@@ -28,14 +28,14 @@ configs=(
 )
 
 for config in "${configs[@]}"; do
-  link_file "$DOTFILES_DIR/$config" "$HOME/.config/$config"
+  link_file "${DOTFILES_DIR}/${config}" "${HOME}/.config/${config}"
 done
 
 # Git configuration (special case - goes in home directory)
-link_file "$DOTFILES_DIR/git/gitconfig" "$HOME/.gitconfig"
+link_file "${DOTFILES_DIR}/git/gitconfig" "${HOME}/.gitconfig"
 
 # Git ignore file
-link_file "$DOTFILES_DIR/git/ignore" "$HOME/.gitignore_global"
+link_file "${DOTFILES_DIR}/git/ignore" "${HOME}/.gitignore_global"
 
 # Shell configuration (symlink to home directory)
 shell_configs=(
@@ -47,42 +47,42 @@ shell_configs=(
 for entry in "${shell_configs[@]}"; do
   shell_src="${entry%%:*}"
   shell_dest="${entry##*:}"
-  link_file "$DOTFILES_DIR/zsh/$shell_src" "$HOME/$shell_dest"
+  link_file "${DOTFILES_DIR}/zsh/${shell_src}" "${HOME}/${shell_dest}"
 done
 
 # Claude Code configuration
-mkdir -p "$HOME/.claude"
+mkdir -p "${HOME}/.claude"
 claude_files=(
   "CLAUDE.md"
   "settings.json"
   "statusline.sh"
 )
 for file in "${claude_files[@]}"; do
-  link_file "$DOTFILES_DIR/claude/$file" "$HOME/.claude/$file"
+  link_file "${DOTFILES_DIR}/claude/${file}" "${HOME}/.claude/${file}"
 done
 
 # Claude Code skills (link each skill individually, ~/.claude/skills/ may have other content)
-mkdir -p "$HOME/.claude/skills"
-for skill_dir in "$DOTFILES_DIR/claude/skills"/*/; do
-  skill_name="$(basename "$skill_dir")"
-  link_file "$skill_dir" "$HOME/.claude/skills/$skill_name"
+mkdir -p "${HOME}/.claude/skills"
+for skill_dir in "${DOTFILES_DIR}/claude/skills"/*/; do
+  skill_name="$(basename "${skill_dir}")"
+  link_file "${skill_dir}" "${HOME}/.claude/skills/${skill_name}"
 done
 
 # Claude Code hooks (link each hook individually, ~/.claude/hooks/ may have other content)
-mkdir -p "$HOME/.claude/hooks"
-for hook_file in "$DOTFILES_DIR/claude/hooks"/*.sh; do
-  [ -f "$hook_file" ] || continue
-  hook_name="$(basename "$hook_file")"
-  link_file "$hook_file" "$HOME/.claude/hooks/$hook_name"
+mkdir -p "${HOME}/.claude/hooks"
+for hook_file in "${DOTFILES_DIR}/claude/hooks"/*.sh; do
+  [[ -f "${hook_file}" ]] || continue
+  hook_name="$(basename "${hook_file}")"
+  link_file "${hook_file}" "${HOME}/.claude/hooks/${hook_name}"
 done
 
 # fzf-git.sh (sourced by zshrc; no Homebrew formula available)
-FZF_GIT_DIR="$HOME/.local/share/fzf-git.sh"
-if [ -d "$FZF_GIT_DIR" ]; then
+FZF_GIT_DIR="${HOME}/.local/share/fzf-git.sh"
+if [[ -d "${FZF_GIT_DIR}" ]]; then
   echo "✓ fzf-git.sh already installed"
 else
-  mkdir -p "$(dirname "$FZF_GIT_DIR")"
-  git clone --depth 1 https://github.com/junegunn/fzf-git.sh.git "$FZF_GIT_DIR"
+  mkdir -p "$(dirname "${FZF_GIT_DIR}")"
+  git clone --depth 1 https://github.com/junegunn/fzf-git.sh.git "${FZF_GIT_DIR}"
   echo "✓ Cloned fzf-git.sh"
 fi
 
@@ -95,12 +95,12 @@ fi
 
 # bat theme for delta syntax highlighting (delta calls bat under the hood;
 # without this, bat warns "Unknown theme 'tokyonight_moon'" on every git diff).
-TOKYONIGHT_BAT_THEME="$HOME/.local/share/nvim/lazy/tokyonight.nvim/extras/sublime/tokyonight_moon.tmTheme"
-BAT_THEMES_DIR="$HOME/.config/bat/themes"
-if command -v bat &>/dev/null && [ -f "$TOKYONIGHT_BAT_THEME" ]; then
-  mkdir -p "$BAT_THEMES_DIR"
-  if [ ! -f "$BAT_THEMES_DIR/tokyonight_moon.tmTheme" ]; then
-    cp "$TOKYONIGHT_BAT_THEME" "$BAT_THEMES_DIR/"
+TOKYONIGHT_BAT_THEME="${HOME}/.local/share/nvim/lazy/tokyonight.nvim/extras/sublime/tokyonight_moon.tmTheme"
+BAT_THEMES_DIR="${HOME}/.config/bat/themes"
+if command -v bat &>/dev/null && [[ -f "${TOKYONIGHT_BAT_THEME}" ]]; then
+  mkdir -p "${BAT_THEMES_DIR}"
+  if [[ ! -f "${BAT_THEMES_DIR}/tokyonight_moon.tmTheme" ]]; then
+    cp "${TOKYONIGHT_BAT_THEME}" "${BAT_THEMES_DIR}/"
     bat cache --build >/dev/null
     echo "✓ Installed bat theme tokyonight_moon"
   else

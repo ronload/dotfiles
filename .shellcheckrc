@@ -1,0 +1,7 @@
+enable=all
+# Disable noisy optional checks (false positives on common patterns like
+# command substitution, time, process substitution). Matches the practice
+# of major projects (e.g. Homebrew, distrobox).
+disable=SC2310
+disable=SC2311
+disable=SC2312

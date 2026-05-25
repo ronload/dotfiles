@@ -13,7 +13,7 @@ spinner_start() {
   (
     i=0
     while true; do
-      printf "\r  %s %s" "${SPINNER_FRAMES[$((i % ${#SPINNER_FRAMES[@]}))]}" "$msg"
+      printf "\r  %s %s" "${SPINNER_FRAMES[$((i % ${#SPINNER_FRAMES[@]}))]}" "${msg}"
       i=$((i + 1))
       sleep 0.08
     done
@@ -23,23 +23,23 @@ spinner_start() {
 
 spinner_stop() {
   local msg="$1"
-  kill "$SPINNER_PID" 2>/dev/null || true
-  wait "$SPINNER_PID" 2>/dev/null || true
+  kill "${SPINNER_PID}" 2>/dev/null || true
+  wait "${SPINNER_PID}" 2>/dev/null || true
   SPINNER_PID=""
-  printf "\r\033[K  ✓ %s\n" "$msg"
+  printf "\r\033[K  ✓ %s\n" "${msg}"
 }
 
 step() {
   CURRENT_STEP=$((CURRENT_STEP + 1))
   echo ""
-  echo "[$CURRENT_STEP/$TOTAL_STEPS] $1"
+  echo "[${CURRENT_STEP}/${TOTAL_STEPS}] $1"
 }
 
 # --- Cleanup on exit ---
 cleanup() {
-  if [ -n "$SPINNER_PID" ]; then
-    kill "$SPINNER_PID" 2>/dev/null || true
-    wait "$SPINNER_PID" 2>/dev/null || true
+  if [[ -n "${SPINNER_PID}" ]]; then
+    kill "${SPINNER_PID}" 2>/dev/null || true
+    wait "${SPINNER_PID}" 2>/dev/null || true
   fi
 }
 trap cleanup EXIT
@@ -64,7 +64,7 @@ if ! command -v cargo &>/dev/null; then
   spinner_start "Installing Rust toolchain..."
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y >/dev/null
   # shellcheck source=/dev/null
-  source "$HOME/.cargo/env"
+  source "${HOME}/.cargo/env"
   spinner_stop "Rust toolchain installed"
 else
   echo "  ✓ Rust already installed"
@@ -72,7 +72,7 @@ fi
 
 # --- opencode ---
 step "opencode"
-if [ -x "$HOME/.opencode/bin/opencode" ]; then
+if [[ -x "${HOME}/.opencode/bin/opencode" ]]; then
   echo "  ✓ opencode already installed"
 else
   spinner_start "Installing opencode..."
@@ -87,18 +87,18 @@ PREV_TYPE=""
 
 while IFS= read -r line; do
   # Stop previous spinner if running
-  if [ -n "$SPINNER_PID" ]; then
-    kill "$SPINNER_PID" 2>/dev/null || true
-    wait "$SPINNER_PID" 2>/dev/null || true
+  if [[ -n "${SPINNER_PID}" ]]; then
+    kill "${SPINNER_PID}" 2>/dev/null || true
+    wait "${SPINNER_PID}" 2>/dev/null || true
     SPINNER_PID=""
-    if [ "$PREV_TYPE" = "fetch" ]; then
+    if [[ "${PREV_TYPE}" = "fetch" ]]; then
       printf "\r\033[K"
     else
-      printf "\r\033[K  ✓ %s\n" "$PREV_NAME"
+      printf "\r\033[K  ✓ %s\n" "${PREV_NAME}"
     fi
   fi
 
-  case "$line" in
+  case "${line}" in
     Fetching*)
       spinner_start "Fetching ${line#Fetching }..."
       PREV_NAME="${line#Fetching }"
@@ -107,7 +107,7 @@ while IFS= read -r line; do
     Installing*)
       BREW_CURRENT=$((BREW_CURRENT + 1))
       PREV_NAME="${line#Installing }"
-      spinner_start "Installing $PREV_NAME..."
+      spinner_start "Installing ${PREV_NAME}..."
       PREV_TYPE="install"
       ;;
     Using* | Skipping*)
@@ -116,16 +116,17 @@ while IFS= read -r line; do
       PREV_NAME=""
       PREV_TYPE=""
       ;;
+    *) ;;
   esac
-done < <(brew bundle install --file="$DOTFILES_DIR/Brewfile" 2>&1)
+done < <(brew bundle install --file="${DOTFILES_DIR}/Brewfile" 2>&1)
 
 # Stop final spinner if still running
-if [ -n "$SPINNER_PID" ]; then
-  kill "$SPINNER_PID" 2>/dev/null || true
-  wait "$SPINNER_PID" 2>/dev/null || true
+if [[ -n "${SPINNER_PID}" ]]; then
+  kill "${SPINNER_PID}" 2>/dev/null || true
+  wait "${SPINNER_PID}" 2>/dev/null || true
   SPINNER_PID=""
-  if [ "$PREV_TYPE" != "fetch" ]; then
-    printf "\r\033[K  ✓ %s\n" "$PREV_NAME"
+  if [[ "${PREV_TYPE}" != "fetch" ]]; then
+    printf "\r\033[K  ✓ %s\n" "${PREV_NAME}"
   else
     printf "\r\033[K"
   fi
@@ -133,22 +134,22 @@ fi
 
 # Verify brew bundle completed; process substitution swallows brew's exit code,
 # so we can't rely on set -e here.
-if ! brew bundle check --file="$DOTFILES_DIR/Brewfile" >/dev/null 2>&1; then
+if ! brew bundle check --file="${DOTFILES_DIR}/Brewfile" >/dev/null 2>&1; then
   echo ""
   echo "  ✗ brew bundle did not complete; missing dependencies:"
-  brew bundle check --file="$DOTFILES_DIR/Brewfile" 2>&1 |
+  brew bundle check --file="${DOTFILES_DIR}/Brewfile" 2>&1 |
     grep -E "needs to be" |
     sed 's/^/    /'
   echo ""
-  echo "  Re-run: brew bundle install --file=\"$DOTFILES_DIR/Brewfile\""
+  echo "  Re-run: brew bundle install --file=\"${DOTFILES_DIR}/Brewfile\""
   exit 1
 fi
-printf "  ✓ All %d packages installed\n" "$BREW_CURRENT"
+printf "  ✓ All %d packages installed\n" "${BREW_CURRENT}"
 
 # --- Dotfiles ---
 step "Dotfiles"
 spinner_start "Linking configs and syncing plugins..."
-"$DOTFILES_DIR/install.sh" >/dev/null
+"${DOTFILES_DIR}/install.sh" >/dev/null
 spinner_stop "Configs linked and plugins synced"
 
 echo ""

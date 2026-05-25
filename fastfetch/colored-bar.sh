@@ -23,11 +23,11 @@ readonly KEY_STYLE='\033[1m\033[34m'
 color_for_pct() {
   local pct=$1
   if ((pct >= 90)); then
-    printf '%b' "$RED"
+    printf '%b' "${RED}"
   elif ((pct >= 70)); then
-    printf '%b' "$YELLOW"
+    printf '%b' "${YELLOW}"
   else
-    printf '%b' "$GREEN"
+    printf '%b' "${GREEN}"
   fi
 }
 
@@ -38,10 +38,10 @@ build_bar() {
   local filled=$((pct * width / 100))
   local empty=$((width - filled))
   local color filled_str='' empty_str=''
-  color=$(color_for_pct "$pct")
-  ((filled > 0)) && filled_str=$(printf '%.0s■' $(seq 1 "$filled"))
-  ((empty > 0)) && empty_str=$(printf '%.0s□' $(seq 1 "$empty"))
-  printf '%b%s%s%b' "$color" "$filled_str" "$empty_str" "$RESET"
+  color=$(color_for_pct "${pct}")
+  ((filled > 0)) && filled_str=$(printf '%.0s■' $(seq 1 "${filled}"))
+  ((empty > 0)) && empty_str=$(printf '%.0s□' $(seq 1 "${empty}"))
+  printf '%b%s%s%b' "${color}" "${filled_str}" "${empty_str}" "${RESET}"
 }
 
 format_bytes() {
@@ -59,23 +59,23 @@ format_line() {
   local pct=0
   ((total > 0)) && pct=$((used * 100 / total))
   local color
-  color=$(color_for_pct "$pct")
+  color=$(color_for_pct "${pct}")
   printf '%b %b%d%%%b [%10s / %10s]' \
-    "$(build_bar "$pct")" \
-    "$color" \
-    "$pct" \
-    "$RESET" \
-    "$(format_bytes "$used")" \
-    "$(format_bytes "$total")"
+    "$(build_bar "${pct}")" \
+    "${color}" \
+    "${pct}" \
+    "${RESET}" \
+    "$(format_bytes "${used}")" \
+    "$(format_bytes "${total}")"
 }
 
-case "$mode" in
+case "${mode}" in
   memory)
     read -r used total < <(
       fastfetch -s memory --format json |
         jq -r '.[0].result | "\(.used) \(.total)"'
     )
-    format_line "$used" "$total"
+    format_line "${used}" "${total}"
     ;;
   disk)
     # Mirror fastfetch's native disk filter: drop Hidden system volumes
@@ -88,16 +88,16 @@ case "$mode" in
     )
     first=1
     while read -r used total; do
-      line=$(format_line "$used" "$total")
+      line=$(format_line "${used}" "${total}")
       if ((first)); then
-        printf '%s' "$line"
+        printf '%s' "${line}"
         first=0
       else
         # Continuation lines lose fastfetch's auto-emitted key prefix;
         # re-emit it manually so multi-volume output stays column-aligned.
-        printf '\n%b Disk%b\x1b[20G%s' "$KEY_STYLE" "$RESET" "$line"
+        printf '\n%b Disk%b\x1b[20G%s' "${KEY_STYLE}" "${RESET}" "${line}"
       fi
-    done <<<"$rows"
+    done <<<"${rows}"
     ;;
   *)
     echo "usage: $(basename "$0") <memory|disk>" >&2
