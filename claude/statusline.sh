@@ -15,9 +15,9 @@ readonly SEP=" ${DIM}│${RESET} "
 
 # ── Usage fetch config ─────────────────────────────────
 readonly CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/claude"
-readonly CACHE_TTL=60          # seconds a cached response stays fresh
-readonly DEFAULT_BACKOFF=300   # backoff when the API fails without Retry-After
-readonly MAX_BACKOFF=3600      # cap on any backoff window
+readonly CACHE_TTL=60        # seconds a cached response stays fresh
+readonly DEFAULT_BACKOFF=300 # backoff when the API fails without Retry-After
+readonly MAX_BACKOFF=3600    # cap on any backoff window
 SCRIPT_DIR="$(cd "$(dirname "$0")" 2>/dev/null && pwd || echo .)"
 SCRIPT_PATH="$SCRIPT_DIR/$(basename "$0")"
 readonly SCRIPT_PATH
@@ -36,9 +36,12 @@ format_tokens() {
 
 color_for_pct() {
   local pct=$1
-  if [ "$pct" -ge 90 ]; then printf "%b" "$RED"
-  elif [ "$pct" -ge 70 ]; then printf "%b" "$YELLOW"
-  else printf "%b" "$GREEN"
+  if [ "$pct" -ge 90 ]; then
+    printf "%b" "$RED"
+  elif [ "$pct" -ge 70 ]; then
+    printf "%b" "$YELLOW"
+  else
+    printf "%b" "$GREEN"
   fi
 }
 
@@ -46,8 +49,8 @@ build_bar() {
   local pct=$1 width=$2
   [ "$pct" -lt 0 ] 2>/dev/null && pct=0
   [ "$pct" -gt 100 ] 2>/dev/null && pct=100
-  local filled=$(( pct * width / 100 ))
-  local empty=$(( width - filled ))
+  local filled=$((pct * width / 100))
+  local empty=$((width - filled))
   local bar_color filled_str="" empty_str=""
   bar_color=$(color_for_pct "$pct")
   [ "$filled" -gt 0 ] && filled_str=$(printf '■%.0s' $(seq 1 "$filled"))
@@ -78,9 +81,9 @@ format_time() {
 format_duration() {
   local elapsed=$1
   if [ "$elapsed" -ge 3600 ]; then
-    printf "%dh%dm" $(( elapsed / 3600 )) $(( (elapsed % 3600) / 60 ))
+    printf "%dh%dm" $((elapsed / 3600)) $(((elapsed % 3600) / 60))
   elif [ "$elapsed" -ge 60 ]; then
-    printf "%dm" $(( elapsed / 60 ))
+    printf "%dm" $((elapsed / 60))
   else
     printf "%ds" "$elapsed"
   fi
@@ -111,7 +114,7 @@ fetch_usage_data() {
   # Decide whether the cache is stale and a refresh is warranted
   local stale=1
   if [ -f "$cache_file" ]; then
-    local cache_age=$(( $(date +%s) - $(stat -f %m "$cache_file" 2>/dev/null || echo 0) ))
+    local cache_age=$(($(date +%s) - $(stat -f %m "$cache_file" 2>/dev/null || echo 0)))
     [ "$cache_age" -lt "$CACHE_TTL" ] && stale=0
   fi
 
@@ -129,7 +132,7 @@ refresh_usage_async() {
 
   # A refresh is already running (fresh lock) — skip spawning another
   if [ -d "$lock_dir" ]; then
-    local lock_age=$(( $(date +%s) - $(stat -f %m "$lock_dir" 2>/dev/null || echo 0) ))
+    local lock_age=$(($(date +%s) - $(stat -f %m "$lock_dir" 2>/dev/null || echo 0)))
     [ "$lock_age" -lt 60 ] && return
     # a stale lock falls through; refresh_usage clears it
   fi
@@ -142,7 +145,7 @@ refresh_usage_async() {
   fi
 
   # Detached subshell: the child is reparented and outlives this render
-  ( bash "$SCRIPT_PATH" --refresh-usage </dev/null >/dev/null 2>&1 & )
+  (bash "$SCRIPT_PATH" --refresh-usage </dev/null >/dev/null 2>&1 &)
 }
 
 # Background mode: fetch usage, update the cache, or record a backoff window.
@@ -162,7 +165,7 @@ refresh_usage() {
 
   # Clear a stale lock left behind by a crashed refresher
   if [ -d "$lock_dir" ]; then
-    local lock_age=$(( $(date +%s) - $(stat -f %m "$lock_dir" 2>/dev/null || echo 0) ))
+    local lock_age=$(($(date +%s) - $(stat -f %m "$lock_dir" 2>/dev/null || echo 0)))
     [ "$lock_age" -gt 60 ] && rmdir "$lock_dir" 2>/dev/null
   fi
 
@@ -173,7 +176,7 @@ refresh_usage() {
 
   # Another refresher may have updated the cache just before we locked
   if [ -f "$cache_file" ]; then
-    local cache_age=$(( $(date +%s) - $(stat -f %m "$cache_file" 2>/dev/null || echo 0) ))
+    local cache_age=$(($(date +%s) - $(stat -f %m "$cache_file" 2>/dev/null || echo 0)))
     [ "$cache_age" -lt "$CACHE_TTL" ] && return
   fi
 
@@ -202,10 +205,10 @@ refresh_usage() {
     local retry_after
     retry_after=$(grep -i '^retry-after:' "$headers_file" 2>/dev/null | tr -d '\r' | awk '{print $2}')
     case "$retry_after" in
-      ''|*[!0-9]*) retry_after=$DEFAULT_BACKOFF ;;
+      '' | *[!0-9]*) retry_after=$DEFAULT_BACKOFF ;;
     esac
     [ "$retry_after" -gt "$MAX_BACKOFF" ] && retry_after=$MAX_BACKOFF
-    echo $(( $(date +%s) + retry_after )) > "$backoff_file"
+    echo $(($(date +%s) + retry_after)) >"$backoff_file"
     rm -f "$body_file" "$headers_file"
   fi
 }
@@ -278,8 +281,8 @@ main() {
   ')"
 
   [ "$size" -eq 0 ] 2>/dev/null && size=200000
-  local current=$(( input_tokens + cache_create + cache_read ))
-  local pct_used=$(( size > 0 ? current * 100 / size : 0 ))
+  local current=$((input_tokens + cache_create + cache_read))
+  local pct_used=$((size > 0 ? current * 100 / size : 0))
 
   # Working directory and git info
   [ -z "$cwd" ] || [ "$cwd" = "null" ] && cwd=$(pwd)
@@ -298,7 +301,7 @@ main() {
     local start_epoch
     start_epoch=$(iso_to_epoch "$session_start")
     if [ -n "$start_epoch" ]; then
-      session_duration=$(format_duration $(( $(date +%s) - start_epoch )))
+      session_duration=$(format_duration $(($(date +%s) - start_epoch)))
     fi
   fi
 

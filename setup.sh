@@ -110,7 +110,7 @@ while IFS= read -r line; do
       spinner_start "Installing $PREV_NAME..."
       PREV_TYPE="install"
       ;;
-    Using*|Skipping*)
+    Using* | Skipping*)
       BREW_CURRENT=$((BREW_CURRENT + 1))
       printf "  ✓ %s\n" "${line#* }"
       PREV_NAME=""
@@ -136,9 +136,9 @@ fi
 if ! brew bundle check --file="$DOTFILES_DIR/Brewfile" >/dev/null 2>&1; then
   echo ""
   echo "  ✗ brew bundle did not complete; missing dependencies:"
-  brew bundle check --file="$DOTFILES_DIR/Brewfile" 2>&1 \
-    | grep -E "needs to be" \
-    | sed 's/^/    /'
+  brew bundle check --file="$DOTFILES_DIR/Brewfile" 2>&1 |
+    grep -E "needs to be" |
+    sed 's/^/    /'
   echo ""
   echo "  Re-run: brew bundle install --file=\"$DOTFILES_DIR/Brewfile\""
   exit 1

@@ -15,7 +15,7 @@ FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path // empty')
 EXT="${FILE_PATH##*.}"
 
 case "$EXT" in
-  js|jsx|ts|tsx|css|scss|json|md|html|yaml|yml|vue|svelte|graphql)
+  js | jsx | ts | tsx | css | scss | json | md | html | yaml | yml | vue | svelte | graphql)
     command -v prettier &>/dev/null && prettier --write "$FILE_PATH" &>/dev/null
     ;;
   go)
@@ -38,7 +38,7 @@ case "$EXT" in
   lua)
     command -v stylua &>/dev/null && stylua "$FILE_PATH" &>/dev/null
     ;;
-  sh|bash|zsh)
+  sh | bash | zsh)
     command -v shfmt &>/dev/null && shfmt -w "$FILE_PATH" &>/dev/null
     ;;
 esac

@@ -22,22 +22,25 @@ readonly KEY_STYLE='\033[1m\033[34m'
 
 color_for_pct() {
   local pct=$1
-  if   (( pct >= 90 )); then printf '%b' "$RED"
-  elif (( pct >= 70 )); then printf '%b' "$YELLOW"
-  else                       printf '%b' "$GREEN"
+  if ((pct >= 90)); then
+    printf '%b' "$RED"
+  elif ((pct >= 70)); then
+    printf '%b' "$YELLOW"
+  else
+    printf '%b' "$GREEN"
   fi
 }
 
 build_bar() {
   local pct=$1 width=${2:-10}
-  (( pct < 0 ))   && pct=0
-  (( pct > 100 )) && pct=100
-  local filled=$(( pct * width / 100 ))
-  local empty=$(( width - filled ))
+  ((pct < 0)) && pct=0
+  ((pct > 100)) && pct=100
+  local filled=$((pct * width / 100))
+  local empty=$((width - filled))
   local color filled_str='' empty_str=''
   color=$(color_for_pct "$pct")
-  (( filled > 0 )) && filled_str=$(printf '%.0s■' $(seq 1 "$filled"))
-  (( empty  > 0 )) && empty_str=$(printf '%.0s□' $(seq 1 "$empty"))
+  ((filled > 0)) && filled_str=$(printf '%.0s■' $(seq 1 "$filled"))
+  ((empty > 0)) && empty_str=$(printf '%.0s□' $(seq 1 "$empty"))
   printf '%b%s%s%b' "$color" "$filled_str" "$empty_str" "$RESET"
 }
 
@@ -54,7 +57,7 @@ format_bytes() {
 format_line() {
   local used=$1 total=$2
   local pct=0
-  (( total > 0 )) && pct=$(( used * 100 / total ))
+  ((total > 0)) && pct=$((used * 100 / total))
   local color
   color=$(color_for_pct "$pct")
   printf '%b %b%d%%%b [%10s / %10s]' \
@@ -86,7 +89,7 @@ case "$mode" in
     first=1
     while read -r used total; do
       line=$(format_line "$used" "$total")
-      if (( first )); then
+      if ((first)); then
         printf '%s' "$line"
         first=0
       else
