@@ -39,7 +39,7 @@ case "${EXT}" in
     command -v stylua &>/dev/null && stylua "${FILE_PATH}" &>/dev/null
     ;;
   sh | bash | zsh)
-    command -v shfmt &>/dev/null && shfmt -w "${FILE_PATH}" &>/dev/null
+    command -v shfmt &>/dev/null && shfmt -i 2 -ci -w "${FILE_PATH}" &>/dev/null
     ;;
   *) ;;
 esac
