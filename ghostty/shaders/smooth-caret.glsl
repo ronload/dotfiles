@@ -13,10 +13,12 @@
 // already drawn the cursor at iCurrentCursor. To produce a "sliding" effect
 // rather than a teleport, during the animation window we:
 //
-//   1. Overpaint the destination cursor rect with a sampled background color.
-//      The sample is taken from the previous cursor's center in the current
-//      frame — since the cursor has moved away, that pixel is now whatever the
-//      cell looked like without a cursor (best available "background" guess).
+//   1. Overpaint the destination cursor rect with iBackgroundColor (the
+//      terminal's default background, exposed as a uniform since Ghostty
+//      1.3.0). Coloured-bg cells (tmux status bar, syntax-highlighted bg,
+//      selection regions) get the default bg here — not perfect, but a
+//      strict improvement over sampling the previous frame, which could
+//      pick up glyph foreground pixels.
 //
 //   2. Draw a synthetic cursor at the lerped position (previous -> current)
 //      using iCurrentCursorColor.
@@ -74,12 +76,9 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     float moved = step(0.5, distance(curCenter, prevCenter));
     float animating = moved * (1.0 - step(1.0, progress));
 
-    vec2 erasePx = clamp(prevCenter, vec2(0.0), iResolution.xy - vec2(1.0));
-    vec3 bgGuess = texture(iChannel0, erasePx / iResolution.xy).rgb;
-
     float dCur = sdfRect(fragCoord, curCenter, curSize * 0.5);
     float insideCur = 1.0 - smoothstep(-BLUR, BLUR, dCur);
-    fragColor.rgb = mix(fragColor.rgb, bgGuess, insideCur * animating);
+    fragColor.rgb = mix(fragColor.rgb, iBackgroundColor, insideCur * animating);
 
     float isCurBar  = step(curSize.x,  curSize.y  * BAR_DETECT_RATIO);
     float isPrevBar = step(prevSize.x, prevSize.y * BAR_DETECT_RATIO);
