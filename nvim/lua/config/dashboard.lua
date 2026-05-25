@@ -83,7 +83,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
     local win = vim.api.nvim_get_current_win()
 
     local menu_lines = {
-      " Find                                󱁐 + ff",
+      " Find                                󱁐 + ff",
       "󰘧 Grep                                󱁐 + fg",
       "󱋢 Recent                              󱁐 + fr",
     }
