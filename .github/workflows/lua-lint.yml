@@ -1,0 +1,19 @@
+name: Lua Lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  luacheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ensure luacheck installed
+        run: command -v luacheck || sudo apt-get update && sudo apt-get install -y lua-check
+      - name: luacheck on lua files
+        run: git ls-files '*.lua' | xargs luacheck
