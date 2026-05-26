@@ -1,1 +1,16 @@
+# Claude Code
 **/.claude/settings.local.json
+
+# macOS
+._*
+.AppleDouble
+.DS_Store
+.LSOverride
+Icon?
+
+# Vim / Neovim
+*.swo
+*.swp
+*~
+.netrwhist
+Session.vim
