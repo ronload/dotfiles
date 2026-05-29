@@ -89,7 +89,7 @@
   "effortLevel": "xhigh",
   "theme": "dark-ansi",
   "verbose": true,
+  "inputNeededNotifEnabled": true,
   "agentPushNotifEnabled": true,
-  "skipAutoPermissionPrompt": true,
-  "inputNeededNotifEnabled": true
+  "skipAutoPermissionPrompt": true
 }
