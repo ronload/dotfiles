@@ -1,7 +1,5 @@
 window-padding-x = 8
 window-padding-y = 4
 window-decoration = true
-background-opacity=0.9
-background-blur=true
 confirm-close-surface = false
 split-divider-color = #555555
