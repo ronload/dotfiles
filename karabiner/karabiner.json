@@ -4,17 +4,9 @@
             "complex_modifications": {
                 "rules": [
                     {
-                        "description": "Caps Lock → Control (held, lazy) / Toggle McBopomofo ↔ ABC (alone, stateless input_source_if)",
+                        "description": "Caps Lock → Control (held, lazy) / 中英切換: 送 ⌃⌥Space 選擇下一個輸入來源 (alone)",
                         "manipulators": [
                             {
-                                "conditions": [
-                                    {
-                                        "input_sources": [
-                                            { "input_source_id": "^org\\.openvanilla\\.inputmethod\\.McBopomofo\\." }
-                                        ],
-                                        "type": "input_source_if"
-                                    }
-                                ],
                                 "from": {
                                     "key_code": "caps_lock",
                                     "modifiers": { "optional": ["any"] }
@@ -25,38 +17,8 @@
                                 ],
                                 "to_if_alone": [
                                     {
-                                        "select_input_source": {
-                                            "input_source_id": "^com\\.apple\\.keylayout\\.ABC$",
-                                            "language": "^en$"
-                                        }
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "input_sources": [
-                                            { "input_source_id": "^org\\.openvanilla\\.inputmethod\\.McBopomofo\\." }
-                                        ],
-                                        "type": "input_source_unless"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "caps_lock",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "parameters": { "basic.to_if_alone_timeout_milliseconds": 500 },
-                                "to": [
-                                    { "key_code": "left_control", "lazy": true }
-                                ],
-                                "to_if_alone": [
-                                    {
-                                        "select_input_source": {
-                                            "input_mode_id": "^org\\.openvanilla\\.inputmethod\\.McBopomofo\\.Bopomofo$",
-                                            "input_source_id": "^org\\.openvanilla\\.inputmethod\\.McBopomofo\\.McBopomofo\\.Bopomofo$",
-                                            "language": "^zh-Hant$"
-                                        }
+                                        "key_code": "spacebar",
+                                        "modifiers": ["left_control", "left_option"]
                                     }
                                 ],
                                 "type": "basic"
