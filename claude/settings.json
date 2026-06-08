@@ -89,8 +89,8 @@
   "effortLevel": "xhigh",
   "theme": "dark-ansi",
   "verbose": true,
+  "remoteControlAtStartup": false,
   "inputNeededNotifEnabled": true,
   "agentPushNotifEnabled": true,
-  "skipAutoPermissionPrompt": true,
-  "remoteControlAtStartup": false
+  "skipAutoPermissionPrompt": true
 }
