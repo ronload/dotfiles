@@ -33,9 +33,3 @@ abbr pt='pnpm test'
 abbr ff='fastfetch'
 abbr lt='eza --tree --level=2 --icons=auto --git-ignore'
 
-# navigation
-abbr dotf='z ~/dotfiles/'
-abbr desk='z ~/Desktop/'
-abbr work='z ~/working/'
-abbr proj='z ~/working/projects/'
-abbr prin='z ~/working/projects/prinsur'
