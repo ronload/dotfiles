@@ -1,8 +1,10 @@
 # User Preference
 
 - Respond in Traditional Chinese.
-- Keep all project files free of emoji.
-- Always explain your understanding of change before editing files.
+- Never use emoji in files you create or edit (code, docs, commit messages).
+- Before editing any file, briefly state what you will change and why.
+- To check whether a command exists, use `command -v <cmd>`; never `which`.
+  Use `type <cmd>` only when you need to see how a name resolves (alias / function / builtin / path).
 
 # MCP Tools Usage
 
