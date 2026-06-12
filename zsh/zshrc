@@ -23,10 +23,6 @@ function y() {
   command rm -f -- "$tmp"
 }
 
-# --- Claude Code ---
-export USE_BUILTIN_RIPGREP=0
-export CLAUDE_CODE_MAX_TOOL_USE_CONCURRENCY=20
-
 # --- aliases ---
 [ -f ~/dotfiles/zsh/aliases.zsh ] && source ~/dotfiles/zsh/aliases.zsh
 
