@@ -87,6 +87,19 @@ else
   echo "✓ Cloned fzf-git.sh"
 fi
 
+# tmux plugin manager (tpm) + declared plugins (resurrect/continuum session persistence)
+TPM_DIR="${HOME}/.config/tmux/plugins/tpm"
+if [[ -d "${TPM_DIR}" ]]; then
+  echo "✓ tpm already installed"
+else
+  mkdir -p "$(dirname "${TPM_DIR}")"
+  git clone --depth 1 https://github.com/tmux-plugins/tpm.git "${TPM_DIR}"
+  echo "✓ Cloned tpm"
+fi
+if command -v tmux &>/dev/null; then
+  "${TPM_DIR}/bin/install_plugins" >/dev/null && echo "✓ tmux plugins installed"
+fi
+
 # Sync Neovim plugins (downloads tokyonight.nvim theme used by ghostty and delta)
 if command -v nvim &>/dev/null; then
   echo "Syncing Neovim plugins..."

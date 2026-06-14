@@ -21,4 +21,7 @@ zed/**/*.mdb/
 # Logs
 *.log
 
+# tmux plugins (managed by tpm)
+tmux/plugins/
+
 .claude/
