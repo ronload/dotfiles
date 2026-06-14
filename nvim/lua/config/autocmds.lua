@@ -14,6 +14,21 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
+-- Auto-reload files changed outside Neovim
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI", "TermClose" }, {
+  callback = function()
+    if vim.fn.mode() ~= "c" and vim.fn.getcmdwintype() == "" then
+      vim.cmd("checktime")
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileChangedShellPost", {
+  callback = function()
+    vim.notify("File changed on disk, buffer reloaded", vim.log.levels.WARN)
+  end,
+})
+
 -- Input method auto-switch (requires: brew install macism)
 local im_english = "com.apple.keylayout.ABC"
 local im_prev = im_english
