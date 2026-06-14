@@ -78,12 +78,15 @@ case "${mode}" in
     format_line "${used}" "${total}"
     ;;
   disk)
-    # Mirror fastfetch's native disk filter: drop Hidden system volumes
-    # (/System/Volumes/*), keep Regular and External mounts.
+    # Keep the internal boot disk (Regular) and genuine writable external
+    # drives; drop Hidden system volumes (/System/Volumes/*) and read-only
+    # External mounts such as app .dmg images (e.g. TETR.IO, ZenNotes).
     rows=$(
       fastfetch -s disk --format json |
         jq -r '.[0].result[]
-                 | select((.volumeType | index("Hidden")) | not)
+                 | select((.volumeType | index("Regular"))
+                          or ((.volumeType | index("External"))
+                              and ((.volumeType | index("Read-only")) | not)))
                  | "\(.bytes.used) \(.bytes.total)"'
     )
     first=1
