@@ -40,9 +40,9 @@ return {
       telescope.setup({
         defaults = {
           layout_config = {
-            prompt_position = "top",
+            prompt_position = "bottom",
           },
-          sorting_strategy = "ascending",
+          sorting_strategy = "descending",
           file_ignore_patterns = { "node_modules", ".git/" },
           mappings = {
             i = {
