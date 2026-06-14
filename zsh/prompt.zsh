@@ -110,7 +110,7 @@ _prompt_precmd() {
   if ((_PROMPT_CMD_RAN)); then
     _PROMPT_CMD_RAN=0
     if ((last_status == 0)); then
-      PROMPT_CHAR_COLOR='%F{green}'
+      PROMPT_CHAR_COLOR='%F{blue}'
     else
       PROMPT_CHAR_COLOR='%F{red}'
     fi
