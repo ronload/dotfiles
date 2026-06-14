@@ -26,6 +26,23 @@ function y() {
   command rm -f -- "$tmp"
 }
 
+# --- claude ---
+# claude code binary named as version number
+# setting "claude" as default name while using claude code
+claude() {
+  if [[ -n "$TMUX" ]]; then
+    local prev
+    prev=$(tmux show-window-options -v automatic-rename 2>/dev/null)
+    tmux set-window-option automatic-rename off
+    tmux rename-window claude
+    command claude "$@"
+    local code=$?
+    tmux set-window-option automatic-rename "${prev:-on}"
+    return $code
+  fi
+  command claude "$@"
+}
+
 # --- aliases ---
 [ -f ~/dotfiles/zsh/aliases.zsh ] && source ~/dotfiles/zsh/aliases.zsh
 
