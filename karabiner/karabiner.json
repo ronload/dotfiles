@@ -24,6 +24,28 @@
                                 "type": "basic"
                             }
                         ]
+                    },
+                    {
+                        "description": "Ghostty/tmux: 按 prefix (Ctrl+S) 先切英文 (ABC) 再送出，讓後續 prefix+字母在中文輸入法下也能用",
+                        "manipulators": [
+                            {
+                                "type": "basic",
+                                "conditions": [
+                                    {
+                                        "type": "frontmost_application_if",
+                                        "bundle_identifiers": ["^com\\.mitchellh\\.ghostty$"]
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "s",
+                                    "modifiers": { "mandatory": ["control"] }
+                                },
+                                "to": [
+                                    { "select_input_source": { "input_source_id": "^com\\.apple\\.keylayout\\.ABC$" } },
+                                    { "key_code": "s", "modifiers": ["left_control"] }
+                                ]
+                            }
+                        ]
                     }
                 ]
             },
