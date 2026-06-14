@@ -38,6 +38,11 @@ link_file "${DOTFILES_DIR}/git/gitconfig" "${HOME}/.gitconfig"
 # Git ignore file
 link_file "${DOTFILES_DIR}/git/ignore" "${HOME}/.gitignore_global"
 
+# eza theme (single file, not a whole-dir config). Points at the vendored
+# tokyonight-moon theme so `eza`/`ls` output matches the rest of the palette.
+mkdir -p "${HOME}/.config/eza"
+link_file "${DOTFILES_DIR}/themes/tokyonight-moon/eza/tokyonight_moon.yml" "${HOME}/.config/eza/theme.yml"
+
 # Shell configuration (symlink to home directory)
 shell_configs=(
   "zshrc:.zshrc"
@@ -100,20 +105,24 @@ if command -v tmux &>/dev/null; then
   "${TPM_DIR}/bin/install_plugins" >/dev/null && echo "✓ tmux plugins installed"
 fi
 
-# Sync Neovim plugins (downloads tokyonight.nvim theme used by ghostty and delta)
+# Sync Neovim plugins (Neovim's own colorscheme only; terminal/app themes are
+# vendored under themes/ via themes/sync.sh and no longer depend on this step)
 if command -v nvim &>/dev/null; then
   echo "Syncing Neovim plugins..."
   nvim --headless "+Lazy! sync" +qa
   echo "✓ Neovim plugins synced"
 fi
 
-# bat theme for delta syntax highlighting (delta calls bat under the hood;
-# without this, bat warns "Unknown theme 'tokyonight_moon'" on every git diff).
-TOKYONIGHT_BAT_THEME="${HOME}/.local/share/nvim/lazy/tokyonight.nvim/extras/sublime/tokyonight_moon.tmTheme"
+# bat theme: bat needs the tmTheme copied into its themes dir + a cache rebuild
+# (it can't read an arbitrary path). Sourced from the vendored copy so it works
+# without the nvim plugin. Used by standalone `bat` (BAT_THEME) and by delta,
+# which calls bat under the hood (syntax-theme = tokyonight_moon).
+TOKYONIGHT_BAT_THEME="${DOTFILES_DIR}/themes/tokyonight-moon/bat/tokyonight_moon.tmTheme"
 BAT_THEMES_DIR="${HOME}/.config/bat/themes"
 if command -v bat &>/dev/null && [[ -f "${TOKYONIGHT_BAT_THEME}" ]]; then
   mkdir -p "${BAT_THEMES_DIR}"
-  if [[ ! -f "${BAT_THEMES_DIR}/tokyonight_moon.tmTheme" ]]; then
+  # Re-copy + rebuild when the vendored theme changes (e.g. after themes/sync.sh).
+  if ! cmp -s "${TOKYONIGHT_BAT_THEME}" "${BAT_THEMES_DIR}/tokyonight_moon.tmTheme"; then
     cp "${TOKYONIGHT_BAT_THEME}" "${BAT_THEMES_DIR}/"
     bat cache --build >/dev/null
     echo "✓ Installed bat theme tokyonight_moon"

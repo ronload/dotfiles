@@ -55,6 +55,11 @@ claude() {
 # --- fzf ---
 # Match the nvim Telescope UI: three SEPARATE rounded-border panels (results / input /
 # preview), input at the bottom, preview on the right, in a centered 80%x90% popup.
+# The --color palette is the SINGLE SOURCE OF TRUTH, vendored at
+#   themes/tokyonight-moon/fzf/tokyonight_moon.conf
+# and read by BOTH this array (${=...} word-splits it below) and tmux's sessionx
+# (see tmux/tmux.conf). Keep that file one --color flag per line with NO comments:
+# a '#' line would be word-split into a bogus fzf arg by both readers.
 # Colors are NOT the stock tokyonight fzf extra (which diverges) -- they mirror this repo's
 # custom Telescope highlights in nvim/lua/plugins/colorscheme.lua (tokyonight-moon palette):
 #   bg=bg_dark fg=fg | border=comment | bg+=bg_highlight | pointer=SelectionCaret(magenta)
@@ -65,12 +70,7 @@ _fzf_telescope_style=(
   --ansi --info=inline-right --highlight-line
   --layout=default --border=none --pointer='>'
   --list-border=rounded --input-border=rounded --preview-border=rounded
-  --color=fg:#c8d3f5,bg:#1e2030,hl:#86e1fc
-  --color=fg+:#c8d3f5,bg+:#2f334d,hl+:#86e1fc
-  --color=border:#636da6,list-border:#636da6,input-border:#636da6,preview-border:#636da6
-  --color=gutter:#1e2030,info:#636da6,separator:#636da6,scrollbar:#636da6
-  --color=prompt:#82aaff,pointer:#c099ff,marker:#c099ff,spinner:#c099ff,query:#c8d3f5,header:#636da6
-  --color=list-label:#c099ff,input-label:#82aaff,preview-label:#c3e88d
+  ${=$(<~/dotfiles/themes/tokyonight-moon/fzf/tokyonight_moon.conf)}  # shared palette (see above)
 )
 # Standalone pickers also get the centered popup geometry + spaced flags (fzf-tab sizes itself).
 # Join with (@q) (per-element shell-quote), NOT [*]: fzf re-parses FZF_DEFAULT_OPTS with shell
@@ -104,7 +104,9 @@ source ~/.local/share/fzf-git.sh/fzf-git.sh
 eval "$(zoxide init zsh)"
 
 # --- bat ---
-export BAT_THEME="ansi"
+# tokyonight-moon tmTheme (truecolor), vendored under themes/ and installed into
+# bat's theme cache by install.sh. Same theme delta uses for syntax highlighting.
+export BAT_THEME="tokyonight_moon"
 
 # opencode
 export PATH=$HOME/.opencode/bin:$PATH

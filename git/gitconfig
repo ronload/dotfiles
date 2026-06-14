@@ -2,7 +2,7 @@
 	name = ronload
 	email = 91997734+ronload@users.noreply.github.com
 [include]
-	path = ~/.local/share/nvim/lazy/tokyonight.nvim/extras/delta/tokyonight_moon.gitconfig
+	path = ~/dotfiles/themes/tokyonight-moon/delta/tokyonight_moon.gitconfig
 [includeIf "hasconfig:remote.*.url:git@github.com:prinsur/**"]
 	path = ~/.gitconfig-prinsur
 [core]

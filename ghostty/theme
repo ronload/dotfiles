@@ -1,1 +1,1 @@
-config-file = ~/.local/share/nvim/lazy/tokyonight.nvim/extras/ghostty/tokyonight_moon
+config-file = ~/dotfiles/themes/tokyonight-moon/ghostty/tokyonight_moon
