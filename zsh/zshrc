@@ -117,3 +117,6 @@ case ":$PATH:" in
 esac
 # pnpm end
 
+# fnm
+eval "$(fnm env --use-on-cd --shell zsh --version-file-strategy recursive)"
+# fnm end
