@@ -21,6 +21,7 @@ link_file() {
 # Symlink configs in .config directory
 configs=(
   "nvim"
+  "tmux"
   "gh"
   "ghostty"
   "fastfetch"
