@@ -36,8 +36,48 @@ function y() {
 [ -f ~/dotfiles/zsh/.env ] && source ~/dotfiles/zsh/.env
 
 # --- fzf ---
-source ~/.local/share/nvim/lazy/tokyonight.nvim/extras/fzf/tokyonight_moon.sh
+# Match the nvim Telescope UI: three SEPARATE rounded-border panels (results / input /
+# preview), input at the bottom, preview on the right, in a centered 80%x90% popup.
+# Colors are NOT the stock tokyonight fzf extra (which diverges) -- they mirror this repo's
+# custom Telescope highlights in nvim/lua/plugins/colorscheme.lua (tokyonight-moon palette):
+#   bg=bg_dark fg=fg | border=comment | bg+=bg_highlight | pointer=SelectionCaret(magenta)
+#   hl=Matching(cyan) | list/input/preview-label = Results/Prompt/Preview title (magenta/blue/green)
+# Space-free style flags, shared with fzf-tab (which clears FZF_DEFAULT_OPTS and must be
+# styled via its own fzf-flags zstyle in plugins.zsh -- see that file).
+_fzf_telescope_style=(
+  --ansi --info=inline-right --highlight-line
+  --layout=default --border=none --pointer='>'
+  --list-border=rounded --input-border=rounded --preview-border=rounded
+  --color=fg:#c8d3f5,bg:#1e2030,hl:#86e1fc
+  --color=fg+:#c8d3f5,bg+:#2f334d,hl+:#86e1fc
+  --color=border:#636da6,list-border:#636da6,input-border:#636da6,preview-border:#636da6
+  --color=gutter:#1e2030,info:#636da6,separator:#636da6,scrollbar:#636da6
+  --color=prompt:#82aaff,pointer:#c099ff,marker:#c099ff,spinner:#c099ff,query:#c8d3f5,header:#636da6
+  --color=list-label:#c099ff,input-label:#82aaff,preview-label:#c3e88d
+)
+# Standalone pickers also get the centered popup geometry + spaced flags (fzf-tab sizes itself).
+export FZF_DEFAULT_OPTS="${_fzf_telescope_style[*]} --tmux center,80%,90% --height=90% --preview-window=right,50% --prompt='> ' --gutter=' '"
 source <(fzf --zsh)
+
+# fzf-git: override the picker wrapper (its own --layout reverse / single --border
+# would otherwise win over FZF_DEFAULT_OPTS). Same three-panel look, and moves each
+# picker's title onto the list border (--list-label) with the emoji stripped.
+_fzf_git_fzf() {
+  local -a _args
+  local _a _strip=0
+  for _a in "$@"; do
+    if (( _strip )); then _a=$(sed 's/^[^[:alpha:]]*//' <<< "$_a"); _strip=0; fi
+    if [[ $_a == --border-label ]]; then _a=--list-label; _strip=1; fi
+    _args+=("$_a")
+  done
+  fzf --tmux center,80%,90% --height=90% \
+    --layout=default --border=none \
+    --list-border=rounded --input-border=rounded --preview-border=rounded \
+    --multi --min-height 20+ --list-label-pos 2 --gutter ' ' \
+    --preview-window 'right,50%' \
+    --bind 'ctrl-/:change-preview-window(down,50%|hidden|)' "${_args[@]}"
+}
+__fzf_git_fzf="$(functions _fzf_git_fzf)"
 source ~/.local/share/fzf-git.sh/fzf-git.sh
 
 # --- zoxide ---
