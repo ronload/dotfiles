@@ -3,3 +3,12 @@ keybind = shift+enter=text:\x1b\r
 keybind = cmd+k=text:\x0c
 keybind = cmd+w=text:\x13x
 keybind = cmd+shift+t=prompt_tab_title
+
+# send ctrl+shift keys as csi-u so tmux (extended-keys csi-u) can bind them
+# (ghostty speaks kitty protocol, tmux speaks csi-u; this bridges the two)
+keybind = ctrl+shift+h=csi:104;6u
+keybind = ctrl+shift+j=csi:106;6u
+keybind = ctrl+shift+k=csi:107;6u
+keybind = ctrl+shift+l=csi:108;6u
+keybind = ctrl+shift+backslash=csi:92;6u
+keybind = ctrl+shift+minus=csi:45;6u
