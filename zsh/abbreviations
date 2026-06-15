@@ -1,3 +1,8 @@
+# tmux
+abbr tns='tmux new -s'
+abbr ta='tmux attach'
+abbr tat='tmux attach -t'
+
 # git
 abbr ga='git add'
 abbr gaa='git add --all'
