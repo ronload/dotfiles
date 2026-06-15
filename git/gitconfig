@@ -28,7 +28,6 @@
 [alias]
 	uncommit = reset --soft HEAD~1
 	unstage = restore --staged
-	cleanbranch = !git branch --merged main | grep -vE '^\\*|^\\s*(main|master)$' | xargs --no-run-if-empty git branch --delete
 	ds = "!f() { git diff ${1:-main} --stat; }; f"
 	seto = "!f() { git remote set-url origin git@github.com:ronload/$1.git; };f"
 [credential "https://github.com"]
