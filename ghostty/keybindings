@@ -12,3 +12,15 @@ keybind = ctrl+shift+k=csi:107;6u
 keybind = ctrl+shift+l=csi:108;6u
 keybind = ctrl+shift+backslash=csi:92;6u
 keybind = ctrl+shift+minus=csi:45;6u
+
+# send ctrl+number as csi-u (modifier 5 = ctrl) so tmux can bind C-1..C-9
+# for window switching; ctrl+digit is otherwise ambiguous in legacy encoding
+keybind = ctrl+1=csi:49;5u
+keybind = ctrl+2=csi:50;5u
+keybind = ctrl+3=csi:51;5u
+keybind = ctrl+4=csi:52;5u
+keybind = ctrl+5=csi:53;5u
+keybind = ctrl+6=csi:54;5u
+keybind = ctrl+7=csi:55;5u
+keybind = ctrl+8=csi:56;5u
+keybind = ctrl+9=csi:57;5u
