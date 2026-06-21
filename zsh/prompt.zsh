@@ -99,18 +99,25 @@ _prompt_git() {
 }
 
 typeset -g PROMPT_CHAR_COLOR='%F{blue}'
+typeset -g _prompt_ran_cmd=0
+
+_prompt_preexec() {
+  _prompt_ran_cmd=1
+}
 
 _prompt_precmd() {
   local last_status=$?
-  if ((last_status == 0)); then
-    PROMPT_CHAR_COLOR='%F{blue}'
-  else
+  if ((_prompt_ran_cmd)) && ((last_status != 0)); then
     PROMPT_CHAR_COLOR='%F{red}'
+  else
+    PROMPT_CHAR_COLOR='%F{blue}'
   fi
+  _prompt_ran_cmd=0
   PROMPT_TOP="%B%F{magenta} %1~%f%b$(_prompt_git)"
 }
 
 autoload -Uz add-zsh-hook
+add-zsh-hook preexec _prompt_preexec
 add-zsh-hook precmd _prompt_precmd
 
 PROMPT='${PROMPT_TOP}
