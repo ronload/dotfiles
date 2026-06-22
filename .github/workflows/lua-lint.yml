@@ -12,7 +12,7 @@ jobs:
   luacheck:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: extractions/setup-just@v4
       - name: Ensure luacheck installed
         run: command -v luacheck || (sudo apt-get update && sudo apt-get install -y lua-check)
