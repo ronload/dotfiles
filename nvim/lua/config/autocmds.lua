@@ -1,3 +1,29 @@
+-- vim-tpipeline embeds nvim's statusline into the tmux status bar, so the
+-- native statusline must stay hidden (laststatus=0). lualine re-runs setup()
+-- (which forces laststatus back to 2) on every ColorScheme and background
+-- change -- and it does so from inside its own autocmds, so a plain
+-- `OptionSet laststatus` guard never fires (autocmds don't nest by default).
+-- The background change in particular fires after startup on terminals that
+-- probe the background colour (e.g. ghostty), which is why the duplicate bar
+-- reappears. So hook the same events lualine uses and re-hide after it: the
+-- synchronous call avoids a flicker, the scheduled one wins even if lualine
+-- re-registers its handler after ours. Outside tmux, leave lualine's bar alone.
+if vim.env.TMUX then
+  local grp = vim.api.nvim_create_augroup("tpipeline_force_laststatus", { clear = true })
+  local function hide()
+    if vim.o.laststatus ~= 0 then
+      vim.o.laststatus = 0
+    end
+  end
+  local function rehide()
+    hide()
+    vim.schedule(hide)
+  end
+  vim.api.nvim_create_autocmd("ColorScheme", { group = grp, callback = rehide })
+  vim.api.nvim_create_autocmd("OptionSet", { group = grp, pattern = "background", callback = rehide })
+  hide()
+end
+
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "go",
   callback = function()
