@@ -8,12 +8,6 @@ HISTSIZE=50000
 SAVEHIST=50000
 setopt SHARE_HISTORY HIST_IGNORE_DUPS HIST_IGNORE_SPACE
 
-# --- environment ---
-export EDITOR="nvim"
-export VISUAL="nvim"
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH"
-
 # --- key bindings ---
 bindkey -e
 
@@ -108,19 +102,8 @@ eval "$(zoxide init zsh)"
 # bat's theme cache by install.sh. Same theme delta uses for syntax highlighting.
 export BAT_THEME="tokyonight_moon"
 
-# opencode
-export PATH=$HOME/.opencode/bin:$PATH
-
 # --- zsh plugins ---
 [ -f ~/dotfiles/zsh/plugins.zsh ] && source ~/dotfiles/zsh/plugins.zsh
-
-# pnpm
-export PNPM_HOME="$HOME/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME/bin:"*) ;;
-  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
-esac
-# pnpm end
 
 # fnm
 eval "$(fnm env --use-on-cd --shell zsh --version-file-strategy recursive)"
