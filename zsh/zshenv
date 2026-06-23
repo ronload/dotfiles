@@ -1,5 +1,25 @@
+# --- editor ---
+export EDITOR="nvim"
+export VISUAL="nvim"
+
 # --- cargo ---
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
 # --- go ---
 export PATH="$HOME/go/bin:$PATH"
+
+# --- local bin ---
+export PATH="$HOME/.local/bin:$PATH"
+
+# --- postgresql ---
+export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH"
+
+# --- opencode ---
+export PATH="$HOME/.opencode/bin:$PATH"
+
+# --- pnpm ---
+export PNPM_HOME="$HOME/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
