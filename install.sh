@@ -5,18 +5,48 @@ echo "Installing dotfiles..."
 mkdir -p ~/.config
 
 # link_file <src> <dest>
-# Creates a symlink dest -> src, replacing any existing symlink with the
-# wrong target. Reports already-linked when target matches.
+# Creates a symlink dest -> src, replacing any existing symlink with the wrong
+# target. Reports already-linked when target matches. A pre-existing real
+# file/dir at dest (e.g. ~/.config/karabiner created by Karabiner-Elements
+# before install) is moved aside to dest.bak first, so we never link inside it
+# or clobber it.
 link_file() {
   local src="$1" dest="$2"
   local label="${dest/#${HOME}/~}"
   if [[ -L "${dest}" ]] && [[ "$(readlink "${dest}")" = "${src}" ]]; then
     echo "✓ ${label} already linked"
-  else
-    ln -sfn "${src}" "${dest}"
-    echo "✓ Linked ${label}"
+    return
   fi
+  if [[ -e "${dest}" ]] && [[ ! -L "${dest}" ]]; then
+    if [[ -e "${dest}.bak" ]]; then
+      echo "✗ ${label} is a real path and ${label}.bak already exists; move it aside manually" >&2
+      exit 1
+    fi
+    mv "${dest}" "${dest}.bak"
+    echo "✓ Backed up ${label} -> ${label}.bak"
+  fi
+  ln -sfn "${src}" "${dest}"
+  echo "✓ Linked ${label}"
 }
+
+# Ensure ~/dotfiles resolves to this repo. Several configs reference the repo by
+# the absolute path ~/dotfiles (tmux source-file, git include path, ghostty
+# config-file, fastfetch source, zsh sources) and those tools cannot resolve the
+# path dynamically. Cloning elsewhere therefore breaks them unless ~/dotfiles
+# points here. Done explicitly (not via link_file) so an existing real ~/dotfiles
+# directory is never clobbered.
+DOTFILES_LINK="${HOME}/dotfiles"
+if [[ "${DOTFILES_DIR}" != "${DOTFILES_LINK}" ]]; then
+  if [[ -L "${DOTFILES_LINK}" ]] && [[ "$(readlink "${DOTFILES_LINK}")" = "${DOTFILES_DIR}" ]]; then
+    echo "✓ ~/dotfiles already linked"
+  elif [[ -e "${DOTFILES_LINK}" ]]; then
+    echo "✗ ~/dotfiles exists and is not this repo; configs expect the repo at ~/dotfiles" >&2
+    exit 1
+  else
+    ln -s "${DOTFILES_DIR}" "${DOTFILES_LINK}"
+    echo "✓ Linked ~/dotfiles -> ${DOTFILES_DIR}"
+  fi
+fi
 
 # Symlink configs in .config directory
 configs=(
@@ -25,6 +55,7 @@ configs=(
   "gh"
   "ghostty"
   "fastfetch"
+  "karabiner"
   "yazi"
 )
 

@@ -24,4 +24,7 @@ zed/**/*.mdb/
 # tmux plugins (managed by tpm)
 tmux/plugins/
 
+# karabiner runtime files (written into the symlinked ~/.config/karabiner)
+karabiner/automatic_backups/
+
 .claude/

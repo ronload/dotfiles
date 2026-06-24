@@ -14,9 +14,6 @@ export PATH="$HOME/.local/bin:$PATH"
 # --- postgresql ---
 export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH"
 
-# --- opencode ---
-export PATH="$HOME/.opencode/bin:$PATH"
-
 # --- pnpm ---
 export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
