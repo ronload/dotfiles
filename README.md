@@ -33,14 +33,15 @@ cd ~/dotfiles
 
 ## What's Included
 
-- **nvim** — Neovim with lazy.nvim and TokyoNight Moon
-- **zsh** — Zsh shell (zshrc, zprofile, zshenv, aliases, prompt, abbreviations)
-- **ghostty** — Ghostty terminal
-- **git** — Git global config (with conditional work identity include)
-- **gh** — GitHub CLI
-- **fastfetch** — System info with a custom colored-bar module
-- **yazi** — Terminal file manager
-- **Brewfile** — Homebrew package manifest
+- **nvim**: Neovim with lazy.nvim and TokyoNight Moon
+- **zsh**: Zsh shell (zshrc, zprofile, zshenv, aliases, prompt, abbreviations)
+- **ghostty**: Ghostty terminal
+- **git**: Git global config (with conditional work identity include)
+- **gh**: GitHub CLI
+- **fastfetch**: System info with a custom colored-bar module
+- **karabiner**: Karabiner-Elements keyboard customization
+- **yazi**: Terminal file manager
+- **Brewfile**: Homebrew package manifest
 
 ## Development
 
@@ -56,9 +57,27 @@ just lint-shell   # shellcheck on tracked shell scripts
 just lint-zsh     # zsh -n syntax check on zsh/*
 just format-lua   # stylua --check
 just format-shell # shfmt -i 2 -ci -d
+just test         # run all tests
+just test-install # verify install.sh reproduces every declared symlink
 ```
 
-All recipes operate on `git ls-files`, so untracked files are skipped. Zsh files are validated by `zsh -n` rather than shellcheck, which does not support zsh.
+All linter recipes operate on `git ls-files`, so untracked files are skipped. Zsh files are validated by `zsh -n` rather than shellcheck, which does not support zsh.
+
+## Reproduction Tests
+
+Two layers verify that a fresh install reproduces the environment:
+
+- **`install.sh` linking** (`just test-install`, runs on every PR via [`install-test.yml`](.github/workflows/install-test.yml)): runs `install.sh` against a disposable copy of the repo and a sandbox `$HOME`, then asserts every declared symlink exists, points at the right target, is not broken, and that a second run re-links nothing. Fully offline and isolated; touches neither the real working tree nor the real home directory.
+- **Full `setup.sh` end-to-end** ([`e2e-macos.yml`](.github/workflows/e2e-macos.yml), scheduled weekly + manual + on changes to `setup.sh`/`install.sh`/`Brewfile`): runs the whole `setup.sh` on a macOS runner, installing every `Brewfile` package, then re-runs the link check. GUI casks are skipped via `HOMEBREW_BUNDLE_CASK_SKIP` because they cannot be verified headless.
+
+Hosted runners are not a truly pristine macOS (Homebrew, git, go and rust come pre-installed), so the e2e job approximates rather than guarantees a fresh-machine install. A real fresh-install guarantee would need a macOS VM (tart/UTM) on a self-hosted runner.
+
+### Repo location and Karabiner
+
+Two details make reproduction location-independent and Karabiner-safe:
+
+- Several configs reference the repo by the absolute path `~/dotfiles` (tmux, git, ghostty, fastfetch, zsh), and those tools cannot resolve the path dynamically. `install.sh` therefore ensures `~/dotfiles` points at the repo, so it can be cloned anywhere; cloning to `~/dotfiles` directly needs no extra link. An existing real `~/dotfiles` that is not this repo is left untouched and the install aborts.
+- `~/.config/karabiner` is symlinked as a whole directory rather than just `karabiner.json`, because Karabiner-Elements replaces a symlinked config file on save (per its [docs](https://karabiner-elements.pqrs.org/docs/manual/misc/configuration-file-path/)). A pre-existing real config directory is backed up to `.bak` before linking.
 
 ## Local Overrides
 
