@@ -2,6 +2,7 @@
 
 - Respond in Traditional Chinese.
 - Never use emoji in files you create or edit (code, docs, commit messages).
+- Never use em dashes.
 - Before editing any file, briefly state what you will change and why.
 - To check whether a command exists, use `command -v <cmd>`; never `which`.
   Use `type <cmd>` only when you need to see how a name resolves (alias / function / builtin / path).
