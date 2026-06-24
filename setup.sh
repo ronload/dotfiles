@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
-TOTAL_STEPS=5
+TOTAL_STEPS=4
 CURRENT_STEP=0
 
 # --- Spinner ---
@@ -68,16 +68,6 @@ if ! command -v cargo &>/dev/null; then
   spinner_stop "Rust toolchain installed"
 else
   echo "  ✓ Rust already installed"
-fi
-
-# --- opencode ---
-step "opencode"
-if [[ -x "${HOME}/.opencode/bin/opencode" ]]; then
-  echo "  ✓ opencode already installed"
-else
-  spinner_start "Installing opencode..."
-  curl -fsSL https://opencode.ai/install | bash >/dev/null
-  spinner_stop "opencode installed"
 fi
 
 # --- Brew packages ---
