@@ -5,6 +5,13 @@ default:
 # Run all linters and formatters
 ci: lint-lua lint-shell lint-zsh format-lua format-shell
 
+# Run all tests
+test: test-install
+
+# Test that install.sh reproduces every declared symlink (sandboxed, offline)
+test-install:
+  bash tests/install_test.sh
+
 # Run all linters
 lint: lint-lua lint-shell lint-zsh
 
