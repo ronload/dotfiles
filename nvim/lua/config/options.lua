@@ -28,10 +28,10 @@ vim.opt.foldlevel = 99
 vim.opt.completeopt = { "menuone", "noselect", "popup" }
 
 vim.diagnostic.config({
-  virtual_text = {
-    prefix = "●",
-    source = true,
-  },
-  signs = true,
-  underline = true,
+    virtual_text = {
+        prefix = "●",
+        source = true,
+    },
+    signs = true,
+    underline = true,
 })
