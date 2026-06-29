@@ -65,12 +65,7 @@ All linter recipes operate on `git ls-files`, so untracked files are skipped. Zs
 
 ## Reproduction Tests
 
-Two layers verify that a fresh install reproduces the environment:
-
-- **`install.sh` linking** (`just test-install`, runs on every PR via [`install-test.yml`](.github/workflows/install-test.yml)): runs `install.sh` against a disposable copy of the repo and a sandbox `$HOME`, then asserts every declared symlink exists, points at the right target, is not broken, and that a second run re-links nothing. Fully offline and isolated; touches neither the real working tree nor the real home directory.
-- **Full `setup.sh` end-to-end** ([`e2e-macos.yml`](.github/workflows/e2e-macos.yml), scheduled weekly + manual + on changes to `setup.sh`/`install.sh`/`Brewfile`): runs the whole `setup.sh` on a macOS runner, installing every `Brewfile` package, then re-runs the link check. GUI casks are skipped via `HOMEBREW_BUNDLE_CASK_SKIP` because they cannot be verified headless.
-
-Hosted runners are not a truly pristine macOS (Homebrew, git, go and rust come pre-installed), so the e2e job approximates rather than guarantees a fresh-machine install. A real fresh-install guarantee would need a macOS VM (tart/UTM) on a self-hosted runner.
+`install.sh` linking is verified on every PR (`just test-install`, via [`install-test.yml`](.github/workflows/install-test.yml)): runs `install.sh` against a disposable copy of the repo and a sandbox `$HOME`, then asserts every declared symlink exists, points at the right target, is not broken, and that a second run re-links nothing. Fully offline and isolated; touches neither the real working tree nor the real home directory.
 
 ### Repo location and Karabiner
 
