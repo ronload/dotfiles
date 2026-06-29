@@ -12,6 +12,6 @@ return {
         vim.g.tpipeline_autoembed = 0
         -- Keep the bridge file on FocusLost so returning to a session/pane shows
         -- the statusline again without depending on a FocusGained event.
-        vim.g.tpipeline_focuslost = 0
+        vim.g.tpipeline_focuslost = 1
     end,
 }
