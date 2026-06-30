@@ -172,6 +172,82 @@ local function fill_buffer(buf, layout)
     vim.bo[buf].swapfile = false
 end
 
+local active = { img = nil, poll_timer = nil }
+
+-- A tmux pane is "visible" only when its window is the active window of its
+-- session and that session still has a client attached. Switching to a sibling
+-- pane keeps it visible; switching tmux window/session does not. We must poll
+-- this: once nvim is already unfocused (e.g. on a sibling pane), a subsequent
+-- window/session change fires no FocusLost, so the kitty image -- drawn straight
+-- to the terminal via passthrough -- would otherwise bleed into the new view.
+local function pane_visible()
+    if not vim.env.TMUX then
+        return true
+    end
+    local cmd = { "tmux", "display-message", "-p" }
+    if vim.env.TMUX_PANE then
+        vim.list_extend(cmd, { "-t", vim.env.TMUX_PANE })
+    end
+    cmd[#cmd + 1] = "#{window_active},#{session_attached}"
+    local out = vim.fn.system(cmd)
+    if vim.v.shell_error ~= 0 then
+        return true
+    end
+    local win_active, attached = out:match("(%d+),(%d+)")
+    if not win_active then
+        return true
+    end
+    return win_active == "1" and tonumber(attached) > 0
+end
+
+local function apply_visibility()
+    local img = active.img
+    if not img then
+        return
+    end
+    if pane_visible() then
+        if not img.is_rendered then
+            img:render()
+        end
+    elseif img.is_rendered then
+        -- shallow clear: drop it off-screen but keep it re-renderable.
+        img:clear(true)
+    end
+end
+
+local function stop_poll()
+    if active.poll_timer then
+        pcall(vim.fn.timer_stop, active.poll_timer)
+        active.poll_timer = nil
+    end
+end
+
+-- Only runs while nvim is unfocused (started on FocusLost, stopped on
+-- FocusGained), so it costs nothing while you are actually looking at the
+-- dashboard. It is the backstop for the tmux event gap described above.
+local function start_poll()
+    if active.poll_timer or not active.img or not vim.env.TMUX then
+        return
+    end
+    active.poll_timer = vim.fn.timer_start(400, function()
+        if not active.img then
+            stop_poll()
+            return
+        end
+        apply_visibility()
+    end, { ["repeat"] = -1 })
+end
+
+local function teardown_image()
+    stop_poll()
+    if active.img then
+        -- full clear: drop from image.nvim's store so the next dashboard
+        -- rebuilds a fresh image with the current window/geometry.
+        active.img:clear()
+        active.img = nil
+    end
+end
+
 local function schedule_image(buf, win, layout)
     vim.schedule(function()
         local ok, image_api = pcall(require, "image")
@@ -188,12 +264,15 @@ local function schedule_image(buf, win, layout)
             height = layout.image_height,
         })
         if img then
+            active.img = img
             img:render()
         end
     end)
 end
 
 local function render_dashboard()
+    teardown_image()
+
     local buf = vim.api.nvim_create_buf(false, true)
     vim.b[buf].is_dashboard = true
     vim.api.nvim_set_current_buf(buf)
@@ -209,6 +288,14 @@ local function render_dashboard()
     local layout = compute_layout(win)
     fill_buffer(buf, layout)
     schedule_image(buf, win, layout)
+
+    -- Leaving the dashboard buffer (opening a file) must drop the image so it
+    -- never paints over the file; the poll/focus handlers also stop touching it.
+    vim.api.nvim_create_autocmd("BufLeave", {
+        buffer = buf,
+        once = true,
+        callback = teardown_image,
+    })
 end
 
 vim.api.nvim_create_autocmd({ "VimEnter", "BufEnter" }, {
@@ -223,5 +310,30 @@ vim.api.nvim_create_autocmd({ "VimEnter", "BufEnter" }, {
             return
         end
         render_dashboard()
+    end,
+})
+
+-- Direct window/session switches change tmux state at FocusLost time, so we can
+-- react instantly. The poll covers the case where state changes later, while
+-- nvim is already unfocused and no further FocusLost arrives.
+vim.api.nvim_create_autocmd("FocusLost", {
+    callback = function()
+        if not active.img then
+            return
+        end
+        vim.schedule(function()
+            apply_visibility()
+            start_poll()
+        end)
+    end,
+})
+
+vim.api.nvim_create_autocmd("FocusGained", {
+    callback = function()
+        if not active.img then
+            return
+        end
+        stop_poll()
+        vim.schedule(apply_visibility)
     end,
 })
