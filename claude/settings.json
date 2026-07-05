@@ -44,6 +44,7 @@
     ],
     "defaultMode": "auto"
   },
+  "model": "opus[1m]",
   "hooks": {
     "Notification": [
       {
@@ -89,11 +90,11 @@
   "feedbackSurveyRate": 0,
   "alwaysThinkingEnabled": true,
   "effortLevel": "xhigh",
+  "skipWorkflowUsageWarning": true,
   "theme": "dark-ansi",
   "verbose": true,
   "remoteControlAtStartup": false,
   "inputNeededNotifEnabled": true,
   "agentPushNotifEnabled": true,
-  "skipAutoPermissionPrompt": true,
-  "skipWorkflowUsageWarning": true
+  "skipAutoPermissionPrompt": true
 }
