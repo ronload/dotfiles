@@ -6,12 +6,6 @@
 
 [![License](https://img.shields.io/github/license/ronload/dotfiles?style=flat-square)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-macOS-lightgrey?style=flat-square)](https://www.apple.com/macos)
-[![shellcheck](https://img.shields.io/github/actions/workflow/status/ronload/dotfiles/shellcheck.yml?branch=main&label=shellcheck&style=flat-square)](https://github.com/ronload/dotfiles/actions/workflows/shellcheck.yml)
-[![shfmt](https://img.shields.io/github/actions/workflow/status/ronload/dotfiles/shfmt.yml?branch=main&label=shfmt&style=flat-square)](https://github.com/ronload/dotfiles/actions/workflows/shfmt.yml)
-[![zsh-syntax](https://img.shields.io/github/actions/workflow/status/ronload/dotfiles/zsh-syntax.yml?branch=main&label=zsh-syntax&style=flat-square)](https://github.com/ronload/dotfiles/actions/workflows/zsh-syntax.yml)
-[![lua-lint](https://img.shields.io/github/actions/workflow/status/ronload/dotfiles/lua-lint.yml?branch=main&label=lua-lint&style=flat-square)](https://github.com/ronload/dotfiles/actions/workflows/lua-lint.yml)
-[![stylua](https://img.shields.io/github/actions/workflow/status/ronload/dotfiles/stylua.yml?branch=main&label=stylua&style=flat-square)](https://github.com/ronload/dotfiles/actions/workflows/stylua.yml)
-[![gitleaks](https://img.shields.io/github/actions/workflow/status/ronload/dotfiles/gitleaks.yml?branch=main&label=gitleaks&style=flat-square)](https://github.com/ronload/dotfiles/actions/workflows/gitleaks.yml)
 [![Theme](https://img.shields.io/badge/theme-TokyoNight%20Moon-82aaff?style=flat-square)](https://github.com/folke/tokyonight.nvim)
 
 Personal configuration files for my macOS development environment, centered on Neovim, Zsh, and Ghostty.
