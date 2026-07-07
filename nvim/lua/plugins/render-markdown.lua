@@ -3,10 +3,10 @@ return {
     ft = { "markdown" },
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     opts = {
+        render_modes = true,
         win_options = {
-            wrap = { default = false, rendered = true },
-            linebreak = { default = false, rendered = true },
-            breakindent = { default = false, rendered = true },
+            conceallevel = { default = vim.o.conceallevel, rendered = 2 },
+            concealcursor = { default = vim.o.concealcursor, rendered = "nc" },
         },
     },
 }
