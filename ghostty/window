@@ -1,4 +1,4 @@
-window-padding-x = 8
+window-padding-x = 4
 window-padding-y = 4
 window-decoration = true
 confirm-close-surface = false
