@@ -18,3 +18,5 @@ Session.vim
 
 # obsidian
 .obsidian/
+
+**/local/*
