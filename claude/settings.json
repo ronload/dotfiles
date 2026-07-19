@@ -46,7 +46,6 @@
     ],
     "defaultMode": "auto"
   },
-  "model": "opus[1m]",
   "hooks": {
     "Notification": [
       {
@@ -92,14 +91,15 @@
   "feedbackSurveyRate": 0,
   "alwaysThinkingEnabled": true,
   "effortLevel": "xhigh",
+  "autoCompactWindow": 250000,
   "skipWorkflowUsageWarning": true,
   "theme": "dark-ansi",
   "verbose": true,
+  "teammateMode": "tmux",
   "remoteControlAtStartup": false,
   "inputNeededNotifEnabled": true,
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
   "showThinkingSummary": true,
-  "autoCompactWindow": 250000,
-  "teammateMode": "tmux"
+  "model": "claude-fable-5[1m]"
 }
