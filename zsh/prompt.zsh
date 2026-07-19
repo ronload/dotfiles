@@ -116,9 +116,22 @@ _prompt_precmd() {
   PROMPT_TOP="%B%F{magenta} %1~%f%b$(_prompt_git)"
 }
 
+# A TUI that dies without restoring the terminal (crash, SIGKILL) never clears the
+# mouse-reporting modes it turned on (SGR 1006 + motion 1002/1003), so they stay set
+# on the pty. tmux (mouse on) then forwards every wheel/click/drag into the pane via
+# `send -M` -- it only writes bytes when the pane's screen still has a mouse mode set
+# -- and zsh, not being a mouse app, inserts the raw reports as text (65;144;26M ...).
+# Clearing the modes on every prompt keeps a dead TUI from poisoning the shell.
+# tmux's own mouse handling is unaffected: `set -g mouse on` drives the OUTER
+# terminal's reporting, which is separate from the pane's inner screen mode.
+_reset_mouse_reporting() {
+  printf '\e[?1000l\e[?1002l\e[?1003l\e[?1006l\e[?1015l'
+}
+
 autoload -Uz add-zsh-hook
 add-zsh-hook preexec _prompt_preexec
 add-zsh-hook precmd _prompt_precmd
+add-zsh-hook precmd _reset_mouse_reporting
 
 PROMPT='${PROMPT_TOP}
 ${PROMPT_CHAR_COLOR}%B󰘧%b%f '
