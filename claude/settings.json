@@ -100,6 +100,5 @@
   "inputNeededNotifEnabled": true,
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
-  "showThinkingSummary": true,
-  "model": "claude-fable-5[1m]"
+  "showThinkingSummary": true
 }
