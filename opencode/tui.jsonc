@@ -1,6 +1,12 @@
 {
   "$schema": "https://opencode.ai/tui.json",
   "theme": "https://raw.githubusercontent.com/folke/tokyonight.nvim/main/extras/opencode/tokyonight_moon.json",
+
+  "attention": {
+    "enabled": true,
+    "notifications": true,
+  },
+
   "keybinds": {
     // release ctrl-p to use readline keys
     "command_list": "ctrl+shift+p",
