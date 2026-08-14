@@ -23,6 +23,7 @@ return {
                 rust = { "rustfmt" },
                 lua = { "stylua" },
                 json = { "prettier" },
+                jsonc = { "prettier" },
                 yaml = { "prettier" },
                 markdown = { "prettier" },
                 html = { "prettier" },
