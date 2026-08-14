@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
-TOTAL_STEPS=4
+TOTAL_STEPS=5
 CURRENT_STEP=0
 
 # --- Spinner ---
@@ -135,6 +135,16 @@ if ! brew bundle check --file="${DOTFILES_DIR}/Brewfile" >/dev/null 2>&1; then
   exit 1
 fi
 printf "  ✓ All %d packages installed\n" "${BREW_CURRENT}"
+
+# --- Claude Code ---
+step "Claude Code"
+if ! command -v claude &>dev/null; then
+  spinner_start "Installing Claude Code..."
+  curl -fsSL https://claude.ai/install.sh | bash >/dev/null
+  spinner_stop "Claude Code installed"
+else
+  echo "  ✓ Claude Code already installed"
+fi
 
 # --- Dotfiles ---
 step "Dotfiles"
