@@ -11,10 +11,10 @@
 
   "tuiSidebarPanel": {
     "enabled": true,
-    "formatStyle": "allWindows"
+    "formatStyle": "allWindows",
   },
 
   "tuiCompactStatus": {
-    "enabled": false
-  }
+    "enabled": false,
+  },
 }

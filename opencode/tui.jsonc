@@ -13,9 +13,7 @@
     "history_previous": "up,ctrl+p",
     "history_next": "down,ctrl+n",
 
-    "editor_open": "ctrl+g"
+    "editor_open": "ctrl+g",
   },
-  "plugin": [
-    "@slkiser/opencode-quota@latest"
-  ]
+  "plugin": ["@slkiser/opencode-quota@latest"],
 }
