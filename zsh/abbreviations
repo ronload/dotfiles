@@ -27,6 +27,9 @@ abbr cr='claude --resume'
 abbr cv='claude --verbose'
 abbr cvr='claude --verbose --resume'
 
+# opencode
+abbr o='opencode'
+
 # pnpm
 abbr p='pnpm'
 abbr pa='pnpm add'
