@@ -21,6 +21,9 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME/bin:$PATH" ;;
 esac
 
+# --- opencode ---
+export PATH="$HOME/.opencode/bin:$PATH"
+
 # --- tuxedo ---
 export TODO_DIR="$HOME/Documents/todo"
 export TODO_FILE="$TODO_DIR/todo.txt"
