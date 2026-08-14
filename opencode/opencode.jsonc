@@ -1,0 +1,12 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "lsp": true,
+  "plugin": [
+    "@cortexkit/opencode-anthropic-auth@latest",
+    "@slkiser/opencode-quota@latest",
+  ],
+  "provider": {
+    "anthropic": {},
+    "openai": {}
+  }
+}
