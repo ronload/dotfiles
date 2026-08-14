@@ -7,6 +7,11 @@
     "notifications": true,
   },
 
+  "cursor": {
+    "style": "block",
+    "blinking": false,
+  },
+
   "keybinds": {
     // release ctrl-p to use readline keys
     "command_list": "ctrl+shift+p",
