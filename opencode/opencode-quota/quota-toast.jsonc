@@ -1,0 +1,20 @@
+// Configuration guide:
+// https://github.com/slkiser/opencode-quota/blob/main/docs/readme/configuration.md
+{
+  "enableToast": false,
+  "tuiCommandDisplay": "dialog",
+
+  "enabledProviders": "auto",
+  "formatStyle": "allWindows",
+  "percentDisplayMode": "used",
+  "showSessionTokens": false,
+
+  "tuiSidebarPanel": {
+    "enabled": true,
+    "formatStyle": "allWindows"
+  },
+
+  "tuiCompactStatus": {
+    "enabled": false
+  }
+}

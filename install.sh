@@ -113,6 +113,19 @@ for hook_file in "${DOTFILES_DIR}/claude/hooks"/*.sh; do
   link_file "${hook_file}" "${HOME}/.claude/hooks/${hook_name}"
 done
 
+# OpenCode configuration
+mkdir -p "${HOME}/.config/opencode/opencode-quota"
+opencode_files=(
+  "opencode.jsonc"
+  "tui.jsonc"
+  "opencode-quota/quota-toast.jsonc"
+)
+for file in "${opencode_files[@]}"; do
+  link_file \
+    "${DOTFILES_DIR}/opencode/${file}" \
+    "${HOME}/.config/opencode/${file}"
+done
+
 # fzf-git.sh (sourced by zshrc; no Homebrew formula available)
 FZF_GIT_DIR="${HOME}/.local/share/fzf-git.sh"
 if [[ -d "${FZF_GIT_DIR}" ]]; then

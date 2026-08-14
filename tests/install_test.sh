@@ -131,6 +131,14 @@ for hook_file in "${DEST}/claude/hooks"/*.sh; do
   assert_link "${HOME}/.claude/hooks/${hook_name}" "${hook_file}"
 done
 
+echo ""
+echo "Checking OpenCode symlinks..."
+for file in opencode.jsonc tui.jsonc opencode-quota/quota-toast.jsonc; do
+  assert_link \
+    "${HOME}/.config/opencode/${file}" \
+    "${DEST}/opencode/${file}"
+done
+
 # --- Idempotency: a second run must re-link nothing ---
 echo ""
 echo "Running install.sh (second pass, idempotency)..."
