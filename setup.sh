@@ -138,7 +138,7 @@ printf "  ✓ All %d packages installed\n" "${BREW_CURRENT}"
 
 # --- Claude Code ---
 step "Claude Code"
-if ! command -v claude &>dev/null; then
+if ! command -v claude &>/dev/null; then
   spinner_start "Installing Claude Code..."
   curl -fsSL https://claude.ai/install.sh | bash >/dev/null
   spinner_stop "Claude Code installed"
