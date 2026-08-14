@@ -11,7 +11,9 @@
 
     // readline keys in input history
     "history_previous": "up,ctrl+p",
-    "history_next": "down,ctrl+n"
+    "history_next": "down,ctrl+n",
+
+    "editor_open": "ctrl+g"
   },
   "plugin": [
     "@slkiser/opencode-quota@latest"
