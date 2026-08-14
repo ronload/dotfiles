@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
-TOTAL_STEPS=5
+TOTAL_STEPS=6
 CURRENT_STEP=0
 
 # --- Spinner ---
@@ -144,6 +144,17 @@ if ! command -v claude &>/dev/null; then
   spinner_stop "Claude Code installed"
 else
   echo "  ✓ Claude Code already installed"
+fi
+
+# --- OpenCode ---
+step "OpenCode"
+export PATH="${HOME}/.opencode/bin:${PATH}"
+if ! command -v opencode &>/dev/null; then
+  spinner_start "Installing OpenCode..."
+  curl -fsSL https://opencode.ai/install | bash >/dev/null
+  spinner_stop "OpenCode installed"
+else
+  echo "  ✓ OpenCode already installed"
 fi
 
 # --- Dotfiles ---
