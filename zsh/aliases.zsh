@@ -15,6 +15,9 @@ alias vi='nvim'
 alias vim='nvim'
 alias neofetch='fastfetch'
 alias nodoze='caffeinate -dimsu'
+alias nosleep='sudo pmset -a disablesleep 1'
+alias sleepok='sudo pmset -a disablesleep 0'
+alias sleepstat='pmset -g | grep -i SleepDisabled'
 
 # eza
 alias ls='eza --icons=auto --group-directories-first'
