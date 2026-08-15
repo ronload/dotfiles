@@ -2,6 +2,10 @@
   "$schema": "https://opencode.ai/tui.json",
   "theme": "https://raw.githubusercontent.com/folke/tokyonight.nvim/main/extras/opencode/tokyonight_moon.json",
 
+  "plugin_enabled": {
+    "internal:home-tips": false,
+  },
+
   "attention": {
     "enabled": true,
     "notifications": true,
