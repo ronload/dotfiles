@@ -18,7 +18,7 @@
 
   "keybinds": {
     // release ctrl-p to use readline keys
-    "command_list": "ctrl+shift+p",
+    "command_list": "ctrl+k",
 
     // readline keys
     "input_move_up": "up,ctrl+p",
