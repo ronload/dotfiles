@@ -5,8 +5,23 @@
     "@cortexkit/opencode-anthropic-auth@latest",
     "@slkiser/opencode-quota@latest",
   ],
+  "compaction": {
+    "reserved": 0,
+  },
   "provider": {
-    "anthropic": {},
-    "openai": {},
+    "anthropic": {
+      "models": {
+        "claude-opus-5": {
+          "limit": { "context": 1000000, "input": 200000, "output": 128000 },
+        },
+      },
+    },
+    "openai": {
+      "models": {
+        "gpt-5.6-sol": {
+          "limit": { "context": 1050000, "input": 200000, "output": 128000 },
+        },
+      },
+    },
   },
 }
