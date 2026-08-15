@@ -3,6 +3,9 @@ name: commit
 description: Review staged and unstaged changes, then create atomic commits with Conventional Commits messages.
 argument-hint: optional context about the changes
 allowed-tools:
+  # git write
+  - Bash (git add *)
+  - Bash (git commit *)
   # git read-only
   - Bash(git diff *)
   - Bash(git status *)
