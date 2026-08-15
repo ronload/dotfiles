@@ -9,6 +9,10 @@
   "percentDisplayMode": "used",
   "showSessionTokens": false,
 
+  "maintainerAnnouncements": {
+    "home": false,
+  },
+
   "tuiSidebarPanel": {
     "enabled": true,
     "formatStyle": "allWindows",
