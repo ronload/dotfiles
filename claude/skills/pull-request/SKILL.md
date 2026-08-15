@@ -2,6 +2,7 @@
 name: pull-request
 description: Review branch commits, generate a PR title and description, and create a pull request via gh.
 argument-hint: optional context about the pull request
+disable-model-invocation: true
 allowed-tools:
   - Bash(git *)
   - Bash(gh *)
