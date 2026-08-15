@@ -40,13 +40,13 @@ allowed-tools:
 
 Review both staged (`git diff --cached`) and unstaged (`git diff` and `git status`) changes to understand the full picture, then organize them into atomic commits following the two principles below.
 Never mention Claude, AI, or any AI assistant in the commit message.
-Proceed to execute `git add` and `git commit` directly -- permission will be handled by the tool system.
+Proceed to execute `git add` and `git commit` directly; permission is handled by the tool system.
 
 ## Atomic Commit
 
 Each commit must be the smallest meaningful unit of work that can stand on its own.
 
-- One logical change per commit. A bug fix, a new feature, a refactor -- each is its own commit.
+- One logical change per commit. A bug fix, a new feature, a refactor: each is its own commit.
 - Do not mix unrelated changes in a single commit (e.g., a bug fix + a formatting change = two separate commits).
 - Do not mix refactoring with behavior changes.
 - Formatting or whitespace-only changes must be in their own commit, separate from functional changes.
@@ -70,16 +70,16 @@ Format:
 
 Determines the nature of the change. Common types:
 
-- `feat` -- a new feature (correlates with MINOR in SemVer)
-- `fix` -- a bug fix (correlates with PATCH in SemVer)
-- `docs` -- documentation only
-- `style` -- formatting, whitespace, semicolons; no logic change
-- `refactor` -- code restructuring with no behavior change
-- `perf` -- performance improvement
-- `test` -- adding or correcting tests
-- `build` -- build system or external dependency changes
-- `ci` -- CI configuration changes
-- `chore` -- maintenance tasks that don't modify src or test
+- `feat`: a new feature (correlates with MINOR in SemVer)
+- `fix`: a bug fix (correlates with PATCH in SemVer)
+- `docs`: documentation only
+- `style`: formatting, whitespace, semicolons; no logic change
+- `refactor`: code restructuring with no behavior change
+- `perf`: performance improvement
+- `test`: adding or correcting tests
+- `build`: build system or external dependency changes
+- `ci`: CI configuration changes
+- `chore`: maintenance tasks that don't modify src or test
 
 ### scope (optional)
 
