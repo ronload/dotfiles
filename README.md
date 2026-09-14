@@ -35,6 +35,7 @@ cd ~/dotfiles
 - **fastfetch**: System info with a custom colored-bar module
 - **karabiner**: Karabiner-Elements keyboard customization
 - **yazi**: Terminal file manager
+- **herdr**: Agent-aware terminal multiplexer
 - **Brewfile**: Homebrew package manifest
 
 ## Development

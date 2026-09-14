@@ -139,6 +139,10 @@ for file in opencode.jsonc tui.jsonc opencode-quota/quota-toast.jsonc; do
     "${DEST}/opencode/${file}"
 done
 
+echo ""
+echo "Checking herdr symlink..."
+assert_link "${HOME}/.config/herdr/config.toml" "${DEST}/herdr/config.toml"
+
 # --- Idempotency: a second run must re-link nothing ---
 echo ""
 echo "Running install.sh (second pass, idempotency)..."
