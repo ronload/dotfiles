@@ -1,0 +1,81 @@
+# herdr settings, keybindings and theme.
+#
+# ~/.config/herdr/config.toml is a symlink to this file (install.sh). Only the
+# file is linked, not the directory, because herdr keeps its logs and session
+# state in ~/.config/herdr. herdr writes config edits through the symlink, so
+# changes saved from its settings UI land here too. Apply edits to a running
+# server with `herdr server reload-config`.
+#
+# Full option list: `herdr --default-config`.
+
+# Skip the first-run notification setup prompt.
+onboarding = false
+
+[keys]
+# Same prefix as tmux (C-s). Ghostty's cmd+w sends C-s x, which lands on the
+# default close_pane = "prefix+x".
+prefix = "ctrl+s"
+
+# Direct chords ported from tmux. Ghostty sends them as csi-u
+# (see ghostty/keybindings); the prefix forms stay as herdr's defaults.
+split_vertical = ["prefix+v", "ctrl+shift+backslash"]
+split_horizontal = ["prefix+minus", "ctrl+shift+minus"]
+focus_pane_left = ["prefix+h", "ctrl+shift+h"]
+focus_pane_down = ["prefix+j", "ctrl+shift+j"]
+focus_pane_up = ["prefix+k", "ctrl+shift+k"]
+focus_pane_right = ["prefix+l", "ctrl+shift+l"]
+switch_tab = ["prefix+1..9", "ctrl+1..9"]
+
+# prefix+s opened the sessionx switcher in tmux. A herdr workspace plays the
+# role of a tmux session, so prefix+s opens the workspace picker, and settings
+# (herdr's default prefix+s) moves to prefix+shift+s.
+workspace_picker = ["prefix+w", "prefix+s"]
+settings = "prefix+shift+s"
+
+# prefix+n creates a workspace instead of herdr's default prefix+shift+n. A user
+# binding silently displaces a default on the same key, so the default
+# next_tab = "prefix+n" is dropped; tabs are switched with ctrl+1..9 / prefix+1..9.
+new_workspace = "prefix+n"
+
+# Navigate mode (the workspace picker): j/k move the workspace selection like
+# nvim, arrows kept. That displaces the default navigate pane up/down (j/k), so
+# navigate mode has no pane up/down; use ctrl+shift+j/k outside it. h/l stay on
+# pane left/right.
+navigate_workspace_up = ["k", "up"]
+navigate_workspace_down = ["j", "down"]
+
+[ui]
+pane_borders = "always"
+# Distinct glyphs per agent state (x blocked, half circle working, check done,
+# circle idle) instead of same-shape dots told apart only by color.
+status_indicators = "symbols"
+
+# TokyoNight Moon. Kept inline because herdr has no include mechanism, so the
+# theme cannot live under themes/ like the other tools; themes/sync.sh does not
+# touch it (tokyonight.nvim ships no herdr extra). herdr's built-in "tokyo-night"
+# is the Night palette, so every token is overridden with its Moon counterpart,
+# keeping the tokyonight role herdr's Night theme uses for that token. Role names
+# come from tokyonight.nvim lua/tokyonight/colors/moon.lua.
+[theme]
+name = "tokyo-night"
+
+[theme.custom]
+accent = "#82aaff"        # blue
+panel_bg = "#1e2030"      # bg_dark: tab bar and popups, same as the tmux statusline and fzf
+sidebar_bg = "reset"      # keep the terminal background (bg)
+active_row_bg = "#2f334d" # bg_highlight: same as fzf's selected row
+selection_bg = "#2d3f76"  # bg_visual: same as ghostty's selection-background
+surface0 = "#2f334d"      # bg_highlight
+surface1 = "#444a73"      # terminal_black
+surface_dim = "#1e2030"   # bg_dark
+overlay0 = "#636da6"      # comment
+overlay1 = "#737aa2"      # dark5
+text = "#c8d3f5"          # fg
+subtext0 = "#828bb8"      # fg_dark
+mauve = "#c099ff"         # magenta
+green = "#c3e88d"         # green
+yellow = "#ffc777"        # yellow
+red = "#ff757f"           # red
+blue = "#82aaff"          # blue
+teal = "#86e1fc"          # cyan: herdr's Night theme maps teal to cyan
+peach = "#ff966c"         # orange

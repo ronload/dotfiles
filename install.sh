@@ -126,6 +126,11 @@ for file in "${opencode_files[@]}"; do
     "${HOME}/.config/opencode/${file}"
 done
 
+# herdr configuration. Only config.toml is linked, not the directory: herdr
+# keeps its logs and session state in ~/.config/herdr.
+mkdir -p "${HOME}/.config/herdr"
+link_file "${DOTFILES_DIR}/herdr/config.toml" "${HOME}/.config/herdr/config.toml"
+
 # fzf-git.sh (sourced by zshrc; no Homebrew formula available)
 FZF_GIT_DIR="${HOME}/.local/share/fzf-git.sh"
 if [[ -d "${FZF_GIT_DIR}" ]]; then
