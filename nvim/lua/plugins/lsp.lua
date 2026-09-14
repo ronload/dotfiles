@@ -123,7 +123,9 @@ return {
                 root_markers = { "schema.prisma", ".git" },
             }
 
-            vim.lsp.enable({ "gopls", "ts_ls", "pyright", "rust_analyzer", "lua_ls", "prismals" })
+            -- Swift: use nvim-lspconfig's bundled sourcekit config (root_dir glob
+            -- matching and watched-files capability cannot be expressed via root_markers)
+            vim.lsp.enable({ "gopls", "ts_ls", "pyright", "rust_analyzer", "lua_ls", "prismals", "sourcekit" })
         end,
     },
 }

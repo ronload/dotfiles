@@ -14,6 +14,7 @@ return {
                 "javascript",
                 "python",
                 "rust",
+                "swift",
                 "lua",
                 "json",
                 "yaml",
