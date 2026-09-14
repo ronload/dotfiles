@@ -14,9 +14,13 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: extractions/setup-just@v4
+      # shfmt release assets carry the version in their file name, so a
+      # releases/latest/download URL breaks on every new release. Build the
+      # latest version from source instead.
+      - uses: actions/setup-go@v7
+        with:
+          go-version: stable
+          cache: false
       - name: Install shfmt
-        run: |
-          sudo curl -sSfL -o /usr/local/bin/shfmt \
-            https://github.com/mvdan/sh/releases/latest/download/shfmt_v3.13.1_linux_amd64
-          sudo chmod +x /usr/local/bin/shfmt
+        run: go install mvdan.cc/sh/v3/cmd/shfmt@latest
       - run: just format-shell
