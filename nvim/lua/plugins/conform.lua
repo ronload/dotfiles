@@ -21,6 +21,8 @@ return {
                 typescriptreact = { "prettier" },
                 python = { "ruff_organize_imports", "ruff_format" },
                 rust = { "rustfmt" },
+                -- Apple swift-format via the Swift 6 toolchain, same tool as `just format`
+                swift = { "swift" },
                 lua = { "stylua" },
                 json = { "prettier" },
                 jsonc = { "prettier" },
