@@ -23,6 +23,7 @@
     // readline keys
     "input_move_up": "up,ctrl+p",
     "input_move_down": "down,ctrl+n",
+    "input_backspace": "backspace,ctrl+h",
 
     // readline keys in input history
     "history_previous": "up,ctrl+p",
