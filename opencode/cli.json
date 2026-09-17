@@ -17,11 +17,14 @@
   },
 
   "keybinds": {
-    "command.palette.show": "ctrl+k",
+    "command.palette.show": "<leader>k",
 
     "input.move.up": "up,ctrl+p",
     "input.move.down": "down,ctrl+n",
     "input.backspace": "backspace,shift+backspace,ctrl+h",
+
+    "session.background": "<leader>j",
+    "session.first": "home,alt+home",
 
     "prompt.history.previous": "up,ctrl+p",
     "prompt.history.next": "down,ctrl+n",
