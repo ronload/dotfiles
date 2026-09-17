@@ -8,6 +8,24 @@
   "compaction": {
     "reserved": 0,
   },
+  "permission": {
+    "external_directory": "allow",
+    "read": {
+      "**/.ssh/**": "deny",
+      "**/.aws/credentials": "deny",
+      "**/.netrc": "deny",
+      "**/auth.json": "deny",
+      "**/*.pem": "deny",
+      "**/*.key": "deny",
+    },
+    "bash": {
+      "rm -rf *": "ask",
+      "sudo *": "ask",
+      "git push --force*": "ask",
+      "git reset --hard*": "ask",
+      "chmod 777 *": "ask",
+    },
+  },
   "provider": {
     "anthropic": {
       "models": {
