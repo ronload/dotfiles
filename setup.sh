@@ -151,7 +151,7 @@ step "OpenCode"
 export PATH="${HOME}/.opencode/bin:${PATH}"
 if ! command -v opencode &>/dev/null; then
   spinner_start "Installing OpenCode..."
-  curl -fsSL https://opencode.ai/install | bash >/dev/null
+  curl -fsSL https://opencode.ai/v2/install | bash >/dev/null
   spinner_stop "OpenCode installed"
 else
   echo "  ✓ OpenCode already installed"

@@ -113,18 +113,24 @@ for hook_file in "${DOTFILES_DIR}/claude/hooks"/*.sh; do
   link_file "${hook_file}" "${HOME}/.claude/hooks/${hook_name}"
 done
 
-# OpenCode configuration
-mkdir -p "${HOME}/.config/opencode/opencode-quota"
+# OpenCode configuration. v2 splits settings into the server config
+# (opencode.jsonc) and the terminal client config (cli.json).
+mkdir -p "${HOME}/.config/opencode"
 opencode_files=(
   "opencode.jsonc"
-  "tui.jsonc"
-  "opencode-quota/quota-toast.jsonc"
+  "cli.json"
 )
 for file in "${opencode_files[@]}"; do
   link_file \
     "${DOTFILES_DIR}/opencode/${file}" \
     "${HOME}/.config/opencode/${file}"
 done
+
+# opencode-quota reads quota-toast.jsonc from this directory. Its runtime state
+# lives in ~/.cache/opencode and is deliberately not tracked here.
+link_file \
+  "${DOTFILES_DIR}/opencode/opencode-quota" \
+  "${HOME}/.config/opencode/opencode-quota"
 
 # herdr configuration. Only config.toml is linked, not the directory: herdr
 # keeps its logs and session state in ~/.config/herdr.
