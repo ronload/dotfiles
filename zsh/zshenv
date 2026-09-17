@@ -23,6 +23,7 @@ esac
 
 # --- opencode ---
 export PATH="$HOME/.opencode/bin:$PATH"
+export OPENCODE_EXPERIMENTAL_BACKGROUND_SUBAGENTS=true
 
 # --- tuxedo ---
 export TODO_DIR="$HOME/Documents/todo"
