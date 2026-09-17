@@ -1,0 +1,31 @@
+{
+  "$schema": "https://opencode.ai/v2/cli.json",
+
+  "theme": {
+    "name": "tokyonight",
+    "mode": "dark"
+  },
+
+  "cursor": {
+    "style": "block",
+    "blinking": false
+  },
+
+  "attention": {
+    "notifications": true,
+    "sound": false
+  },
+
+  "keybinds": {
+    "command.palette.show": "ctrl+k",
+
+    "input.move.up": "up,ctrl+p",
+    "input.move.down": "down,ctrl+n",
+    "input.backspace": "backspace,shift+backspace,ctrl+h",
+
+    "prompt.history.previous": "up,ctrl+p",
+    "prompt.history.next": "down,ctrl+n",
+
+    "prompt.editor": "ctrl+g"
+  }
+}

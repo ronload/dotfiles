@@ -133,7 +133,7 @@ done
 
 echo ""
 echo "Checking OpenCode symlinks..."
-for file in opencode.jsonc tui.jsonc opencode-quota/quota-toast.jsonc; do
+for file in opencode.jsonc cli.json opencode-quota; do
   assert_link \
     "${HOME}/.config/opencode/${file}" \
     "${DEST}/opencode/${file}"
