@@ -1,9 +1,27 @@
 ---
 name: pull-request
 description: Review branch commits, generate a PR title and description, and create a pull request via gh.
-allowed-tools:
-  - Bash(git *)
-  - Bash(gh *)
+license: MIT
+compatibility: Requires git and the GitHub CLI (gh)
+allowed-tools: >-
+  Bash(git push -u origin *)
+  Bash(git push origin *)
+  Bash(gh pr create *)
+  Bash(gh pr edit *)
+  Bash(git log *)
+  Bash(git diff *)
+  Bash(git status *)
+  Bash(git branch --list *)
+  Bash(git branch -a *)
+  Bash(git branch -v *)
+  Bash(git branch --show-current)
+  Bash(git remote -v *)
+  Bash(git rev-parse *)
+  Bash(gh pr list *)
+  Bash(gh pr view *)
+  Bash(gh pr diff *)
+  Bash(gh label list *)
+  Bash(gh repo view *)
 ---
 
 - Review all commits on the current branch relative to the base branch (`git log` and `git diff` against main or the appropriate base).

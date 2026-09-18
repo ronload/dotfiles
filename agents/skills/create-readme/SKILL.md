@@ -1,6 +1,9 @@
 ---
 name: create-readme
-description: 'Create a README.md file for the project'
+description: Write or rewrite a project's README.md from the repository's actual structure and conventions. Use when the user asks to create, generate, rewrite or improve a README, or asks for a project overview to live in README.md. Do not use for other documentation files, for editing a single section the user quotes, or for answering questions about a project in chat.
+license: MIT
+compatibility: Requires network access to fetch the reference READMEs listed below
+allowed-tools: WebFetch Read Glob Grep
 ---
 
 ## Role

@@ -1,7 +1,9 @@
 ---
 name: recon
 description: Research external best practices and real-world case studies before making any architectural, design, or implementation decision. Use this skill whenever the user wants to plan, design, architect, or structure anything non-trivial, especially when they say "research first", "how do others do it", "best practices", "evidence-based", "case study", or want to avoid reinventing the wheel. Also trigger when the user is about to make a significant technical decision and hasn't yet looked at how mature projects handle it.
-allowed-tools: WebSearch, WebFetch
+license: MIT
+compatibility: Requires internet access for web search and page fetching
+allowed-tools: WebSearch WebFetch
 ---
 
 # Evidence-Based Planning
@@ -18,7 +20,7 @@ Before searching, confirm with the user:
 1. What specifically are we deciding or building?
 2. What is the scope? (e.g., "how to structure auth" vs "full system architecture")
 
-Keep this brief. If the user's intent is already clear from $ARGUMENTS, skip straight to Phase 2.
+Keep this brief. If the user's intent is already clear from their request, skip straight to Phase 2.
 
 ### Phase 2: Research (Evidence Collection)
 
