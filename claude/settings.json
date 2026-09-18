@@ -33,8 +33,7 @@
       "Bash(gh run view *)",
       "Bash(gh search *)",
       "WebSearch",
-      "WebFetch",
-      "mcp__context7__*"
+      "WebFetch"
     ],
     "deny": [
       "Bash(git push --force *)",
@@ -73,20 +72,6 @@
   "statusLine": {
     "type": "command",
     "command": "bash \"$HOME/.claude/statusline.sh\""
-  },
-  "enabledPlugins": {
-    "gopls-lsp@claude-plugins-official": true,
-    "modern-go-guidelines@goland-claude-marketplace": true,
-    "rust-analyzer-lsp@claude-plugins-official": true,
-    "swift-lsp@claude-plugins-official": true
-  },
-  "extraKnownMarketplaces": {
-    "goland-claude-marketplace": {
-      "source": {
-        "source": "github",
-        "repo": "JetBrains/go-modern-guidelines"
-      }
-    }
   },
   "feedbackSurveyRate": 0,
   "alwaysThinkingEnabled": true,
