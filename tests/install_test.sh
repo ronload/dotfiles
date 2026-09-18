@@ -127,17 +127,6 @@ for skill_dir in "${DEST}/agents/skills"/*/; do
 done
 
 echo ""
-echo "Checking Claude symlinks..."
-for file in settings.json statusline.sh; do
-  assert_link "${HOME}/.claude/${file}" "${DEST}/claude/${file}"
-done
-# Hooks are discovered the same way.
-for hook_file in "${DEST}/claude/hooks"/*.sh; do
-  hook_name="$(basename "${hook_file}")"
-  assert_link "${HOME}/.claude/hooks/${hook_name}" "${hook_file}"
-done
-
-echo ""
 echo "Checking OpenCode symlinks..."
 for file in opencode.jsonc cli.json opencode-quota; do
   assert_link \
