@@ -3,13 +3,13 @@ name: recon
 description: Research external best practices and real-world case studies before making any architectural, design, or implementation decision. Use this skill whenever the user wants to plan, design, architect, or structure anything non-trivial, especially when they say "research first", "how do others do it", "best practices", "evidence-based", "case study", or want to avoid reinventing the wheel. Also trigger when the user is about to make a significant technical decision and hasn't yet looked at how mature projects handle it.
 license: MIT
 compatibility: Requires internet access for web search and page fetching
-allowed-tools: WebSearch WebFetch
+allowed-tools: Read WebSearch WebFetch
 ---
 
 # Evidence-Based Planning
 
 Gather high-confidence external evidence BEFORE proposing any plan. Never plan from assumptions; plan from data.
-If subagents are available, run the research phases (2 and 3) in one and return only the structured output to the main context; otherwise run them inline. Either way, present decision gates to the user from the main context.
+Before delegating, read `references/output-templates.md`. If subagents are available, give one subagent the research target, the Phase 2 source hierarchy and rules, and the full Research Brief template. Have it execute Phases 2 and 3 and return only the completed brief; otherwise run those phases inline. Either way, present decision gates to the user from the main context.
 
 ## Workflow
 

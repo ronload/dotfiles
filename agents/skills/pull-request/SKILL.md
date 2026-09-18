@@ -4,8 +4,6 @@ description: Review the commits on the current branch, draft a pull request titl
 license: MIT
 compatibility: Requires git and the GitHub CLI (gh)
 allowed-tools: >-
-  Bash(git push -u origin *)
-  Bash(git push origin *)
   Bash(gh pr create *)
   Bash(gh pr edit *)
   Bash(git log *)
@@ -26,7 +24,8 @@ allowed-tools: >-
 
 - Review all commits on the current branch relative to the base branch (`git log` and `git diff` against main or the appropriate base).
 - Assess whether the changes form a coherent, reviewable unit. If not, mention it.
-- If the branch has not been pushed, push it first.
+- Identify the repository's base branch. Stop and tell the user if the current branch is the base branch.
+- If the current branch has unpushed commits, push it first. Use `git push -u origin HEAD` when it has no upstream, or `git push origin HEAD` when it does. Push permission is handled separately; this skill does not pre-approve it.
 - Generate a concise PR title (under 70 characters) and a description that explains **why** the changes were made, not just what was changed.
 - Do not hardcode a description template; adapt the format to the scope of the changes.
 - Use `gh pr create` to create the PR.
