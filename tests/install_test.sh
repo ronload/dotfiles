@@ -125,6 +125,8 @@ assert_link "${HOME}/.codex/AGENTS.md" "${DEST}/agents/AGENTS.md"
 for skill_dir in "${DEST}/agents/skills"/*/; do
   skill_name="$(basename "${skill_dir}")"
   assert_link "${HOME}/.claude/skills/${skill_name}" "${skill_dir}"
+  assert_link "${HOME}/.agents/skills/${skill_name}" "${skill_dir}"
+  assert_link "${HOME}/.config/opencode/skills/${skill_name}" "${skill_dir}"
 done
 
 echo ""

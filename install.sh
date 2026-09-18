@@ -95,12 +95,24 @@ link_file "${DOTFILES_DIR}/agents/AGENTS.md" "${HOME}/.config/opencode/AGENTS.md
 link_file "${DOTFILES_DIR}/agents/AGENTS.md" "${HOME}/.codex/AGENTS.md"
 
 # Skills follow the Agent Skills standard, so they are shared rather than
-# Claude-specific. OpenCode also reads ~/.claude/skills, so one link serves
-# both. Link each skill individually; ~/.claude/skills/ holds other content.
-mkdir -p "${HOME}/.claude/skills"
+# client-specific. Each client gets its own native location instead of reading
+# another client's: Claude Code uses ~/.claude/skills, Codex uses
+# ~/.agents/skills, and OpenCode uses ~/.config/opencode/skills. OpenCode also
+# scans the other two as compatibility sources, but it keys skills by ID, so the
+# same directory linked three times still resolves to a single skill. Link each
+# skill individually; those directories also hold skills installed by other
+# tools.
+skill_roots=(
+  "${HOME}/.claude/skills"
+  "${HOME}/.agents/skills"
+  "${HOME}/.config/opencode/skills"
+)
+mkdir -p "${skill_roots[@]}"
 for skill_dir in "${DOTFILES_DIR}/agents/skills"/*/; do
   skill_name="$(basename "${skill_dir}")"
-  link_file "${skill_dir}" "${HOME}/.claude/skills/${skill_name}"
+  for skill_root in "${skill_roots[@]}"; do
+    link_file "${skill_dir}" "${skill_root}/${skill_name}"
+  done
 done
 
 # OpenCode configuration. v2 splits settings into the server config
