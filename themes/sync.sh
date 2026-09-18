@@ -3,7 +3,7 @@
 # tokyonight.nvim plugin into themes/tokyonight-moon/.
 #
 # These vendored copies are the single source of truth for every app's
-# colorscheme (ghostty, tmux, delta, yazi, eza, bat), so terminal/app
+# colorscheme (ghostty, tmux, delta, yazi, eza, bat, opencode), so terminal/app
 # themes stay decoupled from Neovim's plugin directory. Run this after
 # updating tokyonight.nvim to pull in upstream palette changes, then
 # review the diff before committing.
@@ -32,6 +32,7 @@ maps=(
   "yazi/tokyonight_moon.toml:yazi/tokyonight_moon.toml"
   "eza/tokyonight_moon.yml:eza/tokyonight_moon.yml"
   "sublime/tokyonight_moon.tmTheme:bat/tokyonight_moon.tmTheme"
+  "opencode/tokyonight_moon.json:opencode/tokyonight_moon.json"
 )
 
 for m in "${maps[@]}"; do

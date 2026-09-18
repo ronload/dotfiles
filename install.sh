@@ -128,6 +128,12 @@ for file in "${opencode_files[@]}"; do
     "${HOME}/.config/opencode/${file}"
 done
 
+# OpenCode v2 accepts the upstream TokyoNight extra's legacy theme format.
+mkdir -p "${HOME}/.config/opencode/themes"
+link_file \
+  "${DOTFILES_DIR}/themes/tokyonight-moon/opencode/tokyonight_moon.json" \
+  "${HOME}/.config/opencode/themes/tokyonight-moon.json"
+
 # opencode-quota reads quota-toast.jsonc from this directory. Its runtime state
 # lives in ~/.cache/opencode and is deliberately not tracked here.
 link_file \
