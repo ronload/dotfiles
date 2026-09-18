@@ -17,6 +17,8 @@
   // The local build also carries a patch to src/lib/runtime-provider-ids.ts:
   // upstream still calls the OpenCode 1 endpoint for the provider list, which
   // hides every provider except openai. Track it at PR #196 and issue #229.
+  // Another local patch labels Claude as Anthropic and detects its plan via
+  // /api/oauth/profile, cached per OAuth token for five minutes.
   //
   // TODO: switch back to "@slkiser/opencode-quota" once upstream publishes a
   // release that supports OpenCode 2, then delete both local directories:
