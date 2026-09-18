@@ -1,13 +1,15 @@
 ---
 name: recon
 description: Research external best practices and real-world case studies before making any architectural, design, or implementation decision. Use this skill whenever the user wants to plan, design, architect, or structure anything non-trivial, especially when they say "research first", "how do others do it", "best practices", "evidence-based", "case study", or want to avoid reinventing the wheel. Also trigger when the user is about to make a significant technical decision and hasn't yet looked at how mature projects handle it.
-allowed-tools: WebSearch, WebFetch
+license: MIT
+compatibility: Requires internet access for web search and page fetching
+allowed-tools: Read WebSearch WebFetch
 ---
 
 # Evidence-Based Planning
 
-You are a senior technical researcher. Your job is to gather high-confidence external evidence BEFORE proposing any plan. Never plan from assumptions; plan from data.
-Execute all research (Phase 2-3) in a subagent. Return only the structured output defined below to the main context. Present decision gates to the user from the main agent.
+Gather high-confidence external evidence BEFORE proposing any plan. Never plan from assumptions; plan from data.
+Before delegating, read `references/output-templates.md`. If subagents are available, give one subagent the research target, the Phase 2 source hierarchy and rules, and the full Research Brief template. Have it execute Phases 2 and 3 and return only the completed brief; otherwise run those phases inline. Either way, present decision gates to the user from the main context.
 
 ## Workflow
 
@@ -18,7 +20,7 @@ Before searching, confirm with the user:
 1. What specifically are we deciding or building?
 2. What is the scope? (e.g., "how to structure auth" vs "full system architecture")
 
-Keep this brief. If the user's intent is already clear from $ARGUMENTS, skip straight to Phase 2.
+Keep this brief. If the user's intent is already clear from their request, skip straight to Phase 2.
 
 ### Phase 2: Research (Evidence Collection)
 
@@ -55,27 +57,7 @@ Search the web systematically. Follow this source hierarchy, where higher tiers 
 
 ### Phase 3: Synthesis (Case Study Output)
 
-Present findings as a structured research brief BEFORE any planning:
-
-```
-## Research Brief: [Topic]
-
-### Key Findings
-[Summarize the 3-5 most important discoveries, each with source tier noted]
-
-### Case Studies
-For each relevant project/example found:
-- Project: [name + link]
-- What they do: [specific pattern/approach]
-- Why it works for them: [their context]
-- Relevance to us: [how similar/different is our situation]
-
-### Negative Signals
-[What problems did people report? What approaches were abandoned and why?]
-
-### Confidence Assessment
-[What are you confident about vs. what remains uncertain?]
-```
+Present findings as a structured research brief BEFORE any planning, using the Research Brief template in `references/output-templates.md`.
 
 Wait for user acknowledgment before proceeding to Phase 4.
 
@@ -83,28 +65,9 @@ Wait for user acknowledgment before proceeding to Phase 4.
 
 Now draft the plan based on the research. As you write:
 
-#### At every decision point where multiple valid approaches exist, STOP and present:
+#### Where multiple valid approaches exist
 
-```
----
-DECISION REQUIRED: [What needs to be decided]
-
-Option A: [Name]
-- Approach: [What this means concretely]
-- Evidence: [Which case studies/sources support this]
-- Tradeoff: [What you gain and what you lose]
-
-Option B: [Name]
-- Approach: [...]
-- Evidence: [...]
-- Tradeoff: [...]
-
-(Option C if applicable)
-
-Constraint check (factors that might affect your choice):
-[Only list constraints that are ACTUALLY RELEVANT to THIS specific decision. Do not use a generic checklist. Examples of constraints that MAY apply: team size, timeline, existing technical debt, compliance requirements, expected scale, reversibility. But only surface the ones that matter here.]
----
-```
+STOP and present the choice using the Decision Gate template in `references/output-templates.md`.
 
 Wait for the user's choice before continuing the plan.
 
