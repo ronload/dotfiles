@@ -6,6 +6,10 @@
     "mode": "dark"
   },
 
+  "tabs": {
+    "enabled": false
+  },
+
   "cursor": {
     "style": "block",
     "blinking": false
