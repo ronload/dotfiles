@@ -1,6 +1,6 @@
 ---
 name: commit
-description: Review staged and unstaged changes, then create atomic commits with Conventional Commits messages.
+description: Review staged and unstaged changes, then create atomic commits with Conventional Commits messages. Use when the user asks to commit, to stage and commit, or to split the working tree into separate commits. Do not use when the user only wants to inspect what changed, wants a message drafted without committing anything, or is asking about commits that already exist.
 license: MIT
 compatibility: Requires git, and the GitHub CLI (gh) to read issue and PR context
 allowed-tools: >-
@@ -36,7 +36,7 @@ allowed-tools: >-
   Bash(gh release view *)
 ---
 
-Review both staged (`git diff --cached`) and unstaged (`git diff` and `git status`) changes to understand the full picture, then organize them into atomic commits following the two principles below.
+Review both staged (`git diff --cached`) and unstaged (`git diff` and `git status`) changes to understand the full picture, then organize them into atomic commits.
 Never mention Claude, AI, or any AI assistant in the commit message.
 Proceed to execute `git add` and `git commit` directly; permission is handled by the tool system.
 
@@ -52,57 +52,6 @@ Each commit must be the smallest meaningful unit of work that can stand on its o
 - If unstaged changes span multiple logical units, group related files together via `git add`, commit each group separately.
 - Each commit must leave the codebase in a working state (builds successfully, tests pass).
 
-## Conventional Commits (v1.0.0)
+## Commit Message
 
-Format:
-
-```
-<type>[optional scope][optional !]: <description>
-
-[optional body]
-
-[optional footer(s)]
-```
-
-### type (required)
-
-Determines the nature of the change. Common types:
-
-- `feat`: a new feature (correlates with MINOR in SemVer)
-- `fix`: a bug fix (correlates with PATCH in SemVer)
-- `docs`: documentation only
-- `style`: formatting, whitespace, semicolons; no logic change
-- `refactor`: code restructuring with no behavior change
-- `perf`: performance improvement
-- `test`: adding or correcting tests
-- `build`: build system or external dependency changes
-- `ci`: CI configuration changes
-- `chore`: maintenance tasks that don't modify src or test
-
-### scope (optional)
-
-A noun in parentheses describing the section of the codebase affected, e.g., `feat(auth)`, `fix(parser)`.
-
-### description (required)
-
-- Immediately follows the colon and space after type/scope.
-- Written in English, lowercase, imperative mood.
-- No period at the end.
-- Concise: aim for under 50 characters, hard limit 72.
-
-### body (optional)
-
-- Separated from the subject by a blank line.
-- Explains **why** the change was made, not what was changed.
-- Free-form, may consist of multiple paragraphs.
-
-### footer (optional)
-
-- Separated from the body by a blank line.
-- Format: `Token: value` or `Token #value`.
-- Use `-` instead of spaces in multi-word tokens (e.g., `Reviewed-by: Name`).
-
-### breaking change
-
-- Append `!` immediately before the colon in the subject to indicate a breaking change (correlates with MAJOR in SemVer).
-- Alternatively, add a `BREAKING CHANGE: <description>` footer (must be uppercase).
+Messages follow Conventional Commits v1.0.0. Read `references/conventional-commits.md` for the format, the type list, and the breaking-change rules before writing the message.

@@ -2,22 +2,15 @@
 name: create-readme
 description: Write or rewrite a project's README.md from the repository's actual structure and conventions. Use when the user asks to create, generate, rewrite or improve a README, or asks for a project overview to live in README.md. Do not use for other documentation files, for editing a single section the user quotes, or for answering questions about a project in chat.
 license: MIT
-compatibility: Requires network access to fetch the reference READMEs listed below
-allowed-tools: WebFetch Read Glob Grep
+allowed-tools: Read Glob Grep
 ---
 
-## Role
-
-You're a senior expert software engineer with extensive experience in open source projects. You always make sure the README files you write are appealing, informative, and easy to read.
+The result must be appealing, informative, and easy to read.
 
 ## Task
 
-1. Take a deep breath, and review the entire project and workspace, then create a comprehensive and well-structured README.md file for the project.
-2. Take inspiration from these readme files for the structure, tone and content:
-   - https://raw.githubusercontent.com/Azure-Samples/serverless-chat-langchainjs/refs/heads/main/README.md
-   - https://raw.githubusercontent.com/Azure-Samples/serverless-recipes-javascript/refs/heads/main/README.md
-   - https://raw.githubusercontent.com/sinedied/run-on-output/refs/heads/main/README.md
-   - https://raw.githubusercontent.com/sinedied/smoke/refs/heads/main/README.md
+1. Review the entire project and workspace, then create a comprehensive and well-structured README.md file for the project.
+2. Follow `references/readme-structure.md` for section order, tone, and length.
 3. Do not use emojis, and keep the readme concise and to the point.
 4. Do not include sections like "LICENSE", "CONTRIBUTING", "CHANGELOG", etc. There are dedicated files for those sections.
 5. Use GFM (GitHub Flavored Markdown) for formatting, and GitHub admonition syntax (https://github.com/orgs/community/discussions/16925) where appropriate.

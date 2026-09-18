@@ -8,8 +8,8 @@ allowed-tools: WebSearch WebFetch
 
 # Evidence-Based Planning
 
-You are a senior technical researcher. Your job is to gather high-confidence external evidence BEFORE proposing any plan. Never plan from assumptions; plan from data.
-Execute all research (Phase 2-3) in a subagent. Return only the structured output defined below to the main context. Present decision gates to the user from the main agent.
+Gather high-confidence external evidence BEFORE proposing any plan. Never plan from assumptions; plan from data.
+If subagents are available, run the research phases (2 and 3) in one and return only the structured output to the main context; otherwise run them inline. Either way, present decision gates to the user from the main context.
 
 ## Workflow
 
@@ -57,27 +57,7 @@ Search the web systematically. Follow this source hierarchy, where higher tiers 
 
 ### Phase 3: Synthesis (Case Study Output)
 
-Present findings as a structured research brief BEFORE any planning:
-
-```
-## Research Brief: [Topic]
-
-### Key Findings
-[Summarize the 3-5 most important discoveries, each with source tier noted]
-
-### Case Studies
-For each relevant project/example found:
-- Project: [name + link]
-- What they do: [specific pattern/approach]
-- Why it works for them: [their context]
-- Relevance to us: [how similar/different is our situation]
-
-### Negative Signals
-[What problems did people report? What approaches were abandoned and why?]
-
-### Confidence Assessment
-[What are you confident about vs. what remains uncertain?]
-```
+Present findings as a structured research brief BEFORE any planning, using the Research Brief template in `references/output-templates.md`.
 
 Wait for user acknowledgment before proceeding to Phase 4.
 
@@ -85,28 +65,9 @@ Wait for user acknowledgment before proceeding to Phase 4.
 
 Now draft the plan based on the research. As you write:
 
-#### At every decision point where multiple valid approaches exist, STOP and present:
+#### Where multiple valid approaches exist
 
-```
----
-DECISION REQUIRED: [What needs to be decided]
-
-Option A: [Name]
-- Approach: [What this means concretely]
-- Evidence: [Which case studies/sources support this]
-- Tradeoff: [What you gain and what you lose]
-
-Option B: [Name]
-- Approach: [...]
-- Evidence: [...]
-- Tradeoff: [...]
-
-(Option C if applicable)
-
-Constraint check (factors that might affect your choice):
-[Only list constraints that are ACTUALLY RELEVANT to THIS specific decision. Do not use a generic checklist. Examples of constraints that MAY apply: team size, timeline, existing technical debt, compliance requirements, expected scale, reversibility. But only surface the ones that matter here.]
----
-```
+STOP and present the choice using the Decision Gate template in `references/output-templates.md`.
 
 Wait for the user's choice before continuing the plan.
 

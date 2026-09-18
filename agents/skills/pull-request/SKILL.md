@@ -1,6 +1,6 @@
 ---
 name: pull-request
-description: Review branch commits, generate a PR title and description, and create a pull request via gh.
+description: Review the commits on the current branch, draft a pull request title and description, and open the pull request with gh. Use when the user asks to open, create or raise a PR, or to push the branch and turn it into a pull request. Do not use for reviewing, editing or merging a pull request that already exists, or for summarizing a branch in chat.
 license: MIT
 compatibility: Requires git and the GitHub CLI (gh)
 allowed-tools: >-
@@ -32,5 +32,5 @@ allowed-tools: >-
 - Use `gh pr create` to create the PR.
 - Add suitable labels to the PR.
 - Never mention Claude, AI, or any AI assistant in the title or description.
-- After drafting the title and description, ALWAYS ask for my confirmation before creating the PR.
-- NEVER create the PR directly, even in auto-accept mode.
+- After drafting the title and description, ALWAYS ask the user for confirmation before creating the PR.
+- NEVER create the PR directly, even when the environment approves tool calls without prompting.
