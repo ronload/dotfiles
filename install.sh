@@ -88,10 +88,11 @@ for entry in "${shell_configs[@]}"; do
 done
 
 # Claude Code only reads CLAUDE.md, and OpenCode's fallback to it can be
-# disabled, so both names link to the one AGENTS.md.
-mkdir -p "${HOME}/.claude" "${HOME}/.config/opencode"
+# disabled, so every client name links to the one AGENTS.md.
+mkdir -p "${HOME}/.claude" "${HOME}/.config/opencode" "${HOME}/.codex"
 link_file "${DOTFILES_DIR}/agents/AGENTS.md" "${HOME}/.claude/CLAUDE.md"
 link_file "${DOTFILES_DIR}/agents/AGENTS.md" "${HOME}/.config/opencode/AGENTS.md"
+link_file "${DOTFILES_DIR}/agents/AGENTS.md" "${HOME}/.codex/AGENTS.md"
 
 # Skills follow the Agent Skills standard, so they are shared rather than
 # Claude-specific. OpenCode also reads ~/.claude/skills, so one link serves
