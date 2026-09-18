@@ -87,10 +87,14 @@ for entry in "${shell_configs[@]}"; do
   link_file "${DOTFILES_DIR}/zsh/${shell_src}" "${HOME}/${shell_dest}"
 done
 
+# Claude Code only reads CLAUDE.md, and OpenCode's fallback to it can be
+# disabled, so both names link to the one AGENTS.md.
+mkdir -p "${HOME}/.claude" "${HOME}/.config/opencode"
+link_file "${DOTFILES_DIR}/agents/AGENTS.md" "${HOME}/.claude/CLAUDE.md"
+link_file "${DOTFILES_DIR}/agents/AGENTS.md" "${HOME}/.config/opencode/AGENTS.md"
+
 # Claude Code configuration
-mkdir -p "${HOME}/.claude"
 claude_files=(
-  "CLAUDE.md"
   "settings.json"
   "statusline.sh"
 )

@@ -115,8 +115,13 @@ assert_link "${HOME}/.zprofile" "${DEST}/zsh/zprofile"
 assert_link "${HOME}/.zshenv" "${DEST}/zsh/zshenv"
 
 echo ""
+echo "Checking shared agent instruction symlinks..."
+assert_link "${HOME}/.claude/CLAUDE.md" "${DEST}/agents/AGENTS.md"
+assert_link "${HOME}/.config/opencode/AGENTS.md" "${DEST}/agents/AGENTS.md"
+
+echo ""
 echo "Checking Claude symlinks..."
-for file in CLAUDE.md settings.json statusline.sh; do
+for file in settings.json statusline.sh; do
   assert_link "${HOME}/.claude/${file}" "${DEST}/claude/${file}"
 done
 
