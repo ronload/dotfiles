@@ -115,22 +115,23 @@ assert_link "${HOME}/.zprofile" "${DEST}/zsh/zprofile"
 assert_link "${HOME}/.zshenv" "${DEST}/zsh/zshenv"
 
 echo ""
-echo "Checking shared agent instruction symlinks..."
+echo "Checking shared agent symlinks..."
 assert_link "${HOME}/.claude/CLAUDE.md" "${DEST}/agents/AGENTS.md"
 assert_link "${HOME}/.config/opencode/AGENTS.md" "${DEST}/agents/AGENTS.md"
+
+# Skills are discovered from the repo so the test stays in sync as they are
+# added or removed.
+for skill_dir in "${DEST}/agents/skills"/*/; do
+  skill_name="$(basename "${skill_dir}")"
+  assert_link "${HOME}/.claude/skills/${skill_name}" "${skill_dir}"
+done
 
 echo ""
 echo "Checking Claude symlinks..."
 for file in settings.json statusline.sh; do
   assert_link "${HOME}/.claude/${file}" "${DEST}/claude/${file}"
 done
-
-# Skills and hooks are discovered from the repo so the test stays in sync as
-# they are added or removed.
-for skill_dir in "${DEST}/claude/skills"/*/; do
-  skill_name="$(basename "${skill_dir}")"
-  assert_link "${HOME}/.claude/skills/${skill_name}" "${skill_dir}"
-done
+# Hooks are discovered the same way.
 for hook_file in "${DEST}/claude/hooks"/*.sh; do
   hook_name="$(basename "${hook_file}")"
   assert_link "${HOME}/.claude/hooks/${hook_name}" "${hook_file}"

@@ -102,9 +102,11 @@ for file in "${claude_files[@]}"; do
   link_file "${DOTFILES_DIR}/claude/${file}" "${HOME}/.claude/${file}"
 done
 
-# Claude Code skills (link each skill individually, ~/.claude/skills/ may have other content)
+# Skills follow the Agent Skills standard, so they are shared rather than
+# Claude-specific. OpenCode also reads ~/.claude/skills, so one link serves
+# both. Link each skill individually; ~/.claude/skills/ holds other content.
 mkdir -p "${HOME}/.claude/skills"
-for skill_dir in "${DOTFILES_DIR}/claude/skills"/*/; do
+for skill_dir in "${DOTFILES_DIR}/agents/skills"/*/; do
   skill_name="$(basename "${skill_dir}")"
   link_file "${skill_dir}" "${HOME}/.claude/skills/${skill_name}"
 done
