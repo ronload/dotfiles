@@ -93,15 +93,6 @@ mkdir -p "${HOME}/.claude" "${HOME}/.config/opencode"
 link_file "${DOTFILES_DIR}/agents/AGENTS.md" "${HOME}/.claude/CLAUDE.md"
 link_file "${DOTFILES_DIR}/agents/AGENTS.md" "${HOME}/.config/opencode/AGENTS.md"
 
-# Claude Code configuration
-claude_files=(
-  "settings.json"
-  "statusline.sh"
-)
-for file in "${claude_files[@]}"; do
-  link_file "${DOTFILES_DIR}/claude/${file}" "${HOME}/.claude/${file}"
-done
-
 # Skills follow the Agent Skills standard, so they are shared rather than
 # Claude-specific. OpenCode also reads ~/.claude/skills, so one link serves
 # both. Link each skill individually; ~/.claude/skills/ holds other content.
@@ -109,14 +100,6 @@ mkdir -p "${HOME}/.claude/skills"
 for skill_dir in "${DOTFILES_DIR}/agents/skills"/*/; do
   skill_name="$(basename "${skill_dir}")"
   link_file "${skill_dir}" "${HOME}/.claude/skills/${skill_name}"
-done
-
-# Claude Code hooks (link each hook individually, ~/.claude/hooks/ may have other content)
-mkdir -p "${HOME}/.claude/hooks"
-for hook_file in "${DOTFILES_DIR}/claude/hooks"/*.sh; do
-  [[ -f "${hook_file}" ]] || continue
-  hook_name="$(basename "${hook_file}")"
-  link_file "${hook_file}" "${HOME}/.claude/hooks/${hook_name}"
 done
 
 # OpenCode configuration. v2 splits settings into the server config
