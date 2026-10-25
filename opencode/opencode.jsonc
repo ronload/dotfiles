@@ -21,14 +21,27 @@
   ],
 
   "compaction": {
+    "auto": true,
+    // With no buffer, auto compaction starts at each model's limit.input (200,000
+    // for the models below). Models without one only compact once they overflow.
     "buffer": 0,
   },
 
+  // Unset limit fields keep their models.dev values.
   "providers": {
     "anthropic": {
       "models": {
+        "claude-fable-5-1": {
+          "limit": { "input": 200000 },
+        },
         "claude-opus-5": {
           "limit": { "context": 1000000, "input": 200000, "output": 128000 },
+        },
+        "claude-opus-5-5": {
+          "limit": { "input": 200000 },
+        },
+        "claude-opus-5-fast": {
+          "limit": { "input": 200000 },
         },
       },
     },
@@ -36,6 +49,18 @@
       "models": {
         "gpt-5.6-sol": {
           "limit": { "context": 1050000, "input": 200000, "output": 128000 },
+        },
+        "gpt-5.6-terra": {
+          "limit": { "input": 200000 },
+        },
+        "gpt-6-astra": {
+          "limit": { "input": 200000 },
+        },
+        "gpt-6-astra-fast": {
+          "limit": { "input": 200000 },
+        },
+        "gpt-6.1-sol": {
+          "limit": { "input": 200000 },
         },
       },
     },
