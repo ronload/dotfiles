@@ -6,6 +6,10 @@
     "mode": "dark"
   },
 
+  "session": {
+    "sidebar": "hide"
+  },
+
   "tabs": {
     "enabled": false
   },
