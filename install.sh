@@ -134,12 +134,6 @@ link_file \
   "${DOTFILES_DIR}/themes/tokyonight-moon/opencode/tokyonight_moon.json" \
   "${HOME}/.config/opencode/themes/tokyonight-moon.json"
 
-# opencode-quota reads quota-toast.jsonc from this directory. Its runtime state
-# lives in ~/.cache/opencode and is deliberately not tracked here.
-link_file \
-  "${DOTFILES_DIR}/opencode/opencode-quota" \
-  "${HOME}/.config/opencode/opencode-quota"
-
 # herdr configuration. Only config.toml is linked, not the directory: herdr
 # keeps its logs and session state in ~/.config/herdr.
 mkdir -p "${HOME}/.config/herdr"
