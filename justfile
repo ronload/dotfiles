@@ -40,7 +40,13 @@ lint-zsh:
   set -euo pipefail
   files=$(git ls-files 'zsh/*')
   [ -z "$files" ] && exit 0
-  zsh -n $files
+  # zsh -n only parses its first argument and treats the rest as positional
+  # parameters, so each file has to be checked on its own.
+  status=0
+  for file in $files; do
+    zsh -n "$file" || status=1
+  done
+  exit "$status"
 
 # Check Lua formatting with stylua
 format-lua:
