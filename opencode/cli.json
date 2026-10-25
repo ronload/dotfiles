@@ -6,6 +6,11 @@
     "mode": "dark"
   },
 
+  "session": {
+    "sidebar": "hide",
+    "permissions": "autoaccept"
+  },
+
   "tabs": {
     "enabled": false
   },
