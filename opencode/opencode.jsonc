@@ -65,4 +65,19 @@
       },
     },
   },
+
+  "mcp": {
+    "servers": {
+      "playwright": {
+        "type": "local",
+        "command": [
+          "npx",
+          "-y",
+          "@playwright/mcp@latest",
+          "--caps=network",
+          "--grant-permissions=microphone",
+        ],
+      },
+    },
+  },
 }
