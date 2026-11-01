@@ -24,3 +24,9 @@ keybind = ctrl+6=csi:54;5u
 keybind = ctrl+7=csi:55;5u
 keybind = ctrl+8=csi:56;5u
 keybind = ctrl+9=csi:57;5u
+
+# send ctrl+h as legacy ^H even when an app enables the kitty protocol, so
+# opentui single-line inputs (opencode dialogs) treat it as backspace;
+# nvim still reads it as <C-h> because xterm-ghostty sets kbs=\177
+# (inside herdr it arrives as backspace, see herdr() in zsh/zshrc)
+keybind = ctrl+h=text:\x08
