@@ -1,0 +1,48 @@
+{
+  "device": "Tofu60 BLE 3.0",
+  "layout": "ALL_KEYS",
+  "bindings": [
+    {
+      "layer": 0,
+      "position": 14,
+      "from": "&kp BSPC",
+      "to": "&kp GRAVE",
+      "note": "top row, rightmost"
+    },
+    {
+      "layer": 0,
+      "position": 28,
+      "from": "&kp BSLH",
+      "to": "&kp BSPC",
+      "note": "right of ]"
+    },
+    {
+      "layer": 0,
+      "position": 57,
+      "from": "&kp LGUI",
+      "to": "&kp LALT",
+      "note": "left of space, outer"
+    },
+    {
+      "layer": 0,
+      "position": 58,
+      "from": "&kp LALT",
+      "to": "&kp LGUI",
+      "note": "left of space, inner"
+    },
+    {
+      "layer": 0,
+      "position": 61,
+      "from": "&kp RALT",
+      "to": "&kp RGUI",
+      "note": "right of space, inner"
+    },
+    {
+      "layer": 0,
+      "position": 62,
+      "from": "&kp RGUI",
+      "to": "&kp RALT",
+      "note": "right of space, outer"
+    }
+  ]
+}

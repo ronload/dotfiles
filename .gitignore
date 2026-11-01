@@ -27,4 +27,7 @@ tmux/plugins/
 # karabiner runtime files (written into the symlinked ~/.config/karabiner)
 karabiner/automatic_backups/
 
+# ZMK Studio CLI app bundle (built by zmk/studio.sh)
+zmk/build/
+
 .claude/
