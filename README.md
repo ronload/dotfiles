@@ -34,6 +34,7 @@ cd ~/dotfiles
 - **gh**: GitHub CLI
 - **fastfetch**: System info with a custom colored-bar module
 - **karabiner**: Karabiner-Elements keyboard customization
+- **zmk**: Tofu60 keymap changes and the Bluetooth client that applies them
 - **yazi**: Terminal file manager
 - **herdr**: Agent-aware terminal multiplexer
 - **Brewfile**: Homebrew package manifest
@@ -68,6 +69,23 @@ Two details make reproduction location-independent and Karabiner-safe:
 
 - Several configs reference the repo by the absolute path `~/dotfiles` (tmux, git, ghostty, fastfetch, zsh), and those tools cannot resolve the path dynamically. `install.sh` therefore ensures `~/dotfiles` points at the repo, so it can be cloned anywhere; cloning to `~/dotfiles` directly needs no extra link. An existing real `~/dotfiles` that is not this repo is left untouched and the install aborts.
 - `~/.config/karabiner` is symlinked as a whole directory rather than just `karabiner.json`, because Karabiner-Elements replaces a symlinked config file on save (per its [docs](https://karabiner-elements.pqrs.org/docs/manual/misc/configuration-file-path/)). A pre-existing real config directory is backed up to `.bak` before linking.
+
+## Keyboard
+
+Key remapping is split by scope, so each change lives in one place:
+
+- **Karabiner** (`karabiner/karabiner.json`) holds what applies to every keyboard: Caps Lock is Control when held and switches the input source when tapped, Ctrl+B/F/N/P move the cursor Emacs-style, and the tmux prefix Ctrl+S in Ghostty switches to ABC first.
+- **Keyboard firmware** holds layout fixes for one keyboard. The Tofu60 (HHKB layout, ZMK firmware) gets `` ` `` at the top right, Backspace below it, and Command next to the space bar; `zmk/tofu60.json` lists these changes against its stock keymap.
+
+```bash
+just zmk-check    # compare the keyboard with zmk/tofu60.json
+just zmk-apply    # write missing bindings and save them to the keyboard
+just zmk-dump     # print the whole keymap
+```
+
+The recipes build `zmk/studio-cli`, a small ZMK Studio client, and talk to the keyboard over Bluetooth, so neither a cable nor the ZMK Studio app is needed. macOS asks for Bluetooth access on first use and again after the client is rebuilt. The bindings are stored on the keyboard, so `just zmk-apply` is only needed for a new or reset keyboard.
+
+The Tofu60 also identifies as a pointing device, because its firmware has ZMK mouse keys, and Karabiner ignores pointing devices by default. `karabiner.json` therefore lists its Bluetooth and USB IDs with `"ignore": false`.
 
 ## Local Overrides
 

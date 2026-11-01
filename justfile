@@ -63,3 +63,15 @@ format-shell:
   files=$(git ls-files '*.sh')
   [ -z "$files" ] && exit 0
   shfmt -i 2 -ci -d $files
+
+# Print a ZMK keyboard's keymap over Bluetooth
+zmk-dump keymap="zmk/tofu60.json":
+  zmk/studio.sh dump "{{keymap}}"
+
+# Check that a ZMK keyboard has every binding in its keymap file
+zmk-check keymap="zmk/tofu60.json":
+  zmk/studio.sh check "{{keymap}}"
+
+# Write a keymap file's bindings to its ZMK keyboard over Bluetooth
+zmk-apply keymap="zmk/tofu60.json":
+  zmk/studio.sh apply "{{keymap}}"
