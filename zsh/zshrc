@@ -39,6 +39,22 @@ claude() {
   command claude "$@"
 }
 
+# --- herdr ---
+# herdr re-encodes every key for the pane. It reads the raw ^H that Ghostty
+# sends for ctrl+h (ghostty/keybindings) as backspace only when the client
+# tty's erase character is ^H, checked once at startup; otherwise kitty-protocol
+# apps such as opencode get ctrl+h, which their dialog inputs ignore.
+herdr() {
+  if [[ -t 0 && ( $# -eq 0 || $1 == -* || $1 == session && $2 == attach ) ]]; then
+    local prev
+    prev=$(stty -g)
+    stty erase '^H'
+    { command herdr "$@" } always { stty "$prev" }
+  else
+    command herdr "$@"
+  fi
+}
+
 # --- aliases ---
 [ -f ~/dotfiles/zsh/aliases.zsh ] && source ~/dotfiles/zsh/aliases.zsh
 
