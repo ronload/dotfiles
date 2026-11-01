@@ -68,6 +68,10 @@
 
   "mcp": {
     "servers": {
+      "linear-prinsur": {
+        "type": "remote",
+        "url": "https://mcp.linear.app/mcp",
+      },
       "playwright": {
         "type": "local",
         "command": [
