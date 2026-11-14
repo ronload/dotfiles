@@ -31,16 +31,10 @@
   "providers": {
     "anthropic": {
       "models": {
-        "claude-fable-5-1": {
+        "claude-fable-5-2": {
           "limit": { "input": 300000 },
-        },
-        "claude-opus-5": {
-          "limit": { "context": 1000000, "input": 300000, "output": 128000 },
         },
         "claude-opus-5-5": {
-          "limit": { "input": 300000 },
-        },
-        "claude-opus-5-fast": {
           "limit": { "input": 300000 },
         },
       },
