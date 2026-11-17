@@ -55,6 +55,7 @@ just format-lua   # stylua --check
 just format-shell # shfmt -i 2 -ci -d
 just test         # run all tests
 just test-install # verify install.sh reproduces every declared symlink
+just opencode-worktree-start # point OpenCode git projects at the worktree start script
 ```
 
 All linter recipes operate on `git ls-files`, so untracked files are skipped. Zsh files are validated by `zsh -n` rather than shellcheck, which does not support zsh.
@@ -86,6 +87,18 @@ just zmk-dump     # print the whole keymap
 The recipes build `zmk/studio-cli`, a small ZMK Studio client, and talk to the keyboard over Bluetooth, so neither a cable nor the ZMK Studio app is needed. macOS asks for Bluetooth access on first use and again after the client is rebuilt. The bindings are stored on the keyboard, so `just zmk-apply` is only needed for a new or reset keyboard.
 
 The Tofu60 also identifies as a pointing device, because its firmware has ZMK mouse keys, and Karabiner ignores pointing devices by default. `karabiner.json` therefore lists its Bluetooth and USB IDs with `"ignore": false`.
+
+## OpenCode Worktrees
+
+OpenCode runs a project's start command inside every worktree it creates. `opencode/worktree-start.sh` uses `git-worktreeinclude` to copy the ignored files listed in the source checkout's `.worktreeinclude` (such as `.env`), and does nothing for a project without one.
+
+The start command is stored per project in OpenCode's database, not in `opencode.jsonc`, so it cannot be symlinked. `install.sh` sets it for every git project OpenCode already knows about. After opening a new project in OpenCode, sync again:
+
+```bash
+just opencode-worktree-start
+```
+
+A project that already has a different start command keeps it.
 
 ## Local Overrides
 
