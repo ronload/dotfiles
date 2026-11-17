@@ -64,6 +64,10 @@ format-shell:
   [ -z "$files" ] && exit 0
   shfmt -i 2 -ci -d $files
 
+# Point every OpenCode git project at opencode/worktree-start.sh
+opencode-worktree-start:
+  opencode/sync-worktree-start.sh
+
 # Print a ZMK keyboard's keymap over Bluetooth
 zmk-dump keymap="zmk/tofu60.json":
   zmk/studio.sh dump "{{keymap}}"

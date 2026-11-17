@@ -134,6 +134,13 @@ link_file \
   "${DOTFILES_DIR}/themes/tokyonight-moon/opencode/tokyonight_moon.json" \
   "${HOME}/.config/opencode/themes/tokyonight-moon.json"
 
+# OpenCode stores each project's worktree start command in its database, so it
+# is synced through the API instead of linked. Skipped until OpenCode and jaq
+# are installed, which also keeps the sandboxed install test offline.
+if command -v opencode &>/dev/null && command -v jaq &>/dev/null; then
+  "${DOTFILES_DIR}/opencode/sync-worktree-start.sh"
+fi
+
 # herdr configuration. Only config.toml is linked, not the directory: herdr
 # keeps its logs and session state in ~/.config/herdr.
 mkdir -p "${HOME}/.config/herdr"
