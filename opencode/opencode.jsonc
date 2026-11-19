@@ -20,6 +20,45 @@
     { "action": "shell", "resource": "chmod 777 *", "effect": "ask" },
   ],
 
+  // Read-only subagents for the pr-review skill. Each pins the model tier the
+  // upstream code-review plugin uses for that role.
+  "agents": {
+    "pr-review-standard": {
+      "description": "Read-only reviewer for the pr-review skill: PR summaries, AGENTS.md compliance checks, and validating rule findings. Launch only from that skill.",
+      "mode": "subagent",
+      "model": "anthropic/claude-sonnet-5-5",
+      "permissions": [
+        { "action": "edit", "resource": "*", "effect": "deny" },
+        { "action": "subagent", "resource": "*", "effect": "deny" },
+        { "action": "question", "resource": "*", "effect": "deny" },
+        { "action": "shell", "resource": "*", "effect": "deny" },
+        { "action": "shell", "resource": "git diff *", "effect": "allow" },
+        { "action": "shell", "resource": "git show *", "effect": "allow" },
+        { "action": "shell", "resource": "git log *", "effect": "allow" },
+        { "action": "shell", "resource": "git blame *", "effect": "allow" },
+        { "action": "shell", "resource": "git grep *", "effect": "allow" },
+        { "action": "shell", "resource": "git ls-tree *", "effect": "allow" },
+      ],
+    },
+    "pr-review-deep": {
+      "description": "Read-only reviewer for the pr-review skill: finding and validating bugs. Launch only from that skill.",
+      "mode": "subagent",
+      "model": "anthropic/claude-opus-5-5",
+      "permissions": [
+        { "action": "edit", "resource": "*", "effect": "deny" },
+        { "action": "subagent", "resource": "*", "effect": "deny" },
+        { "action": "question", "resource": "*", "effect": "deny" },
+        { "action": "shell", "resource": "*", "effect": "deny" },
+        { "action": "shell", "resource": "git diff *", "effect": "allow" },
+        { "action": "shell", "resource": "git show *", "effect": "allow" },
+        { "action": "shell", "resource": "git log *", "effect": "allow" },
+        { "action": "shell", "resource": "git blame *", "effect": "allow" },
+        { "action": "shell", "resource": "git grep *", "effect": "allow" },
+        { "action": "shell", "resource": "git ls-tree *", "effect": "allow" },
+      ],
+    },
+  },
+
   "compaction": {
     "auto": true,
     // With no buffer, auto compaction starts at each model's limit.input (300,000
