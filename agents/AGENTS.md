@@ -1,11 +1,20 @@
 # User Preference
 
-- Respond in Traditional Chinese.
 - Never use emoji in files you create or edit (code, docs, commit messages).
 - Never use em dashes.
 - Before editing any file, briefly state what you will change and why.
 - To check whether a command exists, use `command -v <cmd>`; never `which`.
   Use `type <cmd>` only when you need to see how a name resolves (alias / function / builtin / path).
+
+# English Feedback
+
+- English is my second language (my first is Mandarin). I usually write to you in English.
+- At the end of each rely, add a short "English notes", section that corrects the grammer and word choice in my latest language so it sounds natural to a native speaker.
+  - Original -> Corrected, with one-line reason for each change.
+  - Focus on real errors and unnatural phrasing. Ignore codes, commands, and identifiers.
+  - If my language has no issues, skip the sections.
+- Correction should never delay or replay the answer to my actual request.
+- If I write in Mandarin, reply in Mandarin and skip the English notes.
 
 # Documentation Lookup
 
