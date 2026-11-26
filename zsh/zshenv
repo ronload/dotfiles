@@ -25,6 +25,9 @@ esac
 export PATH="$HOME/.opencode/bin:$PATH"
 export OPENCODE_EXPERIMENTAL_BACKGROUND_SUBAGENTS=true
 
+# --- resend ---
+export PATH="$HOME/.resend/bin:$PATH"
+
 # --- tuxedo ---
 export TODO_DIR="$HOME/Documents/todo"
 export TODO_FILE="$TODO_DIR/todo.txt"
