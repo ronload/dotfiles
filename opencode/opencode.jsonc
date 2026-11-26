@@ -1,8 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
 
-  "plugins": ["@henadev/opencode-anthropic-auth@latest"],
-
   "permissions": [
     { "action": "external_directory", "resource": "*", "effect": "allow" },
 
@@ -30,7 +28,7 @@
       "mode": "subagent",
       // "high" equals this model's default effort. The summary and rule work is
       // light, so it is not raised further.
-      "model": "anthropic/claude-sonnet-5-5#high",
+      "model": "claude-agent/sonnet#high",
       "permissions": [
         { "action": "edit", "resource": "*", "effect": "deny" },
         { "action": "subagent", "resource": "*", "effect": "deny" },
@@ -47,7 +45,7 @@
     "pr-review-deep": {
       "description": "Read-only reviewer for the pr-review skill: finding and validating bugs and code quality issues. Launch only from that skill.",
       "mode": "subagent",
-      "model": "anthropic/claude-opus-5-5#xhigh",
+      "model": "claude-agent/opus#xhigh",
       "permissions": [
         { "action": "edit", "resource": "*", "effect": "deny" },
         { "action": "subagent", "resource": "*", "effect": "deny" },
@@ -68,7 +66,7 @@
     "pr-review-deriver": {
       "description": "Approach deriver for the pr-review skill: designs the simplest change from the goal and the code before the change, without access to the change itself. Launch only from that skill.",
       "mode": "subagent",
-      "model": "anthropic/claude-opus-5-5#xhigh",
+      "model": "claude-agent/opus#xhigh",
       "permissions": [
         { "action": "*", "resource": "*", "effect": "deny" },
         { "action": "external_directory", "resource": "*", "effect": "allow" },
@@ -92,12 +90,12 @@
 
   // Unset limit fields keep their models.dev values.
   "providers": {
-    "anthropic": {
+    "claude-agent": {
       "models": {
         "claude-fable-5-2": {
           "limit": { "input": 300000 },
         },
-        "claude-opus-5-5": {
+        "opus": {
           "limit": { "input": 300000 },
         },
       },
