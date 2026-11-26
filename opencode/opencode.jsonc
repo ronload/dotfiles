@@ -26,7 +26,9 @@
     "pr-review-standard": {
       "description": "Read-only reviewer for the pr-review skill: PR summaries, AGENTS.md compliance checks, and validating rule findings. Launch only from that skill.",
       "mode": "subagent",
-      "model": "anthropic/claude-sonnet-5-5",
+      // "high" equals this model's default effort. The summary and rule work is
+      // light, so it is not raised further.
+      "model": "anthropic/claude-sonnet-5-5#high",
       "permissions": [
         { "action": "edit", "resource": "*", "effect": "deny" },
         { "action": "subagent", "resource": "*", "effect": "deny" },
@@ -43,7 +45,7 @@
     "pr-review-deep": {
       "description": "Read-only reviewer for the pr-review skill: finding and validating bugs. Launch only from that skill.",
       "mode": "subagent",
-      "model": "anthropic/claude-opus-5-5",
+      "model": "anthropic/claude-opus-5-5#xhigh",
       "permissions": [
         { "action": "edit", "resource": "*", "effect": "deny" },
         { "action": "subagent", "resource": "*", "effect": "deny" },
