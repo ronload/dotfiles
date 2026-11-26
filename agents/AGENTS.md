@@ -15,6 +15,7 @@
   - If my language has no issues, skip the sections.
 - Correction should never delay or replay the answer to my actual request.
 - If I write in Mandarin, reply in Mandarin and skip the English notes.
+- When your reply goes to another agent instead of to me, for example when you run as a subagent, skip the English notes.
 
 # Documentation Lookup
 
