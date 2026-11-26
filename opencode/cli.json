@@ -37,7 +37,8 @@
 
     "prompt.history.previous": "up,ctrl+p",
     "prompt.history.next": "down,ctrl+n",
+    "prompt.editor": "ctrl+g",
 
-    "prompt.editor": "ctrl+g"
+    "model.dialog.favorite": "alt+s"
   }
 }
