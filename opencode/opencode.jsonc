@@ -20,13 +20,17 @@
     { "action": "shell", "resource": "chmod 777 *", "effect": "ask" },
   ],
 
-  // Read-only subagents for the pr-review skill. Each pins the model tier the
-  // upstream code-review plugin uses for that role.
+  // Read-only subagents for the pr-review skill. The model tiers follow the
+  // upstream code-review plugin: Sonnet for summaries and rule checks, Opus for
+  // bug work. The code quality track, which upstream does not have, also runs
+  // on Opus.
   "agents": {
     "pr-review-standard": {
       "description": "Read-only reviewer for the pr-review skill: PR summaries, AGENTS.md compliance checks, and validating rule findings. Launch only from that skill.",
       "mode": "subagent",
-      "model": "anthropic/claude-sonnet-5-5",
+      // "high" equals this model's default effort. The summary and rule work is
+      // light, so it is not raised further.
+      "model": "anthropic/claude-sonnet-5-5#high",
       "permissions": [
         { "action": "edit", "resource": "*", "effect": "deny" },
         { "action": "subagent", "resource": "*", "effect": "deny" },
@@ -41,9 +45,9 @@
       ],
     },
     "pr-review-deep": {
-      "description": "Read-only reviewer for the pr-review skill: finding and validating bugs. Launch only from that skill.",
+      "description": "Read-only reviewer for the pr-review skill: finding and validating bugs and code quality issues. Launch only from that skill.",
       "mode": "subagent",
-      "model": "anthropic/claude-opus-5-5",
+      "model": "anthropic/claude-opus-5-5#xhigh",
       "permissions": [
         { "action": "edit", "resource": "*", "effect": "deny" },
         { "action": "subagent", "resource": "*", "effect": "deny" },
@@ -55,6 +59,26 @@
         { "action": "shell", "resource": "git blame *", "effect": "allow" },
         { "action": "shell", "resource": "git grep *", "effect": "allow" },
         { "action": "shell", "resource": "git ls-tree *", "effect": "allow" },
+      ],
+    },
+    // The approach deriver must not see the change under review. It gets no
+    // shell, and it reads files only inside the base worktree the skill creates
+    // (pr-review-base-*). grep and glob rules cannot match a search path, so
+    // the skill's prompt tells the deriver where to search.
+    "pr-review-deriver": {
+      "description": "Approach deriver for the pr-review skill: designs the simplest change from the goal and the code before the change, without access to the change itself. Launch only from that skill.",
+      "mode": "subagent",
+      "model": "anthropic/claude-opus-5-5#xhigh",
+      "permissions": [
+        { "action": "*", "resource": "*", "effect": "deny" },
+        { "action": "external_directory", "resource": "*", "effect": "allow" },
+        {
+          "action": "read",
+          "resource": "*/pr-review-base-*",
+          "effect": "allow",
+        },
+        { "action": "glob", "resource": "*", "effect": "allow" },
+        { "action": "grep", "resource": "*", "effect": "allow" },
       ],
     },
   },
