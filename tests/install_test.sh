@@ -136,6 +136,12 @@ for file in opencode.jsonc cli.json; do
     "${HOME}/.config/opencode/${file}" \
     "${DEST}/opencode/${file}"
 done
+opencode_agents=(pr-review-standard pr-review-deep pr-review-deriver)
+for opencode_agent in "${opencode_agents[@]}"; do
+  assert_link \
+    "${HOME}/.config/opencode/agents/${opencode_agent}.md" \
+    "${DEST}/opencode/agents/${opencode_agent}.md"
+done
 
 echo ""
 echo "Checking herdr symlink..."
