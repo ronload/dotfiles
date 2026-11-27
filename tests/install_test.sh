@@ -119,12 +119,6 @@ echo "Checking shared agent symlinks..."
 assert_link "${HOME}/.claude/CLAUDE.md" "${DEST}/agents/AGENTS.md"
 assert_link "${HOME}/.config/opencode/AGENTS.md" "${DEST}/agents/AGENTS.md"
 assert_link "${HOME}/.codex/AGENTS.md" "${DEST}/agents/AGENTS.md"
-opencode_agents=(pr-review-standard pr-review-deep pr-review-deriver)
-for opencode_agent in "${opencode_agents[@]}"; do
-  assert_link \
-    "${HOME}/.config/opencode/agents/${opencode_agent}.md" \
-    "${DEST}/opencode/agents/${opencode_agent}.md"
-done
 
 # Skills are discovered from the repo so the test stays in sync as they are
 # added or removed.
@@ -141,6 +135,12 @@ for file in opencode.jsonc cli.json; do
   assert_link \
     "${HOME}/.config/opencode/${file}" \
     "${DEST}/opencode/${file}"
+done
+opencode_agents=(pr-review-standard pr-review-deep pr-review-deriver)
+for opencode_agent in "${opencode_agents[@]}"; do
+  assert_link \
+    "${HOME}/.config/opencode/agents/${opencode_agent}.md" \
+    "${DEST}/opencode/agents/${opencode_agent}.md"
 done
 
 echo ""

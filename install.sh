@@ -134,7 +134,8 @@ mkdir -p "${opencode_agent_dir}"
 
 for agent_file in "${DOTFILES_DIR}/opencode/agents/"*.md; do
   [[ -f "${agent_file}" ]] || continue
-  link_file "${agent_file}" "${opencode_agent_dir}/${agent_file##*/}"
+  agent_name="$(basename "${agent_file}")"
+  link_file "${agent_file}" "${opencode_agent_dir}/${agent_name}"
 done
 
 # OpenCode v2 accepts the upstream TokyoNight extra's legacy theme format.
