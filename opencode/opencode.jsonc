@@ -92,7 +92,7 @@
   "providers": {
     "claude-agent": {
       "models": {
-        "claude-fable-5-2": {
+        "fable": {
           "limit": { "input": 300000 },
         },
         "opus": {
