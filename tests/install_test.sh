@@ -116,9 +116,9 @@ assert_link "${HOME}/.zshenv" "${DEST}/zsh/zshenv"
 
 echo ""
 echo "Checking shared agent symlinks..."
-assert_link "${HOME}/.claude/CLAUDE.md" "${DEST}/agents/AGENTS.md"
-assert_link "${HOME}/.config/opencode/AGENTS.md" "${DEST}/agents/AGENTS.md"
-assert_link "${HOME}/.codex/AGENTS.md" "${DEST}/agents/AGENTS.md"
+assert_link "${HOME}/.claude/CLAUDE.md" "${DEST}/opencode/AGENTS.md"
+assert_link "${HOME}/.config/opencode/AGENTS.md" "${DEST}/opencode/AGENTS.md"
+assert_link "${HOME}/.codex/AGENTS.md" "${DEST}/opencode/AGENTS.md"
 
 # Skills are discovered from the repo so the test stays in sync as they are
 # added or removed.

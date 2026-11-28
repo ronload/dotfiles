@@ -87,12 +87,12 @@ for entry in "${shell_configs[@]}"; do
   link_file "${DOTFILES_DIR}/zsh/${shell_src}" "${HOME}/${shell_dest}"
 done
 
-# Claude Code only reads CLAUDE.md, and OpenCode's fallback to it can be
-# disabled, so every client name links to the one AGENTS.md.
+# Claude Code reads AGENTS.md only at project level; its user-level file is
+# ~/.claude/CLAUDE.md, so that link keeps the CLAUDE.md name.
 mkdir -p "${HOME}/.claude" "${HOME}/.config/opencode" "${HOME}/.codex"
-link_file "${DOTFILES_DIR}/agents/AGENTS.md" "${HOME}/.claude/CLAUDE.md"
-link_file "${DOTFILES_DIR}/agents/AGENTS.md" "${HOME}/.config/opencode/AGENTS.md"
-link_file "${DOTFILES_DIR}/agents/AGENTS.md" "${HOME}/.codex/AGENTS.md"
+link_file "${DOTFILES_DIR}/opencode/AGENTS.md" "${HOME}/.claude/CLAUDE.md"
+link_file "${DOTFILES_DIR}/opencode/AGENTS.md" "${HOME}/.config/opencode/AGENTS.md"
+link_file "${DOTFILES_DIR}/opencode/AGENTS.md" "${HOME}/.codex/AGENTS.md"
 
 # Skills follow the Agent Skills standard, so they are shared rather than
 # client-specific. Each client gets its own native location instead of reading
