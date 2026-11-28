@@ -108,7 +108,7 @@ skill_roots=(
   "${HOME}/.config/opencode/skills"
 )
 mkdir -p "${skill_roots[@]}"
-for skill_dir in "${DOTFILES_DIR}/agents/skills"/*/; do
+for skill_dir in "${DOTFILES_DIR}/opencode/skills"/*/; do
   skill_name="$(basename "${skill_dir}")"
   for skill_root in "${skill_roots[@]}"; do
     link_file "${skill_dir}" "${skill_root}/${skill_name}"

@@ -122,7 +122,7 @@ assert_link "${HOME}/.codex/AGENTS.md" "${DEST}/opencode/AGENTS.md"
 
 # Skills are discovered from the repo so the test stays in sync as they are
 # added or removed.
-for skill_dir in "${DEST}/agents/skills"/*/; do
+for skill_dir in "${DEST}/opencode/skills"/*/; do
   skill_name="$(basename "${skill_dir}")"
   assert_link "${HOME}/.claude/skills/${skill_name}" "${skill_dir}"
   assert_link "${HOME}/.agents/skills/${skill_name}" "${skill_dir}"
